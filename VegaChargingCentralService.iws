@@ -15,10 +15,9 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69c95529-7fe4-4149-9934-67ce9ee5aa4f" name="Default" comment="Payment gateway structure implementation&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/VegaChargingCentralService.ipr" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/VegaChargingCentralService.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VegaChargingCentralService.iml" afterPath="$PROJECT_DIR$/VegaChargingCentralService.iml" />
+    <list default="true" id="69c95529-7fe4-4149-9934-67ce9ee5aa4f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VegaChargingCentralService.iws" afterPath="$PROJECT_DIR$/VegaChargingCentralService.iws" />
     </list>
     <ignored path="VegaChargingCentraService.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,14 +98,14 @@
       <file leaf-file-name="VegaChargingCentralManager.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="31" selection-start="1075" selection-end="1075" vertical-scroll-proportion="-0.108005084" vertical-offset="527" max-vertical-offset="1666">
+            <state line="29" column="20" selection-start="1020" selection-end="1020" vertical-scroll-proportion="0.32484075" vertical-offset="153" max-vertical-offset="1666">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MobitelMCashGateway.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java">
+      <file leaf-file-name="MobitelMCashGateWay.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateWay.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="8" column="4" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="323">
               <folding />
@@ -114,8 +113,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DialogEasyCashGateway.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java">
+      <file leaf-file-name="DialogEasyCashGateWay.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateWay.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="36" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="323">
               <folding />
@@ -135,7 +134,7 @@
       <file leaf-file-name="centralservice.wsdl" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/resources/wsdl/centralservice.wsdl">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="58" column="48" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.0" vertical-offset="986" max-vertical-offset="12954">
+            <state line="67" column="30" selection-start="3124" selection-end="3124" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="12954">
               <folding />
             </state>
           </provider>
@@ -463,7 +462,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
-    <property name="options.lastSelected" value="settings.github" />
+    <property name="options.lastSelected" value="MavenSettings" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -714,7 +713,11 @@
       <created>1426742875669</created>
       <updated>1426742875669</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Payment gateway structure implementation&#10;">
+      <created>1426748243385</created>
+      <updated>1426748243385</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -751,6 +754,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289941" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15266559" sideWeight="0.6702381" order="3" side_tool="false" content_ui="tabs" />
@@ -768,7 +772,6 @@
       <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -868,14 +871,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java">
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateWay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="4" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="323">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java">
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateWay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="36" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="323">
           <folding />
@@ -923,14 +926,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java">
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateWay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="4" selection-start="185" selection-end="185" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java">
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateWay.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="36" selection-start="284" selection-end="284" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
@@ -946,14 +949,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/resources/wsdl/centralservice.wsdl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="48" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.0" vertical-offset="986" max-vertical-offset="12954">
+        <state line="67" column="30" selection-start="3124" selection-end="3124" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="12954">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="31" selection-start="1075" selection-end="1075" vertical-scroll-proportion="-0.108005084" vertical-offset="527" max-vertical-offset="1666">
+        <state line="29" column="20" selection-start="1020" selection-end="1020" vertical-scroll-proportion="0.32484075" vertical-offset="153" max-vertical-offset="1666">
           <folding />
         </state>
       </provider>
@@ -1015,7 +1018,6 @@
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.5" />
               </list>
             </option>
           </splitter-proportions>

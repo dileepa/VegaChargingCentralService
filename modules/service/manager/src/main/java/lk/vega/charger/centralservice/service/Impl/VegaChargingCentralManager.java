@@ -1,8 +1,8 @@
 package lk.vega.charger.centralservice.service.Impl;
 
 import lk.vega.charger.centralservice.service.*;
-import lk.vega.charger.centralservice.service.paymentgateway.DialogEasyCashGateway;
-import lk.vega.charger.centralservice.service.paymentgateway.MobitelMCashGateway;
+import lk.vega.charger.centralservice.service.paymentgateway.DialogEasyCashGateWay;
+import lk.vega.charger.centralservice.service.paymentgateway.MobitelMCashGateWay;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
 
 import javax.jws.WebParam;
@@ -18,8 +18,8 @@ public class VegaChargingCentralManager implements CentralSystemService
 {
 
 
-    public final String DIALOG_UNIQUE_KEY = "077";
-    public final String MOBITEL_UNIQUE_KEY = "071";
+    public static final String DIALOG_UNIQUE_KEY = "077";
+    public static final String MOBITEL_UNIQUE_KEY = "071";
 
 
     @Override
@@ -30,11 +30,11 @@ public class VegaChargingCentralManager implements CentralSystemService
 
         if( authorizeKey.startsWith( DIALOG_UNIQUE_KEY ) )
         {
-            paymentGateWay = new DialogEasyCashGateway();
+            paymentGateWay = new DialogEasyCashGateWay();
         }
         else if( authorizeKey.startsWith( MOBITEL_UNIQUE_KEY ) )
         {
-            paymentGateWay = new MobitelMCashGateway();
+            paymentGateWay = new MobitelMCashGateWay();
         }
         paymentGateWay.validateTransaction( authorizeKey );
 
