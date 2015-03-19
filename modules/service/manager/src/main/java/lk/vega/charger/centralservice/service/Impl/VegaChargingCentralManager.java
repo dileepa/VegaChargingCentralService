@@ -1,6 +1,9 @@
 package lk.vega.charger.centralservice.service.Impl;
 
 import lk.vega.charger.centralservice.service.*;
+import lk.vega.charger.centralservice.service.paymentgateway.DialogEasyCashGateway;
+import lk.vega.charger.centralservice.service.paymentgateway.MobitelMCashGateway;
+import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
 
 import javax.jws.WebParam;
 
@@ -13,9 +16,28 @@ import javax.jws.WebParam;
  */
 public class VegaChargingCentralManager implements CentralSystemService
 {
+
+
+    public final String DIALOG_UNIQUE_KEY = "077";
+    public final String MOBITEL_UNIQUE_KEY = "071";
+
+
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
+        PaymentGateWay paymentGateWay = null;
+        String authorizeKey = parameters.getIdTag();
+
+        if( authorizeKey.startsWith( DIALOG_UNIQUE_KEY ) )
+        {
+            paymentGateWay = new DialogEasyCashGateway();
+        }
+        else if( authorizeKey.startsWith( MOBITEL_UNIQUE_KEY ) )
+        {
+            paymentGateWay = new MobitelMCashGateway();
+        }
+        paymentGateWay.validateTransaction( authorizeKey );
+
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
