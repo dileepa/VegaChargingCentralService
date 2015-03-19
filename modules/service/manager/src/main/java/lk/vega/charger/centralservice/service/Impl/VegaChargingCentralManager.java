@@ -4,6 +4,8 @@ import lk.vega.charger.centralservice.service.*;
 import lk.vega.charger.centralservice.service.paymentgateway.DialogEasyCashGateway;
 import lk.vega.charger.centralservice.service.paymentgateway.MobitelMCashGateway;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
+import lk.vega.charger.centralservice.service.transaction.TransactionController;
+import lk.vega.charger.core.ChargeTransaction;
 
 import javax.jws.WebParam;
 
@@ -27,30 +29,54 @@ public class VegaChargingCentralManager implements CentralSystemService
     {
         PaymentGateWay paymentGateWay = null;
         String authorizeKey = parameters.getIdTag();
-
-        if( authorizeKey.startsWith( DIALOG_UNIQUE_KEY ) )
+        ChargeTransaction inProgressChargeTransaction = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
+        AuthorizeResponse authorizeResponse = new AuthorizeResponse();
+        if (inProgressChargeTransaction == null)
         {
-            paymentGateWay = new DialogEasyCashGateway();
+            if( authorizeKey.startsWith( DIALOG_UNIQUE_KEY ) )
+            {
+                paymentGateWay = new DialogEasyCashGateway();
+            }
+            else if( authorizeKey.startsWith( MOBITEL_UNIQUE_KEY ) )
+            {
+                paymentGateWay = new MobitelMCashGateway();
+            }
+            paymentGateWay.validateTransaction( authorizeKey );
+            //TODO modify AuthorizeResponse
         }
-        else if( authorizeKey.startsWith( MOBITEL_UNIQUE_KEY ) )
+        else
         {
-            paymentGateWay = new MobitelMCashGateway();
+            inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_PROCESSED );
+            //TODO update query for updating status
+            //TODO modify AuthorizeResponse
         }
-        paymentGateWay.validateTransaction( authorizeKey );
 
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+
+        return authorizeResponse;
     }
 
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        ChargeTransaction chargeTransaction = TransactionController.generateTransaction( parameters );
+        StartTransactionResponse startTransactionResponse = new StartTransactionResponse();
+        //TODO Mapping StartTransactionResponse to  ChargeTransaction
+        return startTransactionResponse;
     }
 
     @Override
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )
     {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        String authorizeKey = parameters.getIdTag();
+        ChargeTransaction inProgressChargeTransaction = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_PROCESSED );
+        StopTransactionResponse stopTransactionResponse = new StopTransactionResponse();
+        if (inProgressChargeTransaction != null)
+        {
+            //TODO update query for updating status
+            //TODO modify StopTransactionResponse
+        }
+
+        return stopTransactionResponse;
     }
 
     @Override
