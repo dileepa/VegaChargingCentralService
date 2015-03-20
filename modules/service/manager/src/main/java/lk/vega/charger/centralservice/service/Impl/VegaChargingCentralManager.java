@@ -21,10 +21,6 @@ import javax.jws.WebParam;
 public class VegaChargingCentralManager implements CentralSystemService
 {
 
-
-
-
-
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {

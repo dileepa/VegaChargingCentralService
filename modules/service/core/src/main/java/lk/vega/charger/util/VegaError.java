@@ -17,7 +17,6 @@ public class VegaError<T>
     public static final int WARNING = 0;
     /** -2 */
 
-    //TODO need to add error codes here.
 
     public  VegaError()
     {

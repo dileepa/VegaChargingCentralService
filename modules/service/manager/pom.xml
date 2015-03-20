@@ -1,11 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>centralservice</artifactId>
+        <groupId>service</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>lk.vega.charger.centralservice</groupId>
-    <artifactId>central_service</artifactId>
+    <groupId>service</groupId>
+    <artifactId>centralservice.manager</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>central_service Webapp</name>
+    <name>centralServiceWebApp</name>
     <url>http://maven.apache.org</url>
     <repositories>
         <repository>
@@ -13,6 +18,11 @@
             <name>Repository hosting the jee6 artifacts</name>
             <url>http://download.java.net/maven/2</url>
         </repository>
+        <!--<repository>-->
+            <!--<id>project.local</id>-->
+            <!--<name>centralservice</name>-->
+            <!--<url>http://192.168.6.119:8080/artifactory/libs-snapshot-local</url>-->
+        <!--</repository>-->
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -28,7 +38,11 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>service</groupId>
+            <artifactId>centralservice.core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
@@ -42,13 +56,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <modules>
-        <module></module>
-    </modules>
-
     <build>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -107,6 +115,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>central_service</finalName>
+        <finalName>CentralServiceManager</finalName>
     </build>
 </project>
