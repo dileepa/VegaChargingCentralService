@@ -1,11 +1,13 @@
 package lk.vega.charger.centralservice.service.Impl;
 
 import lk.vega.charger.centralservice.service.*;
-import lk.vega.charger.centralservice.service.paymentgateway.DialogEasyCashGateway;
-import lk.vega.charger.centralservice.service.paymentgateway.MobitelMCashGateway;
+import lk.vega.charger.centralservice.service.paymentgateway.PaymentDetail;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
+import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWayController;
 import lk.vega.charger.centralservice.service.transaction.TransactionController;
 import lk.vega.charger.core.ChargeTransaction;
+import lk.vega.charger.util.Savable;
+import lk.vega.charger.util.VegaError;
 
 import javax.jws.WebParam;
 
@@ -20,33 +22,43 @@ public class VegaChargingCentralManager implements CentralSystemService
 {
 
 
-    public static final String DIALOG_UNIQUE_KEY = "077";
-    public static final String MOBITEL_UNIQUE_KEY = "071";
+
 
 
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
-        PaymentGateWay paymentGateWay = null;
         String authorizeKey = parameters.getIdTag();
         ChargeTransaction inProgressChargeTransaction = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
+
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
-        if (inProgressChargeTransaction == null)
+        IdTagInfo idTagInfo = authorizeResponse.getIdTagInfo();
+        idTagInfo.setParentIdTag( parameters.getIdTag() );
+
+        VegaError error = null;
+        if( inProgressChargeTransaction == null )
         {
-            if( authorizeKey.startsWith( DIALOG_UNIQUE_KEY ) )
+            PaymentDetail paymentDetail = PaymentGateWayController.decodeRequestToPaymentDetail( parameters );
+            PaymentGateWay paymentGateWay = PaymentGateWayController.selectPaymentGateWay( paymentDetail );
+            if( paymentGateWay != null )
             {
-                paymentGateWay = new DialogEasyCashGateway();
+                error = PaymentGateWayController.doDummyPayment( paymentDetail, paymentGateWay );
+                if( error.isError() )
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                    //TODO control the logic here according to vegaError status and message.
+                }
+                else if( error.isSuccess() )
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+                    idTagInfo.setParentIdTag( parameters.getIdTag() +"%-crossRef-" );//TODO need append initial cross reference.
+                }
             }
-            else if( authorizeKey.startsWith( MOBITEL_UNIQUE_KEY ) )
-            {
-                paymentGateWay = new MobitelMCashGateway();
-            }
-//            paymentGateWay.validateTransaction( authorizeKey );
-            //TODO modify AuthorizeResponse
         }
         else
         {
             inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_PROCESSED );
+            inProgressChargeTransaction.setStatus( Savable.MODIFIED );
             //TODO update query for updating status
             //TODO modify AuthorizeResponse
         }
@@ -60,7 +72,7 @@ public class VegaChargingCentralManager implements CentralSystemService
     {
         ChargeTransaction chargeTransaction = TransactionController.generateTransaction( parameters );
         StartTransactionResponse startTransactionResponse = new StartTransactionResponse();
-        //TODO Mapping StartTransactionResponse to  ChargeTransaction
+        //TODO Mapping StartTransactionResponse from  ChargeTransaction
         return startTransactionResponse;
     }
 
@@ -72,7 +84,10 @@ public class VegaChargingCentralManager implements CentralSystemService
         StopTransactionResponse stopTransactionResponse = new StopTransactionResponse();
         if (inProgressChargeTransaction != null)
         {
-            //TODO update query for updating status
+            inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_FINISHED );
+            inProgressChargeTransaction.setStatus( Savable.MODIFIED );
+            //TODO other attributes endtime..
+            //TODO update query for save
             //TODO modify StopTransactionResponse
         }
 

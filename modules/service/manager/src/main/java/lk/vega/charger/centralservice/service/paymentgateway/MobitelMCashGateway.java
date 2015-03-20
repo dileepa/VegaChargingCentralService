@@ -14,28 +14,29 @@ public class MobitelMCashGateway implements PaymentGateWay
 
     }
 
-    @Override public VegaError rollbackPayment( String authorizeKey ) throws Exception
+    @Override public VegaError rollbackPayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError validatePayment( String authorizeKey ) throws Exception
+    @Override public VegaError validatePayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError validatePaymentWithHold( String authorizeKey ) throws Exception
+    @Override public VegaError validatePaymentWithHold( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError commitPayment( String authorizeKey ) throws Exception
+    @Override public VegaError commitPayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError refundPayment( String authorizeKey ) throws Exception
+    @Override public VegaError refundPayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
+
 }
