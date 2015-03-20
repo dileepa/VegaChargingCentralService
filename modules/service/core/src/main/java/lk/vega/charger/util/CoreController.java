@@ -15,7 +15,7 @@ public class CoreController
 
     //TODO call when service init.
 
-    public void init()
+    public static void init()
     {
         try
         {
@@ -28,7 +28,7 @@ public class CoreController
     }
 
 
-    public VegaError save(  Object obj )
+    public static VegaError save(  Object obj )
     {
         VegaError err = new VegaError( VegaError.SUCCESS, "Sucessfully Saved....." );
 
