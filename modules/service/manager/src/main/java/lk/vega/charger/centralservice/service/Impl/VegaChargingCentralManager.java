@@ -41,7 +41,7 @@ public class VegaChargingCentralManager implements CentralSystemService
             {
                 paymentGateWay = new MobitelMCashGateway();
             }
-            paymentGateWay.validateTransaction( authorizeKey );
+//            paymentGateWay.validateTransaction( authorizeKey );
             //TODO modify AuthorizeResponse
         }
         else
