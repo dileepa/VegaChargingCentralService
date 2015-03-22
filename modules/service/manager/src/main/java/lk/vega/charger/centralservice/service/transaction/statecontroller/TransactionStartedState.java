@@ -18,25 +18,10 @@ public class TransactionStartedState implements TransactionState
     @Override
     public ChgResponse proceedState(TransactionContext transactionContext)
     {
-        ChgResponse chgResponse = null;
         StartTransactionRequest startTransactionRequest = transactionContext.getStartTransactionRequest();
         ChargeTransaction chargeTransaction = TransactionController.generateTransaction( startTransactionRequest );
         chargeTransaction.setTransactionStatus(TransactionController.TRS_STARTED );
-        try
-        {
-            chgResponse = CoreController.save(chargeTransaction);
-        }
-        catch (SQLException sq)
-        {
-            sq.printStackTrace();
-            chgResponse = new ChgResponse(ChgResponse.ERROR,sq.getMessage());
-        }
-        catch (Exception e)
-        {
-           e.printStackTrace();
-            chgResponse = new ChgResponse(ChgResponse.ERROR,e.getMessage())
-        }
-        //TODO ChargeTransaction Save Call Should be here..
+        ChgResponse chgResponse = CoreController.save(chargeTransaction);
         return  chgResponse;
     }
 }
