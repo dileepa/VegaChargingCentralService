@@ -1,13 +1,10 @@
 package lk.vega.charger.centralservice.service.Impl;
 
 import lk.vega.charger.centralservice.service.*;
-import lk.vega.charger.centralservice.service.paymentgateway.PaymentDetail;
-import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
-import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWayController;
 import lk.vega.charger.centralservice.service.transaction.TransactionController;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.*;
 import lk.vega.charger.core.ChargeTransaction;
-import lk.vega.charger.util.Savable;
-import lk.vega.charger.util.VegaError;
+import lk.vega.charger.util.ChgResponse;
 
 import javax.jws.WebParam;
 
@@ -21,6 +18,13 @@ import javax.jws.WebParam;
 public class VegaChargingCentralManager implements CentralSystemService
 {
 
+    /**
+     * in this request, authorizeKey has particular format
+     * phonenum#intialamount@timestamp
+     * @param parameters
+     * @return
+     */
+
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
@@ -31,34 +35,40 @@ public class VegaChargingCentralManager implements CentralSystemService
         IdTagInfo idTagInfo = authorizeResponse.getIdTagInfo();
         idTagInfo.setParentIdTag( parameters.getIdTag() );
 
-        VegaError error = null;
-        if( inProgressChargeTransaction == null )
+        ChgResponse error = null;
+        if( TransactionController.TRS_NEW.equals(inProgressChargeTransaction.getTransactionStatus()) )
         {
-            PaymentDetail paymentDetail = PaymentGateWayController.decodeRequestToPaymentDetail( parameters );
-            PaymentGateWay paymentGateWay = PaymentGateWayController.selectPaymentGateWay( paymentDetail );
-            if( paymentGateWay != null )
+            TransactionContext transactionContext = new TransactionContext();
+            transactionContext.setAuthorizeRequest(parameters);
+            TransactionState transactionBeginningState = new TransactionBeginningState();
+            transactionContext.setTransactionState(transactionBeginningState);
+            ChgResponse response = transactionContext.proceedState();
+            if( error.isError() )
             {
-                error = PaymentGateWayController.doDummyPayment( paymentDetail, paymentGateWay );
-                if( error.isError() )
-                {
-                    idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
-                    //TODO control the logic here according to vegaError status and message.
-                }
-                else if( error.isSuccess() )
-                {
-                    idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
-                    idTagInfo.setParentIdTag( parameters.getIdTag() +"%-crossRef-" );//TODO need append initial cross reference.
-                }
+                idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                //TODO control the logic here according to vegaError status and message.
             }
+            else if( error.isSuccess() )
+            {
+                idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+                idTagInfo.setParentIdTag( parameters.getIdTag() +"%-crossRef-" );//TODO need append initial cross reference.
+            }
+        }
+        else if (TransactionController.TRS_STARTED.equals(inProgressChargeTransaction.getTransactionStatus()))
+        {
+            TransactionContext transactionContext = new TransactionContext();
+            transactionContext.setAuthorizeRequest(parameters);
+            transactionContext.setChargeTransaction(inProgressChargeTransaction);
+            TransactionState transactionStartedState = new TransactionProceedState();
+            transactionContext.setTransactionState(transactionStartedState);
+            ChgResponse chgResponse = transactionContext.proceedState();
+            //TODO get ChargeTransaction data from chgResponse
+            //TODO modify AuthorizeResponse
         }
         else
         {
-            inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_PROCESSED );
-            inProgressChargeTransaction.setStatus( Savable.MODIFIED );
-            //TODO update query for updating status
-            //TODO modify AuthorizeResponse
+            //TODO handle invalid one....
         }
-
 
         return authorizeResponse;
     }
@@ -66,7 +76,12 @@ public class VegaChargingCentralManager implements CentralSystemService
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
-        ChargeTransaction chargeTransaction = TransactionController.generateTransaction( parameters );
+        TransactionContext transactionContext = new TransactionContext();
+        transactionContext.setStartTransactionRequest(parameters);
+        TransactionState transactionStartedState = new TransactionStartedState();
+        transactionContext.setTransactionState(transactionStartedState);
+        ChgResponse chgResponse = transactionContext.proceedState();
+        //TODO get ChargeTransaction data from chgResponse
         StartTransactionResponse startTransactionResponse = new StartTransactionResponse();
         //TODO Mapping StartTransactionResponse from  ChargeTransaction
         return startTransactionResponse;
@@ -80,10 +95,12 @@ public class VegaChargingCentralManager implements CentralSystemService
         StopTransactionResponse stopTransactionResponse = new StopTransactionResponse();
         if (inProgressChargeTransaction != null)
         {
-            inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_FINISHED );
-            inProgressChargeTransaction.setStatus( Savable.MODIFIED );
-            //TODO other attributes endtime..
-            //TODO update query for save
+            TransactionContext transactionContext = new TransactionContext();
+            transactionContext.setChargeTransaction(inProgressChargeTransaction);
+            TransactionState transactionStartedState = new TransactionStoppedState();
+            transactionContext.setTransactionState(transactionStartedState);
+            ChgResponse chgResponse = transactionContext.proceedState();
+            //TODO get ChargeTransaction data from chgResponse
             //TODO modify StopTransactionResponse
         }
 

@@ -31,10 +31,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="centralServiceCore" />
+        <module name="VegaChargingCentralService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="centralservice.core" target="1.6" />
       <module name="centralServiceCore" target="1.6" />
     </bytecodeTargetLevel>
   </component>
@@ -69,12 +70,15 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/modules/service/core/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/service/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/modules/service/core/pom.xml" />
         <option value="$PROJECT_DIR$/modules/service/manager/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/service/pom.xml" />
       </set>
     </option>
   </component>
@@ -208,7 +212,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VegaChargingCentralService.iml" filepath="$PROJECT_DIR$/VegaChargingCentralService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modules/service/core/centralServiceCore.iml" filepath="$PROJECT_DIR$/modules/service/core/centralServiceCore.iml" />
     </modules>
   </component>
   <component name="ProjectResources">

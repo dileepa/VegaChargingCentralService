@@ -4,10 +4,10 @@ package lk.vega.charger.core;
  * Created by dileepa on 3/19/15.
  */
 
+import lk.vega.charger.util.ChgTimeStamp;
 import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
 import lk.vega.charger.util.SavingSQLException;
-import lk.vega.charger.util.VegaTimestamp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +24,7 @@ public class ChargePointAvailability extends Savable
 
     private int id;
     private int pointId;
-    private VegaTimestamp time;
+    private ChgTimeStamp time;
     private String availability;
     private int status;
 
@@ -68,12 +68,12 @@ public class ChargePointAvailability extends Savable
         this.status = status;
     }
 
-    public VegaTimestamp getTime()
+    public ChgTimeStamp getTime()
     {
         return time;
     }
 
-    public void setTime( VegaTimestamp time )
+    public void setTime( ChgTimeStamp time )
     {
         this.time = time;
     }
@@ -176,7 +176,7 @@ public class ChargePointAvailability extends Savable
         this.status = Savable.UNCHANGED;
         this.id = rs.getInt( "ID" );
         this.pointId = rs.getInt( "POINTID" );
-        this.time = new VegaTimestamp( rs.getTimestamp( "TIMESTAMP" ) );
+        this.time = new ChgTimeStamp( rs.getTimestamp( "TIMESTAMP" ) );
         this.availability = rs.getString( "STATUS" );
     }
 

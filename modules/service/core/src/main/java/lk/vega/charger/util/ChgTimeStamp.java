@@ -5,54 +5,54 @@ import java.util.Calendar;
 
 /**
  * User: ruwan - copy from codegen
- * VegaDate: Dec 26, 2005
+ * ChgDate: Dec 26, 2005
  * Time: 4:16:14 PM
  * Desc: If you set date by each field separately, follow the order year >> month >> date.
  *  Other wise you may get different date as output.
  */
 
-public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializable
+public class ChgTimeStamp implements Comparable, Cloneable, java.io.Serializable
 {
     private static final long serialVersionUID = -3553535558207438349L;
     private Calendar cal;
 
-    public VegaTimestamp()
+    public ChgTimeStamp()
     {
         this.cal = Calendar.getInstance();
     }
 
-    public VegaTimestamp( long millis )
+    public ChgTimeStamp(long millis)
     {
         this();
         this.cal.setTimeInMillis( millis );
     }
 
 
-    public VegaTimestamp( VegaDate VegaDate, VegaTime VegaTime )
+    public ChgTimeStamp(ChgDate ChgDate, ChgTime ChgTime)
     {
-        this( VegaDate.getYear(), VegaDate.getMonth(), VegaDate.getDate(), VegaTime.getHour(), VegaTime.getMinute(), 0, 0 );
+        this( ChgDate.getYear(), ChgDate.getMonth(), ChgDate.getDate(), ChgTime.getHour(), ChgTime.getMinute(), 0, 0 );
     }
 
-    public VegaTimestamp( java.sql.Timestamp timestamp )
+    public ChgTimeStamp(java.sql.Timestamp timestamp)
     {
         this();
         cal.setTimeInMillis( timestamp.getTime() );
     }
 
 
-    public VegaTimestamp( java.util.Date date )
+    public ChgTimeStamp(java.util.Date date)
     {
         this();
         cal.setTimeInMillis( date.getTime() );
     }
 
-    public VegaTimestamp( java.sql.Date date )
+    public ChgTimeStamp(java.sql.Date date)
     {
         this();
         cal.setTimeInMillis( date.getTime() );
     }
 
-    public VegaTimestamp( Calendar cal )
+    public ChgTimeStamp(Calendar cal)
     {
         this.cal = cal;
     }
@@ -62,7 +62,7 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
      * @param month // 0 - 11, as in java
      * @param date
      */
-    public VegaTimestamp( int year, int month, int date, int hour, int minute, int second, int millisecond )
+    public ChgTimeStamp(int year, int month, int date, int hour, int minute, int second, int millisecond)
     {
         this();
         cal.set( Calendar.YEAR, year );
@@ -89,15 +89,15 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
         cal.add( field, value );
     }
 
-    public boolean equals( VegaTimestamp VegaTimestamp )
+    public boolean equals( ChgTimeStamp ChgTimeStamp)
     {
-        if ( ( VegaTimestamp._getCalendar().get( Calendar.YEAR ) == cal.get( Calendar.YEAR ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.MONTH ) == cal.get( Calendar.MONTH ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.DATE ) == cal.get( Calendar.DATE ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.HOUR_OF_DAY ) == cal.get( Calendar.HOUR_OF_DAY ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.MINUTE ) == cal.get( Calendar.MINUTE ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.SECOND ) == cal.get( Calendar.SECOND ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.MILLISECOND ) == cal.get( Calendar.MILLISECOND ) ) )
+        if ( ( ChgTimeStamp._getCalendar().get( Calendar.YEAR ) == cal.get( Calendar.YEAR ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.MONTH ) == cal.get( Calendar.MONTH ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.DATE ) == cal.get( Calendar.DATE ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.HOUR_OF_DAY ) == cal.get( Calendar.HOUR_OF_DAY ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.MINUTE ) == cal.get( Calendar.MINUTE ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.SECOND ) == cal.get( Calendar.SECOND ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.MILLISECOND ) == cal.get( Calendar.MILLISECOND ) ) )
         {
             return true;
         }
@@ -105,7 +105,19 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
         return false;
     }
 
-    public boolean dateEquals( VegaDate VegaDate )
+    public boolean dateEquals( ChgDate ChgDate)
+    {
+        if ( ( ChgDate.getYear() == cal.get( Calendar.YEAR ) ) &&
+                ( ChgDate.getMonth() == cal.get( Calendar.MONTH ) ) &&
+                ( ChgDate.getDate() == cal.get( Calendar.DATE ) ) )
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean dateEquals( ChgTimeStamp VegaDate )
     {
         if ( ( VegaDate.getYear() == cal.get( Calendar.YEAR ) ) &&
                 ( VegaDate.getMonth() == cal.get( Calendar.MONTH ) ) &&
@@ -117,25 +129,13 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
         return false;
     }
 
-    public boolean dateEquals( VegaTimestamp VegaDate )
+    public boolean timeEquals( ChgTimeStamp ChgTimeStamp)
     {
-        if ( ( VegaDate.getYear() == cal.get( Calendar.YEAR ) ) &&
-                ( VegaDate.getMonth() == cal.get( Calendar.MONTH ) ) &&
-                ( VegaDate.getDate() == cal.get( Calendar.DATE ) ) )
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean timeEquals( VegaTimestamp VegaTimestamp )
-    {
-        if ( ( VegaTimestamp._getCalendar().get( Calendar.YEAR ) == cal.get( Calendar.YEAR ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.MONTH ) == cal.get( Calendar.MONTH ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.DATE ) == cal.get( Calendar.DATE ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.HOUR_OF_DAY ) == cal.get( Calendar.HOUR_OF_DAY ) ) &&
-                ( VegaTimestamp._getCalendar().get( Calendar.MINUTE ) == cal.get( Calendar.MINUTE ) ) )
+        if ( ( ChgTimeStamp._getCalendar().get( Calendar.YEAR ) == cal.get( Calendar.YEAR ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.MONTH ) == cal.get( Calendar.MONTH ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.DATE ) == cal.get( Calendar.DATE ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.HOUR_OF_DAY ) == cal.get( Calendar.HOUR_OF_DAY ) ) &&
+                ( ChgTimeStamp._getCalendar().get( Calendar.MINUTE ) == cal.get( Calendar.MINUTE ) ) )
         {
             return true;
         }
@@ -145,9 +145,9 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
 
     public int compareTo( Object o )
     {
-        //        if ( o instanceof VegaTimestamp )
+        //        if ( o instanceof ChgTimeStamp )
         //        {
-        //            if ( after( ( VegaTimestamp ) o ) )
+        //            if ( after( ( ChgTimeStamp ) o ) )
         //            {
         //                return 1;
         //            }
@@ -160,7 +160,7 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
         {
             return 0;
         }
-        else if ( after( ( VegaTimestamp ) o ) )
+        else if ( after( (ChgTimeStamp) o ) )
         {
             return 1;
         }
@@ -170,27 +170,27 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
         }
     }
 
-    public boolean after( VegaDate date )
+    public boolean after( ChgDate date )
     {
         // if not the same date check by the calander after method
         //        return !equals( date ) && cal.after( date._getCalendar() );
         return !equals( date ) && cal.getTimeInMillis() > date._getTimeInMillis();
     }
 
-    public boolean before( VegaDate date )
+    public boolean before( ChgDate date )
     {
         // if not the same date check by the calander before method
         return !equals( date ) && cal.getTimeInMillis() < date._getTimeInMillis();
     }
 
-    public boolean after( VegaTimestamp time )
+    public boolean after( ChgTimeStamp time )
     {
         // if not the same date check by the calander after method
         //        return !equals( date ) && cal.after( date._getCalendar() );
         return !equals( time ) && cal.getTimeInMillis() > time._getCalendar().getTimeInMillis();
     }
 
-    public boolean before( VegaTimestamp time )
+    public boolean before( ChgTimeStamp time )
     {
         // if not the same date check by the calander before method
         return !equals( time ) && cal.getTimeInMillis() < time._getCalendar().getTimeInMillis();
@@ -198,7 +198,7 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
 
     public Object clone()
     {
-        return new VegaTimestamp( getYear(), getMonth(), getDate(), getHour(), getMinute(), getSecond(), getMilisecond() );
+        return new ChgTimeStamp( getYear(), getMonth(), getDate(), getHour(), getMinute(), getSecond(), getMilisecond() );
     }
 
     public Calendar _getCalendar()
@@ -323,9 +323,9 @@ public class VegaTimestamp implements Comparable, Cloneable, java.io.Serializabl
 
     /*Added by kelum@codegen.net to saga branch
     * Copied here for use by ContractProductionService - dahamw@codegen.net*/
-    public VegaDate _getDate()
+    public ChgDate _getDate()
     {
-        return new VegaDate( getYear(),getMonth(),getDate());
+        return new ChgDate( getYear(),getMonth(),getDate());
     }
 
 

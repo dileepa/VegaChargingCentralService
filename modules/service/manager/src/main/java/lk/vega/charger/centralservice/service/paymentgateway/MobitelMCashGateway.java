@@ -1,6 +1,6 @@
 package lk.vega.charger.centralservice.service.paymentgateway;
 
-import lk.vega.charger.util.VegaError;
+import lk.vega.charger.util.ChgResponse;
 
 /**
  * Created by dileepa on 3/19/15.
@@ -14,27 +14,27 @@ public class MobitelMCashGateway implements PaymentGateWay
 
     }
 
-    @Override public VegaError rollbackPayment( PaymentDetail paymentDetail ) throws Exception
+    @Override public ChgResponse rollbackPayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError validatePayment( PaymentDetail paymentDetail ) throws Exception
+    @Override public ChgResponse validatePayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError validatePaymentWithHold( PaymentDetail paymentDetail ) throws Exception
+    @Override public ChgResponse validatePaymentWithHold( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError commitPayment( PaymentDetail paymentDetail ) throws Exception
+    @Override public ChgResponse commitPayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }
 
-    @Override public VegaError refundPayment( PaymentDetail paymentDetail ) throws Exception
+    @Override public ChgResponse refundPayment( PaymentDetail paymentDetail ) throws Exception
     {
         return null;
     }

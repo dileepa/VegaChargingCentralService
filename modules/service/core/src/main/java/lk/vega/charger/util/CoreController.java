@@ -28,9 +28,9 @@ public class CoreController
     }
 
 
-    public static VegaError save(  Object obj )
+    public static ChgResponse save(  Object obj )
     {
-        VegaError err = new VegaError( VegaError.SUCCESS, "Sucessfully Saved....." );
+        ChgResponse err = new ChgResponse( ChgResponse.SUCCESS, "Sucessfully Saved....." );
 
         try
         {
@@ -48,7 +48,7 @@ public class CoreController
                 }
                 else
                 {
-                    err = new VegaError( VegaError.ERROR, "Unknown Object Type '" + obj.getClass().getName() );
+                    err = new ChgResponse( ChgResponse.ERROR, "Unknown Object Type '" + obj.getClass().getName() );
                 }
 
                 con.commit();
@@ -63,7 +63,7 @@ public class CoreController
                 {
                     e.printStackTrace();
                 }
-                err = new VegaError( VegaError.ERROR,se.getMessage());
+                err = new ChgResponse( ChgResponse.ERROR,se.getMessage());
 
             }
             catch( Exception ne )
@@ -76,7 +76,7 @@ public class CoreController
                 {
                     e.printStackTrace();
                 }
-                err = new VegaError( VegaError.ERROR, ne.getMessage() );
+                err = new ChgResponse( ChgResponse.ERROR, ne.getMessage() );
             }
             finally
             {
@@ -85,7 +85,7 @@ public class CoreController
         }
         catch( SQLException se )
         {
-            err = new VegaError( VegaError.ERROR, "ERROR: in connecting to database!" );
+            err = new ChgResponse( ChgResponse.ERROR, "ERROR: in connecting to database!" );
         }
         return err;
     }

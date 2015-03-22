@@ -11,12 +11,12 @@ import java.util.Calendar;
 
 /**
  * User: ruwan - copy from codegen
- * VegaDate: Dec 26, 2005
+ * ChgDate: Dec 26, 2005
  * Time: 4:16:14 PM
  * Desc: If you set date by each field separately, follow the order year >> month >> date.
  *  Other wise you may get different date as output.
  */
-public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serializable
+public class ChgDate implements Comparable<ChgDate>, Cloneable, java.io.Serializable
 {
     private static final long serialVersionUID = -8227919564044277655L;
     private WeakReference<Calendar> calRef;
@@ -51,12 +51,12 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
         if (this == o) return true;
         if (o == null ) return false;
 
-        if( !( o instanceof VegaDate ) )
+        if( !( o instanceof ChgDate) )
         {
             return false;
         }
 
-        return this._intValue == ((VegaDate) o)._intValue;
+        return this._intValue == ((ChgDate) o)._intValue;
     }
 
 
@@ -69,7 +69,7 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
         return result;
     }
 
-    public VegaDate()
+    public ChgDate()
     {
         Calendar cal = Calendar.getInstance();
         date = cal.get( Calendar.DATE );
@@ -79,23 +79,23 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
         calclulateIntValue();
     }
 
-    public VegaDate( Calendar cal )
+    public ChgDate(Calendar cal)
     {
         _setTimeInMillis( cal.getTimeInMillis() );
     }
 
-    public VegaDate( long time )
+    public ChgDate(long time)
     {
         _setTimeInMillis( time );
 
     }
 
-    public VegaDate( java.util.Date d )
+    public ChgDate(java.util.Date d)
     {
         _setTimeInMillis( d.getTime() );
     }
 
-    public VegaDate( java.sql.Date d )
+    public ChgDate(java.sql.Date d)
     {
         _setTimeInMillis( d.getTime() );
     }
@@ -105,7 +105,7 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
      * @param month // 0 - 11, as in java
      * @param date
      */
-    public VegaDate( int year, int month, int date )
+    public ChgDate(int year, int month, int date)
     {
         this.year = year;
         this.month = month;
@@ -115,7 +115,7 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
 
     public Object clone()
     {
-        return new VegaDate( getYear(), getMonth(), getDate() );
+        return new ChgDate( getYear(), getMonth(), getDate() );
     }
 
     public long _getTimeInMillis()
@@ -140,27 +140,27 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
         calclulateIntValue();
     }
 
-    public boolean after( VegaDate date)
+    public boolean after( ChgDate date)
     {
         // if not the same date check by the calander after method
         // return !equals( date ) && cal.getTimeInMillis() > date._getTimeInMillis();
         return _intValue > date._getIntValue();
     }
 
-    public boolean before( VegaDate date)
+    public boolean before( ChgDate date)
     {
         // if not the same date check by the calander before method
         //return !equals( date ) && cal.getTimeInMillis() < date._getTimeInMillis();
         return _intValue < date._getIntValue();
     }
 
-    public boolean onOrBefore( VegaDate date )
+    public boolean onOrBefore( ChgDate date )
     {
         //return date.equals( this ) || before( date );
         return _intValue <= date._getIntValue();
     }
 
-    public boolean onOrAfter( VegaDate date )
+    public boolean onOrAfter( ChgDate date )
     {
         //return date.equals( this ) || after( date );
         return _intValue >= date._getIntValue();
@@ -282,7 +282,7 @@ public class VegaDate implements Comparable<VegaDate>, Cloneable, java.io.Serial
         return datef1.format( this._getSQLDate() );
     }
 
-    public int compareTo( VegaDate o)
+    public int compareTo( ChgDate o)
     {
         if ( equals( o ))
         {

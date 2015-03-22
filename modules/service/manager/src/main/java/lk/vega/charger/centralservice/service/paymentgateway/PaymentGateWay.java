@@ -1,6 +1,6 @@
 package lk.vega.charger.centralservice.service.paymentgateway;
 
-import lk.vega.charger.util.VegaError;
+import lk.vega.charger.util.ChgResponse;
 
 /**
  * Created by dileepa on 3/19/15.
@@ -18,15 +18,15 @@ public interface PaymentGateWay
 
     public void connect() throws Exception;
 
-    public VegaError rollbackPayment( PaymentDetail paymentDetail ) throws Exception;
+    public ChgResponse rollbackPayment( PaymentDetail paymentDetail ) throws Exception;
 
-    public VegaError validatePayment( PaymentDetail paymentDetail ) throws Exception;
+    public ChgResponse validatePayment( PaymentDetail paymentDetail ) throws Exception;
 
-    public VegaError validatePaymentWithHold( PaymentDetail paymentDetail ) throws Exception;
+    public ChgResponse validatePaymentWithHold( PaymentDetail paymentDetail ) throws Exception;
 
-    public VegaError commitPayment( PaymentDetail paymentDetail ) throws Exception;
+    public ChgResponse commitPayment( PaymentDetail paymentDetail ) throws Exception;
 
-    public VegaError refundPayment( PaymentDetail paymentDetail ) throws Exception;
+    public ChgResponse refundPayment( PaymentDetail paymentDetail ) throws Exception;
 
 
 

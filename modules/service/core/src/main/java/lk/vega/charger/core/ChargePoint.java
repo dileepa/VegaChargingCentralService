@@ -4,11 +4,8 @@ package lk.vega.charger.core;
  * Created by dileepa on 3/19/15.
  */
 
-import lk.vega.charger.util.DBUtility;
-import lk.vega.charger.util.Savable;
-import lk.vega.charger.util.SavingSQLException;
-import lk.vega.charger.util.VegaDate;
-import lk.vega.charger.util.VegaTimestamp;
+import lk.vega.charger.util.*;
+import lk.vega.charger.util.ChgDate;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,8 +22,8 @@ public class ChargePoint extends Savable
     private String type;
     private String protocol;
     private String version;
-    private VegaDate lastUpdateDate;
-    private VegaTimestamp lastUpdateTimeStamp;
+    private ChgDate lastUpdateDate;
+    private ChgTimeStamp lastUpdateTimeStamp;
     private int userId;
     private int status;
 
@@ -40,22 +37,22 @@ public class ChargePoint extends Savable
         this.chargePointId = chargePointId;
     }
 
-    public VegaDate getLastUpdateDate()
+    public ChgDate getLastUpdateDate()
     {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate( VegaDate lastUpdateDate )
+    public void setLastUpdateDate( ChgDate lastUpdateDate )
     {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public VegaTimestamp getLastUpdateTimeStamp()
+    public ChgTimeStamp getLastUpdateTimeStamp()
     {
         return lastUpdateTimeStamp;
     }
 
-    public void setLastUpdateTimeStamp( VegaTimestamp lastUpdateTimeStamp )
+    public void setLastUpdateTimeStamp( ChgTimeStamp lastUpdateTimeStamp )
     {
         this.lastUpdateTimeStamp = lastUpdateTimeStamp;
     }
@@ -194,8 +191,8 @@ public class ChargePoint extends Savable
         //        DBUtility.close( rs1 );
         //        DBUtility.close( ps1 );
 
-        this.lastUpdateDate = new VegaDate( );
-        this.lastUpdateTimeStamp = new VegaTimestamp( );
+        this.lastUpdateDate = new ChgDate( );
+        this.lastUpdateTimeStamp = new ChgTimeStamp( );
 
         StringBuilder sb = new StringBuilder( "INSERT INTO CHG_POINT ( " );
         sb.append( "ID, " );
@@ -274,15 +271,15 @@ public class ChargePoint extends Savable
         this.type = rs.getString( "TYPE" );
         this.protocol = rs.getString( "PROTOCOL" );
         this.version = rs.getString( "VERSION" );
-        this.lastUpdateDate = new VegaDate( rs.getDate( "LASTUPDATE" ) );
-        this.lastUpdateTimeStamp = new VegaTimestamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
+        this.lastUpdateDate = new ChgDate( rs.getDate( "LASTUPDATE" ) );
+        this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
         this.userId = rs.getInt( "USERID" );
     }
 
     private void update( Connection con ) throws SQLException
     {
-        this.lastUpdateDate = new VegaDate( );
-        this.lastUpdateTimeStamp = new VegaTimestamp( );
+        this.lastUpdateDate = new ChgDate( );
+        this.lastUpdateTimeStamp = new ChgTimeStamp( );
 
         StringBuilder sb = new StringBuilder( "UPDATE CHG_POINT SET " );
         sb.append( "REFERENCE = ?, " );

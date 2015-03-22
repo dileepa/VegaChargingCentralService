@@ -1,12 +1,12 @@
 package lk.vega.charger.centralservice.service.paymentgateway;
 
 import lk.vega.charger.centralservice.service.AuthorizeRequest;
-import lk.vega.charger.util.VegaError;
+import lk.vega.charger.util.ChgResponse;
 
 /**
  * Created by dileepa on 3/20/15.
  */
-public class PaymentGateWayController
+public class PaymentGateWayFactory
 {
     public static final String DIALOG_UNIQUE_KEY = "077";
     public static final String MOBITEL_UNIQUE_KEY = "071";
@@ -34,7 +34,7 @@ public class PaymentGateWayController
         return paymentGateWay;
     }
 
-    public static VegaError doDummyPayment( PaymentDetail paymentDetail, PaymentGateWay paymentGateWay )
+    public static ChgResponse doDummyPayment( PaymentDetail paymentDetail, PaymentGateWay paymentGateWay )
     {
         //TODO payment gate way dummy payment logic control here
         return null;

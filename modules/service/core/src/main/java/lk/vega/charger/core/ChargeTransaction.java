@@ -4,10 +4,10 @@ package lk.vega.charger.core;
  * Created by dileepa on 3/19/15.
  */
 
+import lk.vega.charger.util.ChgTimeStamp;
 import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
 import lk.vega.charger.util.SavingSQLException;
-import lk.vega.charger.util.VegaTimestamp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +19,8 @@ public class ChargeTransaction extends Savable
 {
     private int id;
     private String transactionId;
-    private VegaTimestamp startTime;
-    private VegaTimestamp endTime;
+    private ChgTimeStamp startTime;
+    private ChgTimeStamp endTime;
     private String authenticationKey;
     private int pointId;
     private double initialAmount;
@@ -105,12 +105,12 @@ public class ChargeTransaction extends Savable
         this.crossReference = crossReference;
     }
 
-    public VegaTimestamp getEndTime()
+    public ChgTimeStamp getEndTime()
     {
         return endTime;
     }
 
-    public void setEndTime( VegaTimestamp endTime )
+    public void setEndTime( ChgTimeStamp endTime )
     {
         this.endTime = endTime;
     }
@@ -165,12 +165,12 @@ public class ChargeTransaction extends Savable
         this.pointId = pointId;
     }
 
-    public VegaTimestamp getStartTime()
+    public ChgTimeStamp getStartTime()
     {
         return startTime;
     }
 
-    public void setStartTime( VegaTimestamp startTime )
+    public void setStartTime( ChgTimeStamp startTime )
     {
         this.startTime = startTime;
     }
@@ -309,8 +309,8 @@ public class ChargeTransaction extends Savable
         this.status = Savable.UNCHANGED;
         this.id = rs.getInt( "ID" );
         this.transactionId = rs.getString( "TRS_ID" );
-        this.startTime = new VegaTimestamp( rs.getTimestamp( "STATR_TIME" ));
-        this.endTime = new VegaTimestamp(rs.getTimestamp( "END_TIME" ));
+        this.startTime = new ChgTimeStamp( rs.getTimestamp( "STATR_TIME" ));
+        this.endTime = new ChgTimeStamp(rs.getTimestamp( "END_TIME" ));
         this.authenticationKey = rs.getString( "AUTENTICATION_KEY" );
         this.pointId = rs.getInt( "POINTID" );
         this.initialAmount = rs.getDouble( "INITIAL_AMOUNT" );

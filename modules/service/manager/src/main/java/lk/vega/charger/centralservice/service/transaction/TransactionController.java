@@ -18,6 +18,7 @@ public class TransactionController
     public static final String TRS_STARTED = "STARTED";
     public static final String TRS_PROCESSED = "PROCESSED";
     public static final String TRS_FINISHED = "FINISHED";
+    public static final String TRS_NEW= "NEW_ONE";
 
 
     public static ChargeTransaction generateTransaction( StartTransactionRequest parameters )
@@ -30,10 +31,9 @@ public class TransactionController
         chargeTransaction.setCrossReference( "" ); //TODO set cross ref after separation
         chargeTransaction._setMeterStart( parameters.getMeterStart() );
         chargeTransaction.setReservationId( parameters.getReservationId() );
-        chargeTransaction.setTransactionStatus( TRS_STARTED );
         chargeTransaction.setStatus( Savable.NEW );
         chargeTransaction.setTransactionId( "" ); //TODO implement Trs id generation logic and set it.
-        //TODO ChargeTransaction Save Call Should be here..
+
 
 
         return chargeTransaction;

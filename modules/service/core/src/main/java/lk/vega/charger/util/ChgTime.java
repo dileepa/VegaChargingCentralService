@@ -7,36 +7,36 @@ import java.util.Calendar;
 
 /**
  * User: ruwan - copy from codegen
- * VegaDate: Dec 26, 2005
+ * ChgDate: Dec 26, 2005
  * Time: 4:16:14 PM
  * Desc: If you set date by each field separately, follow the order year >> month >> date.
  *  Other wise you may get different date as output.
  */
-public class VegaTime implements Comparable, Cloneable, Serializable
+public class ChgTime implements Comparable, Cloneable, Serializable
 {
     private static final long serialVersionUID = -2260496048779768521L;
     int hour;
     int minute;
 
-    public VegaTime()
+    public ChgTime()
     {
         hour = 0;
         minute = 0;
     }
 
-    public VegaTime( int hour, int minute )
+    public ChgTime(int hour, int minute)
     {
         this.hour = hour;
         this.minute = minute;
     }
 
-    public VegaTime( int time )
+    public ChgTime(int time)
     {
         this.hour = time / 100;
         this.minute = time % 100;
     }
 
-    public VegaTime( java.sql.Time time )
+    public ChgTime(java.sql.Time time)
     {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis( time.getTime() );
@@ -67,16 +67,16 @@ public class VegaTime implements Comparable, Cloneable, Serializable
 
     public Object clone()
     {
-        return new VegaTime( getHour(), getMinute() );
+        return new ChgTime( getHour(), getMinute() );
     }
 
     public int compareTo( Object o )
     {
-        if( equals( (VegaTime) o ) )
+        if( equals( (ChgTime) o ) )
         {
             return 0;
         }
-        else if( after( (VegaTime) o ) )
+        else if( after( (ChgTime) o ) )
         {
             return 1;
         }
@@ -86,13 +86,13 @@ public class VegaTime implements Comparable, Cloneable, Serializable
         }
     }
 
-    public boolean equals( VegaTime VegaTime )
+    public boolean equals( ChgTime ChgTime)
     {
-        return hour == VegaTime.getHour() &&
-                minute == VegaTime.getMinute();
+        return hour == ChgTime.getHour() &&
+                minute == ChgTime.getMinute();
     }
 
-    public boolean after( VegaTime time )
+    public boolean after( ChgTime time )
     {
         if( hour > time.getHour() )
         {
@@ -115,7 +115,7 @@ public class VegaTime implements Comparable, Cloneable, Serializable
         return false;
     }
 
-    public boolean before( VegaTime time )
+    public boolean before( ChgTime time )
     {
         if( hour > time.getHour() )
         {
