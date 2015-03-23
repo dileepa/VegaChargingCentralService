@@ -47,6 +47,12 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>2.2</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>istack-commons-runtime</artifactId>
+                    <groupId>com.sun.istack</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -54,6 +60,11 @@
             <artifactId>junit</artifactId>
             <version>3.8.2</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.6</version>
         </dependency>
     </dependencies>
     <build>
@@ -133,6 +144,6 @@
                 </executions>
             </plugin>
         </plugins>
-        <finalName>CentralServiceManager</finalName>
+        <finalName>CentralSystemService</finalName>
     </build>
 </project>

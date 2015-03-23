@@ -16,6 +16,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.xml.bind.annotation.XmlSeeAlso;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,6 +27,11 @@ import javax.jws.WebParam;
  * Time: 5:26 PM
  * To change this template use File | Settings | File Templates.
  */
+@WebService(name = "CentralSystemService", targetNamespace = "http://Impl.service.centralservice.charger.vega.lk")
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+@XmlSeeAlso({
+        ObjectFactory.class
+})
 public class VegaChargingCentralManager implements CentralSystemService
 {
 
@@ -53,7 +61,7 @@ public class VegaChargingCentralManager implements CentralSystemService
      * @param parameters
      * @return id  phonenum#intialamount@timestamp%crossReference
      */
-
+    @WebMethod
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
@@ -61,6 +69,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         ChgResponse chgResponse = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
 
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
+        authorizeResponse.setIdTagInfo( new IdTagInfo() );
         IdTagInfo idTagInfo = authorizeResponse.getIdTagInfo();
         idTagInfo.setParentIdTag( parameters.getIdTag() );
 
@@ -119,6 +128,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         return authorizeResponse;
     }
 
+    @WebMethod
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
@@ -145,6 +155,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         return startTransactionResponse;
     }
 
+    @WebMethod
     @Override
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )
     {
