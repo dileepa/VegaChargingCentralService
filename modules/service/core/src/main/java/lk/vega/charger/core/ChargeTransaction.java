@@ -28,8 +28,10 @@ public class ChargeTransaction extends Savable
     private double energyConsumption;
     private String crossReference;
     private int status;
-    private int _meterStart;
-    private int _meterEnd;
+    private int meterStart;
+    private int meterEnd;
+    private String transactionStatus;
+    private int reservationId;
 
     public String getTransactionStatus()
     {
@@ -41,8 +43,6 @@ public class ChargeTransaction extends Savable
         this.transactionStatus = transactionStatus;
     }
 
-    private String transactionStatus;
-
     public int getReservationId()
     {
         return reservationId;
@@ -53,26 +53,24 @@ public class ChargeTransaction extends Savable
         this.reservationId = reservationId;
     }
 
-    private int reservationId;
-
-    public int _getMeterStart()
+    public int getMeterStart()
     {
-        return _meterStart;
+        return meterStart;
     }
 
-    public void _setMeterStart( int _meterStart )
+    public void setMeterStart( int _meterStart )
     {
-        this._meterStart = _meterStart;
+        this.meterStart = _meterStart;
     }
 
-    public int _getMeterEnd()
+    public int getMeterEnd()
     {
-        return _meterEnd;
+        return meterEnd;
     }
 
-    public void _setMeterEnd( int _meterEnd )
+    public void setMeterEnd( int _meterEnd )
     {
-        this._meterEnd = _meterEnd;
+        this.meterEnd = _meterEnd;
     }
 
     public int getStatus()
@@ -248,8 +246,12 @@ public class ChargeTransaction extends Savable
         sb.append( "INITIAL_AMOUNT, " );
         sb.append( "FINAL_AMOUNT, " );
         sb.append( "ENERGY_CONSUMPTION, " );
-        sb.append( "CROSS_REFERENCE " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?");
+        sb.append( "CROSS_REFERENCE, " );
+        sb.append( "METER_START, " );
+        sb.append( "METER_END, " );
+        sb.append( "STATUS, " );
+        sb.append( "RESERVATION_ID " );
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -294,6 +296,10 @@ public class ChargeTransaction extends Savable
             ps.setDouble( ++count, this.finalAmount );
             ps.setDouble( ++count, this.energyConsumption );
             ps.setString( ++count, this.crossReference );
+            ps.setInt( ++count, this.meterStart );
+            ps.setInt( ++count, this.meterEnd );
+            ps.setString( ++count, this.transactionStatus );
+            ps.setInt( ++count, this.reservationId );
             ps.execute();
             ps.close();
         }
@@ -317,6 +323,10 @@ public class ChargeTransaction extends Savable
         this.finalAmount = rs.getDouble( "FINAL_AMOUNT" );
         this.energyConsumption = rs.getDouble( "ENERGY_CONSUMPTION" );
         this.crossReference = rs.getString( "CROSS_REFERENCE" );
+        this.meterStart = rs.getInt( "METER_START" );
+        this.meterEnd = rs.getInt( "METER_END" );
+        this.transactionStatus = rs.getString( "STATUS" );
+        this.reservationId = rs.getInt( "RESERVATION_ID" );
     }
 
     private void update( Connection con ) throws SQLException
@@ -332,6 +342,10 @@ public class ChargeTransaction extends Savable
         sb.append( "FINAL_AMOUNT = ?, " );
         sb.append( "ENERGY_CONSUMPTION = ?, " );
         sb.append( "CROSS_REFERENCE = ? " );
+        sb.append( "METER_START = ? " );
+        sb.append( "METER_END = ? " );
+        sb.append( "STATUS = ? " );
+        sb.append( "RESERVATION_ID = ? " );
         sb.append( "WHERE " );
         sb.append( "ID = ? " );
         int count = 0;
@@ -369,6 +383,10 @@ public class ChargeTransaction extends Savable
             ps.setDouble( ++count, this.finalAmount );
             ps.setDouble( ++count, this.energyConsumption );
             ps.setString( ++count, this.crossReference );
+            ps.setInt( ++count, this.meterStart );
+            ps.setInt( ++count, this.meterEnd );
+            ps.setString( ++count, this.transactionStatus );
+            ps.setInt( ++count, this.reservationId );
             ps.setInt( ++count, this.id );
             ps.execute();
             ps.close();
@@ -411,8 +429,8 @@ public class ChargeTransaction extends Savable
         this.finalAmount = -1;
         this.energyConsumption = -1;
         this.crossReference = null;
-        this._meterEnd = -1;
-        this._meterStart = -1;
+        this.meterEnd = -1;
+        this.meterStart = -1;
         this.reservationId = -1;
         this.transactionStatus = null;
         this.status = Savable.UNCHANGED;

@@ -2,8 +2,11 @@ package lk.vega.charger.centralservice.service.transaction;
 
 import lk.vega.charger.centralservice.service.StartTransactionRequest;
 import lk.vega.charger.core.ChargeTransaction;
+import lk.vega.charger.util.ChgResponse;
+import lk.vega.charger.util.ChgTimeStamp;
 import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
+import lk.vega.charger.util.connection.CHGConnectionPoolFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,53 +22,82 @@ public class TransactionController
     public static final String TRS_PROCESSED = "PROCESSED";
     public static final String TRS_FINISHED = "FINISHED";
     public static final String TRS_NEW= "NEW_ONE";
+    public static final String TRS_CROSS_REF_SPLITTER= "%";
+    public static final String TRS_CROSS_PHONE_NUM_SPLITTER= "#";
+    public static final String TRS_CROSS_INITIAL_AMOUNT_SPLITTER= "@";
 
-
+    /**
+     * id tag format - phonenum#intialamount@timestamp%crossReference
+     * authenticationKey format - phonenum#intialamount@timestamp
+     * @param parameters
+     * @return
+     */
     public static ChargeTransaction generateTransaction( StartTransactionRequest parameters )
     {
-        //TODO separate idTagInfo - it include both authenkey and crossRef
+        String transactionId = parameters.getIdTag(); //TODO can override it, temp solution - format -authKey%CrossRef
+
+        String []authKeyCroRefArray = phoneNumAmountAndCrossRefSeparator( parameters.getIdTag() );
+        String authenticationKey = authKeyCroRefArray[0];
+        String crossRef = authKeyCroRefArray[1];
+        String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
+        String phoneNumAmountString = phoneAmountTimeArray[0];
+        String phoneAmountArray[] = phoneNumAndAmountSeparator( phoneNumAmountString );
+        String phoneNum = phoneAmountArray[0];
+        String initialAmount = phoneAmountArray[1];
+
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
+        chargeTransaction.setTransactionId( transactionId );
+        chargeTransaction.setStartTime( new ChgTimeStamp() );
+        chargeTransaction.setEndTime( null );
+        chargeTransaction.setAuthenticationKey( authenticationKey );
         chargeTransaction.setPointId( parameters.getConnectorId() );
-        chargeTransaction.setAuthenticationKey( "" ); //TODO set key after separation
-        chargeTransaction.setCrossReference( "" ); //TODO set cross ref after separation
-        chargeTransaction._setMeterStart( parameters.getMeterStart() );
+        chargeTransaction.setInitialAmount( Double.parseDouble( initialAmount ) );
+        chargeTransaction.setFinalAmount( 0.0d );
+        chargeTransaction.setEnergyConsumption( 0.0d );
+        chargeTransaction.setCrossReference( crossRef );
+        chargeTransaction.setMeterStart( parameters.getMeterStart() );
+        chargeTransaction.setMeterEnd( 0 );
+        chargeTransaction.setTransactionStatus( TRS_STARTED );
         chargeTransaction.setReservationId( parameters.getReservationId() );
         chargeTransaction.setStatus( Savable.NEW );
-        chargeTransaction.setTransactionId( "" ); //TODO implement Trs id generation logic and set it.
-
-
-
         return chargeTransaction;
 
     }
 
-    public static ChargeTransaction loadProcessingTransaction( String authorizeKey, String state )
+    public static ChgResponse loadProcessingTransaction( String authorizeKey, String state )
     {
         //TODO db loading part.
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE AUTENTICATION_KEY = ? AND STATUS =? " );
         try
         {
-            if (state.equals( rs.getString( "STATUS" ) ))
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString());
+            ps.setString( 1,authorizeKey );
+            ps.setString( 2, state );
+            rs = ps.executeQuery();
+            if (rs.next())
             {
                 ChargeTransaction chargeTransaction = new ChargeTransaction();
                 chargeTransaction.init();
                 chargeTransaction.load( rs,con,0 );
-                return chargeTransaction;
-
+                return new ChgResponse( ChgResponse.SUCCESS, "Load Transaction Successfully", chargeTransaction );
             }
 
         }
         catch( SQLException e )
         {
             e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
         }
         catch( Exception e )
         {
             e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
         }
         finally
         {
@@ -73,7 +105,43 @@ public class TransactionController
             DBUtility.close( ps );
             DBUtility.close( con );
         }
-        return null;
+        StringBuilder s = new StringBuilder(  );
+        s.append( "Could not find Inprogress Transaction for Authentication Key : " );
+        s.append( authorizeKey );
+        s.append( "." );
+        return new ChgResponse( ChgResponse.SUCCESS, s.toString(), null, TRS_NEW );
     }
 
+    /**
+     *
+     * @param key format - phonenum#intialamount@timestamp%crossReference
+     * @return [0] - phonenum#intialamount@timestamp
+     *         [1] - crossReference
+     */
+    public static String[] phoneNumAmountAndCrossRefSeparator( String key )
+    {
+        return key.split( TRS_CROSS_REF_SPLITTER );
+    }
+
+    /**
+     *
+     * @param key format - phonenum#intialamount@timestamp
+     * @return [0] - phonenum#intialamount
+     *         [1] - timestamp
+     */
+    public static String[] phoneNumAmountAndDateSeparator( String key )
+    {
+        return key.split( TRS_CROSS_INITIAL_AMOUNT_SPLITTER );
+    }
+
+    /**
+     *
+     * @param key format - phonenum#intialamount
+     * @return [0] - phonenum
+     *         [1] - intialamount
+     */
+    public static String[] phoneNumAndAmountSeparator( String key )
+    {
+        return key.split( TRS_CROSS_PHONE_NUM_SPLITTER );
+    }
 }

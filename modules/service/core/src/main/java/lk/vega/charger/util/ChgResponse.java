@@ -6,9 +6,41 @@ package lk.vega.charger.util;
 public class ChgResponse<T>
 {
     private long no;
+
+    public String getMsg()
+    {
+        return msg;
+    }
+
+    public void setMsg( String msg )
+    {
+        this.msg = msg;
+    }
+
     private String msg;
     private T returnData;
+
+    public String getErrorCode()
+    {
+        return errorCode;
+    }
+
+    public void setErrorCode( String errorCode )
+    {
+        this.errorCode = errorCode;
+    }
+
     private String errorCode;
+
+    public long getNo()
+    {
+        return no;
+    }
+
+    public void setNo( long no )
+    {
+        this.no = no;
+    }
 
     /** 1 */
     public static final int SUCCESS = 1;
@@ -87,5 +119,15 @@ public class ChgResponse<T>
             return "WARNING";
         }
         return "" + no;
+    }
+
+    public T getReturnData()
+    {
+        return returnData;
+    }
+
+    public void setReturnData( T returnData )
+    {
+        this.returnData = returnData;
     }
 }

@@ -3,6 +3,7 @@ package lk.vega.charger.centralservice.service.transaction.statecontroller;
 import lk.vega.charger.centralservice.service.transaction.TransactionController;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
+import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.Savable;
 
 /**
@@ -18,7 +19,7 @@ public class TransactionProceedState implements TransactionState
         ChargeTransaction inProgressChargeTransaction = transactionContext.getChargeTransaction();
         inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_PROCESSED );
         inProgressChargeTransaction.setStatus( Savable.MODIFIED );
-        //TODO update query for updating status
-        return null;
+        ChgResponse chgResponse = CoreController.save( inProgressChargeTransaction );
+        return chgResponse;
     }
 }

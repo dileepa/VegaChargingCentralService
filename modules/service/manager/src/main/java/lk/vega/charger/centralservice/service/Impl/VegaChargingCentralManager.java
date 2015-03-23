@@ -6,6 +6,9 @@ import lk.vega.charger.centralservice.service.transaction.statecontroller.*;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 /**
@@ -18,92 +21,149 @@ import javax.jws.WebParam;
 public class VegaChargingCentralManager implements CentralSystemService
 {
 
+    @WebMethod(exclude = true) @PostConstruct
+    public void initJaxWS()
+    {
+        //TODO load service configurations.
+    }
+
+    @WebMethod(exclude = true) @PreDestroy
+    public void destroy()
+    {
+
+    }
+
     /**
      * in this request, authorizeKey has particular format
      * phonenum#intialamount@timestamp
      * @param parameters
-     * @return
+     * @return id  phonenum#intialamount@timestamp%crossReference
      */
 
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
         String authorizeKey = parameters.getIdTag();
-        ChargeTransaction inProgressChargeTransaction = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
+        ChgResponse chgResponse = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
 
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
         IdTagInfo idTagInfo = authorizeResponse.getIdTagInfo();
         idTagInfo.setParentIdTag( parameters.getIdTag() );
 
-        ChgResponse error = null;
-        if( TransactionController.TRS_NEW.equals(inProgressChargeTransaction.getTransactionStatus()) )
+        if( chgResponse.isSuccess() )
         {
-            TransactionContext transactionContext = new TransactionContext();
-            transactionContext.setAuthorizeRequest(parameters);
-            TransactionState transactionBeginningState = new TransactionBeginningState();
-            transactionContext.setTransactionState(transactionBeginningState);
-            ChgResponse response = transactionContext.proceedState();
-            if( error.isError() )
+            if( chgResponse.getErrorCode().equals( TransactionController.TRS_NEW ) )
             {
-                idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
-                //TODO control the logic here according to vegaError status and message.
+                TransactionContext transactionContext = new TransactionContext();
+                transactionContext.setAuthorizeRequest( parameters );
+                TransactionState transactionBeginningState = new TransactionBeginningState();
+                transactionContext.setTransactionState( transactionBeginningState );
+                ChgResponse response = transactionContext.proceedState();
+                if( response.isError() )
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                }
+                else if( response.isSuccess() )
+                {
+                    String paymentGatewayCrossRef = (String) response.getReturnData();
+                    idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+                    StringBuilder sb = new StringBuilder();
+                    sb.append( parameters.getIdTag() );
+                    sb.append( TransactionController.TRS_CROSS_REF_SPLITTER );//use for separate the cross reference of payment gate way.
+                    sb.append( paymentGatewayCrossRef );
+                    idTagInfo.setParentIdTag( sb.toString() );
+                }
             }
-            else if( error.isSuccess() )
+            else
             {
-                idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
-                idTagInfo.setParentIdTag( parameters.getIdTag() +"%-crossRef-" );//TODO need append initial cross reference.
+                ChargeTransaction inProgressChargeTransaction = (ChargeTransaction) chgResponse.getReturnData();
+                TransactionContext transactionContext = new TransactionContext();
+                transactionContext.setAuthorizeRequest( parameters );
+                transactionContext.setChargeTransaction( inProgressChargeTransaction );
+                TransactionState transactionStartedState = new TransactionProceedState();
+                transactionContext.setTransactionState( transactionStartedState );
+                ChgResponse res = transactionContext.proceedState();
+                if( res.isError() )
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                }
+                else if( res.isSuccess() )
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+                    StringBuilder sb = new StringBuilder();
+                    sb.append( inProgressChargeTransaction.getAuthenticationKey() );
+                    sb.append( TransactionController.TRS_CROSS_REF_SPLITTER );//use for separate the cross reference of payment gate way.
+                    sb.append( inProgressChargeTransaction.getCrossReference() );
+                    idTagInfo.setParentIdTag( sb.toString() );
+                }
             }
         }
-        else if (TransactionController.TRS_STARTED.equals(inProgressChargeTransaction.getTransactionStatus()))
+        else if( chgResponse.isError() )
         {
-            TransactionContext transactionContext = new TransactionContext();
-            transactionContext.setAuthorizeRequest(parameters);
-            transactionContext.setChargeTransaction(inProgressChargeTransaction);
-            TransactionState transactionStartedState = new TransactionProceedState();
-            transactionContext.setTransactionState(transactionStartedState);
-            ChgResponse chgResponse = transactionContext.proceedState();
-            //TODO get ChargeTransaction data from chgResponse
-            //TODO modify AuthorizeResponse
+            idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
         }
-        else
-        {
-            //TODO handle invalid one....
-        }
-
         return authorizeResponse;
     }
 
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
+        StartTransactionResponse startTransactionResponse = new StartTransactionResponse();
+        IdTagInfo idTagInfo = startTransactionResponse.getIdTagInfo();
+        idTagInfo.setParentIdTag( parameters.getIdTag() );
+
         TransactionContext transactionContext = new TransactionContext();
         transactionContext.setStartTransactionRequest(parameters);
         TransactionState transactionStartedState = new TransactionStartedState();
         transactionContext.setTransactionState(transactionStartedState);
         ChgResponse chgResponse = transactionContext.proceedState();
-        //TODO get ChargeTransaction data from chgResponse
-        StartTransactionResponse startTransactionResponse = new StartTransactionResponse();
-        //TODO Mapping StartTransactionResponse from  ChargeTransaction
+        if (chgResponse.isSuccess())
+        {
+            ChargeTransaction chargeTransaction = (ChargeTransaction)chgResponse.getReturnData();
+            idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+            startTransactionResponse.setTransactionId( Integer.parseInt( chargeTransaction.getTransactionId() ) );
+        }
+        else
+        {
+            idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+            startTransactionResponse.setTransactionId( -1 );
+        }
         return startTransactionResponse;
     }
 
     @Override
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )
     {
-        String authorizeKey = parameters.getIdTag();
-        ChargeTransaction inProgressChargeTransaction = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_PROCESSED );
         StopTransactionResponse stopTransactionResponse = new StopTransactionResponse();
-        if (inProgressChargeTransaction != null)
-        {
-            TransactionContext transactionContext = new TransactionContext();
-            transactionContext.setChargeTransaction(inProgressChargeTransaction);
-            TransactionState transactionStartedState = new TransactionStoppedState();
-            transactionContext.setTransactionState(transactionStartedState);
-            ChgResponse chgResponse = transactionContext.proceedState();
-            //TODO get ChargeTransaction data from chgResponse
-            //TODO modify StopTransactionResponse
-        }
+        IdTagInfo idTagInfo = stopTransactionResponse.getIdTagInfo();
 
+        String authorizeKeyWithCrossRef = parameters.getIdTag();
+        String []authKeyCrossRefArray = TransactionController.phoneNumAmountAndCrossRefSeparator( authorizeKeyWithCrossRef );
+        String authorizeKey = authKeyCrossRefArray[0];
+        ChgResponse response = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_PROCESSED );
+        if (response.isSuccess())
+        {
+            ChargeTransaction inProgressChargeTransaction = (ChargeTransaction)response.getReturnData();
+            if (inProgressChargeTransaction != null)
+            {
+                TransactionContext transactionContext = new TransactionContext();
+                transactionContext.setChargeTransaction(inProgressChargeTransaction);
+                transactionContext.setStopTransactionRequest( parameters );
+                TransactionState transactionStartedState = new TransactionStoppedState();
+                transactionContext.setTransactionState(transactionStartedState);
+                ChgResponse chgResponse = transactionContext.proceedState();
+                if (chgResponse.isSuccess())
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+                    idTagInfo.setParentIdTag( parameters.getIdTag() );
+                }
+                else
+                {
+                    idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                    idTagInfo.setParentIdTag( parameters.getIdTag() );
+                }
+            }
+        }
         return stopTransactionResponse;
     }
 

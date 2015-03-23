@@ -18,11 +18,11 @@ public class TransactionBeginningState implements TransactionState
     {
         ChgResponse res = null;
         AuthorizeRequest authorizeRequest = transactionContext.getAuthorizeRequest();
-        PaymentDetail paymentDetail = PaymentGateWayFactory.decodeRequestToPaymentDetail(authorizeRequest);
+        PaymentDetail paymentDetail = PaymentGateWayFactory.decodeAuthorizationRequestToPaymentDetail( authorizeRequest );
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay(paymentDetail);
         if( paymentGateWay != null )
         {
-            res = PaymentGateWayFactory.doDummyPayment(paymentDetail, paymentGateWay);
+            res = PaymentGateWayFactory.doPayment( paymentDetail, paymentGateWay );
         }
 
         return res;

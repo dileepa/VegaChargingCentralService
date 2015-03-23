@@ -9,9 +9,9 @@ public class MobitelMCashGateway implements PaymentGateWay
 {
 
 
-    @Override public void connect() throws Exception
+    @Override public ChgResponse connect() throws Exception
     {
-
+        return null;
     }
 
     @Override public ChgResponse rollbackPayment( PaymentDetail paymentDetail ) throws Exception
