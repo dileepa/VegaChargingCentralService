@@ -2,9 +2,15 @@ package lk.vega.charger.centralservice.service.Impl;
 
 import lk.vega.charger.centralservice.service.*;
 import lk.vega.charger.centralservice.service.transaction.TransactionController;
-import lk.vega.charger.centralservice.service.transaction.statecontroller.*;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionBeginningState;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionContext;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionProceedState;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionStartedState;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionState;
+import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionStoppedState;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
+import lk.vega.charger.util.CoreController;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -24,6 +30,14 @@ public class VegaChargingCentralManager implements CentralSystemService
     @WebMethod(exclude = true) @PostConstruct
     public void initJaxWS()
     {
+        try
+        {
+            CoreController.init();
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
         //TODO load service configurations.
     }
 
