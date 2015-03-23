@@ -133,6 +133,7 @@ public class VegaChargingCentralManager implements CentralSystemService
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
         StartTransactionResponse startTransactionResponse = new StartTransactionResponse();
+        startTransactionResponse.setIdTagInfo( new IdTagInfo() );
         IdTagInfo idTagInfo = startTransactionResponse.getIdTagInfo();
         idTagInfo.setParentIdTag( parameters.getIdTag() );
 
@@ -160,6 +161,7 @@ public class VegaChargingCentralManager implements CentralSystemService
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )
     {
         StopTransactionResponse stopTransactionResponse = new StopTransactionResponse();
+        stopTransactionResponse.setIdTagInfo( new IdTagInfo() );
         IdTagInfo idTagInfo = stopTransactionResponse.getIdTagInfo();
 
         String authorizeKeyWithCrossRef = parameters.getIdTag();
