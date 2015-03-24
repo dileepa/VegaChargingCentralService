@@ -34,11 +34,13 @@ public class PaymentGateWayFactory
     public static PaymentGateWay selectPaymentGateWay( PaymentDetail paymentDetail )
     {
         PaymentGateWay paymentGateWay = null;
-        if( paymentDetail.getAuthenticationKey().startsWith( DIALOG_UNIQUE_KEY ) || DIALOG.equals( paymentDetail.getTransactionKey() )  )
+        String authKey = paymentDetail.getAuthenticationKey();
+        boolean validAuthKey = authKey != null && authKey.length() != 0;
+        if( ( validAuthKey && authKey.startsWith( DIALOG_UNIQUE_KEY ) ) || DIALOG.equals( paymentDetail.getTransactionKey() ) )
         {
             paymentGateWay = new DialogEasyCashGateway();
         }
-        else if( paymentDetail.getAuthenticationKey().startsWith( MOBITEL_UNIQUE_KEY ) || MOBITEL.equals( paymentDetail.getTransactionKey() )  )
+        else if( ( validAuthKey && authKey.startsWith( MOBITEL_UNIQUE_KEY ) ) || MOBITEL.equals( paymentDetail.getTransactionKey() ) )
         {
             paymentGateWay = new MobitelMCashGateway();
         }
