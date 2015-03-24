@@ -33,7 +33,7 @@ public class TransactionController
      */
     public static ChargeTransaction generateTransaction( StartTransactionRequest parameters )
     {
-        String transactionId = parameters.getIdTag(); //TODO can override it, temp solution - format -authKey%CrossRef
+        String transactionId = "123"; //TODO can override it, temp solution -
 
         String []authKeyCroRefArray = phoneNumAmountAndCrossRefSeparator( parameters.getIdTag() );
         String authenticationKey = authKeyCroRefArray[0];
@@ -69,19 +69,15 @@ public class TransactionController
         PreparedStatement ps = null;
         ResultSet rs = null;
         StringBuilder sb = new StringBuilder(  );
-        sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE AUTENTICATION_KEY = ? AND STATUS =? " );
+        sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE STATUS =? " );
         boolean transactionIdNotExist = "".equals( transactionId );
-        sb = transactionIdNotExist ? sb.append( "" ) :sb.append( "AND TRS_ID = ? " );
+        sb = transactionIdNotExist ? sb.append( "AND AUTENTICATION_KEY = ?" ) :sb.append( "AND TRS_ID = ? " );
         try
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
             ps = con.prepareStatement( sb.toString() );
-            ps.setString( 1, authorizeKey );
-            ps.setString( 2, state );
-            if( !transactionIdNotExist )
-            {
-                ps.setString( 3, transactionId );
-            }
+            ps.setString( 1, state );
+            ps.setString( 2, transactionIdNotExist ? authorizeKey : transactionId );
             rs = ps.executeQuery();
             if (rs.next())
             {
