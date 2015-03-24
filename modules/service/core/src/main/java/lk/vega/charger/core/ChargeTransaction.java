@@ -226,16 +226,6 @@ public class ChargeTransaction extends Savable
 
     private void insert( Connection con ) throws SQLException
     {
-
-        //TODO Generate Squence Id here
-        //        PreparedStatement ps1 = con.prepareStatement( "SELECT NAME oF SEQ.NEXTVAL FROM DUAL" );
-        //        ResultSet rs1 = ps1.executeQuery();
-        //        if( rs1.next() )
-        //        {
-        //            this.xxx = rs1.getLong( "NEXTVAL" );
-        //        }
-        //        DBUtility.close( rs1 );
-        //        DBUtility.close( ps1 );
         StringBuilder sb = new StringBuilder( "INSERT INTO TRS_CHG_TRANSACTION ( " );
         sb.append( "TRS_ID, " );
         sb.append( "STATR_TIME, " );
@@ -331,10 +321,10 @@ public class ChargeTransaction extends Savable
         sb.append( "INITIAL_AMOUNT = ?, " );
         sb.append( "FINAL_AMOUNT = ?, " );
         sb.append( "ENERGY_CONSUMPTION = ?, " );
-        sb.append( "CROSS_REFERENCE = ? " );
-        sb.append( "METER_START = ? " );
-        sb.append( "METER_END = ? " );
-        sb.append( "STATUS = ? " );
+        sb.append( "CROSS_REFERENCE = ?, " );
+        sb.append( "METER_START = ?, " );
+        sb.append( "METER_END = ?, " );
+        sb.append( "STATUS = ?, " );
         sb.append( "RESERVATION_ID = ? " );
         sb.append( "WHERE " );
         sb.append( "ID = ? " );
