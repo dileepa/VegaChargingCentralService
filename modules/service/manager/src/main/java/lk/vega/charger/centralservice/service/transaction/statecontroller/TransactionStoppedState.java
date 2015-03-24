@@ -21,16 +21,16 @@ public class TransactionStoppedState implements TransactionState
     @Override
     public ChgResponse proceedState(TransactionContext transactionContext)
     {
+        StopTransactionRequest stopTransactionRequest = transactionContext.getStopTransactionRequest();
         ChargeTransaction inProgressChargeTransaction = transactionContext.getChargeTransaction();
         inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_FINISHED );
         inProgressChargeTransaction.setStatus( Savable.MODIFIED );
         inProgressChargeTransaction.setEndTime( new ChgTimeStamp() );
-        inProgressChargeTransaction.setMeterEnd( 0 );
+        inProgressChargeTransaction.setMeterEnd( stopTransactionRequest.getMeterStop() );
         inProgressChargeTransaction.setFinalAmount( 0.0d );
         inProgressChargeTransaction.setEnergyConsumption( 0.0d );
 
         ChgResponse res = null;
-        StopTransactionRequest stopTransactionRequest = transactionContext.getStopTransactionRequest();
         PaymentDetail paymentDetail = PaymentGateWayFactory.decodeStopTransactionRequestToPaymentDetail( stopTransactionRequest );
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay(paymentDetail);
         if( paymentGateWay != null )

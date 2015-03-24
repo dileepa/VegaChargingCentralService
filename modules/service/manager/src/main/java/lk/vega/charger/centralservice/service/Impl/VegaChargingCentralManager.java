@@ -77,7 +77,7 @@ public class VegaChargingCentralManager implements CentralSystemService
 
         if( chgResponse.isSuccess() )
         {
-            if( chgResponse.getErrorCode().equals( TransactionController.TRS_NEW ) )
+            if( TransactionController.TRS_NEW.equals( chgResponse.getErrorCode() ) )
             {
                 TransactionContext transactionContext = new TransactionContext();
                 transactionContext.setAuthorizeRequest( parameters );
@@ -130,6 +130,12 @@ public class VegaChargingCentralManager implements CentralSystemService
         return authorizeResponse;
     }
 
+    /**
+     * in this request, authorizeKey has particular format
+     * phonenum#intialamount#timestamp%crossRef
+     * @param parameters
+     * @return id  trsID
+     */
     @WebMethod (action = "/StartTransaction")
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
@@ -158,6 +164,12 @@ public class VegaChargingCentralManager implements CentralSystemService
         return startTransactionResponse;
     }
 
+    /**
+     * in this request, authorizeKey has particular format
+     * phonenum#intialamount#timestamp%crossRef
+     * @param parameters
+     * @return id  trsID
+     */
     @WebMethod (action = "/StopTransaction")
     @Override
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )

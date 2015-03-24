@@ -63,20 +63,25 @@ public class TransactionController
 
     }
 
-    public static ChgResponse loadProcessingTransaction( String authorizeKey, String state )
+    public static ChgResponse loadProcessingTransaction( String authorizeKey, String state, String transactionId )
     {
-        //TODO db loading part.
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         StringBuilder sb = new StringBuilder(  );
         sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE AUTENTICATION_KEY = ? AND STATUS =? " );
+        boolean transactionIdNotExist = "".equals( transactionId );
+        sb = transactionIdNotExist ? sb.append( "" ) :sb.append( "AND TRS_ID = ? " );
         try
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
-            ps = con.prepareStatement( sb.toString());
-            ps.setString( 1,authorizeKey );
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1, authorizeKey );
             ps.setString( 2, state );
+            if( !transactionIdNotExist )
+            {
+                ps.setString( 3, transactionId );
+            }
             rs = ps.executeQuery();
             if (rs.next())
             {
