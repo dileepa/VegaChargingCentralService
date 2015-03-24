@@ -177,12 +177,16 @@ public class VegaChargingCentralManager implements CentralSystemService
         StopTransactionResponse stopTransactionResponse = new StopTransactionResponse();
         stopTransactionResponse.setIdTagInfo( new IdTagInfo() );
         IdTagInfo idTagInfo = stopTransactionResponse.getIdTagInfo();
+        String authorizeKey = "";
 
-        String authorizeKeyWithCrossRef = parameters.getIdTag();
-        String []authKeyCrossRefArray = TransactionController.phoneNumAmountAndCrossRefSeparator( authorizeKeyWithCrossRef );
-        String authorizeKey = authKeyCrossRefArray[0];
+        if( parameters.getIdTag() != null && parameters.getIdTag().length() != 0 )
+        {
+            String authorizeKeyWithCrossRef = parameters.getIdTag();
+            String[] authKeyCrossRefArray = TransactionController.phoneNumAmountAndCrossRefSeparator( authorizeKeyWithCrossRef );
+            authorizeKey = authKeyCrossRefArray[0];
+        }
         ChgResponse response = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_PROCESSED, String.valueOf( parameters.getTransactionId() ) );
-        if (response.isSuccess())
+        if( response.isSuccess() )
         {
             ChargeTransaction inProgressChargeTransaction = (ChargeTransaction)response.getReturnData();
             if (inProgressChargeTransaction != null)
