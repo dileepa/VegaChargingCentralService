@@ -197,15 +197,19 @@ public class VegaChargingCentralManager implements CentralSystemService
                 TransactionState transactionStartedState = new TransactionStoppedState();
                 transactionContext.setTransactionState(transactionStartedState);
                 ChgResponse chgResponse = transactionContext.proceedState();
-                if (chgResponse.isSuccess())
+                if( chgResponse.isSuccess() )
                 {
                     idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
-                    idTagInfo.setParentIdTag( parameters.getIdTag() );
+                    StringBuilder sb = new StringBuilder();
+                    sb.append( String.valueOf( parameters.getTransactionId() ) );
+                    sb.append( TransactionController.TRS_CROSS_REF_SPLITTER );
+                    sb.append( inProgressChargeTransaction.getCrossReference() );
+                    idTagInfo.setParentIdTag( sb.toString() );
                 }
                 else
                 {
                     idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
-                    idTagInfo.setParentIdTag( parameters.getIdTag() );
+                    idTagInfo.setParentIdTag( String.valueOf( parameters.getTransactionId() ) );
                 }
             }
         }
