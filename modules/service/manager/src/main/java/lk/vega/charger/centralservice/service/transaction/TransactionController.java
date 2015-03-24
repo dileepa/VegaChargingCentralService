@@ -1,12 +1,12 @@
 package lk.vega.charger.centralservice.service.transaction;
 
-import lk.vega.charger.centralservice.service.StartTransactionRequest;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.ChgTimeStamp;
 import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
 import lk.vega.charger.util.connection.CHGConnectionPoolFactory;
+import ocpp.cs._2012._06.StartTransactionRequest;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,12 +23,11 @@ public class TransactionController
     public static final String TRS_FINISHED = "FINISHED";
     public static final String TRS_NEW= "NEW_ONE";
     public static final String TRS_CROSS_REF_SPLITTER= "%";
-    public static final String TRS_CROSS_PHONE_NUM_SPLITTER= "#";
-    public static final String TRS_CROSS_INITIAL_AMOUNT_SPLITTER= "@";
+    public static final String TRS_AUTH_KEY_SPLITTER = "#";
 
     /**
-     * id tag format - phonenum#intialamount@timestamp%crossReference
-     * authenticationKey format - phonenum#intialamount@timestamp
+     * id tag format - phonenum#intialamount#timestamp%crossReference
+     * authenticationKey format - phonenum#intialamount#timestamp
      * @param parameters
      * @return
      */
@@ -40,10 +39,8 @@ public class TransactionController
         String authenticationKey = authKeyCroRefArray[0];
         String crossRef = authKeyCroRefArray[1];
         String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
-        String phoneNumAmountString = phoneAmountTimeArray[0];
-        String phoneAmountArray[] = phoneNumAndAmountSeparator( phoneNumAmountString );
-        String phoneNum = phoneAmountArray[0];
-        String initialAmount = phoneAmountArray[1];
+        String phoneNum = phoneAmountTimeArray[0];
+        String initialAmount = phoneAmountTimeArray[1];
 
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
@@ -114,8 +111,8 @@ public class TransactionController
 
     /**
      *
-     * @param key format - phonenum#intialamount@timestamp%crossReference
-     * @return [0] - phonenum#intialamount@timestamp
+     * @param key format - phonenum#intialamount#timestamp%crossReference
+     * @return [0] - phonenum#intialamount#timestamp
      *         [1] - crossReference
      */
     public static String[] phoneNumAmountAndCrossRefSeparator( String key )
@@ -125,23 +122,15 @@ public class TransactionController
 
     /**
      *
-     * @param key format - phonenum#intialamount@timestamp
-     * @return [0] - phonenum#intialamount
-     *         [1] - timestamp
+     * @param key format - phonenum#intialamount#timestamp
+     * @return [0] - phonenum
+     *         [1] - intialamount
+     *         [2] - timestamp
      */
     public static String[] phoneNumAmountAndDateSeparator( String key )
     {
-        return key.split( TRS_CROSS_INITIAL_AMOUNT_SPLITTER );
+        return key.split( TRS_AUTH_KEY_SPLITTER );
     }
 
-    /**
-     *
-     * @param key format - phonenum#intialamount
-     * @return [0] - phonenum
-     *         [1] - intialamount
-     */
-    public static String[] phoneNumAndAmountSeparator( String key )
-    {
-        return key.split( TRS_CROSS_PHONE_NUM_SPLITTER );
-    }
+
 }

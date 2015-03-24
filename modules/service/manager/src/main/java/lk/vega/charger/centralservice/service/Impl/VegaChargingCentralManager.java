@@ -1,6 +1,5 @@
 package lk.vega.charger.centralservice.service.Impl;
 
-import lk.vega.charger.centralservice.service.*;
 import lk.vega.charger.centralservice.service.transaction.TransactionController;
 import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionBeginningState;
 import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionContext;
@@ -11,6 +10,7 @@ import lk.vega.charger.centralservice.service.transaction.statecontroller.Transa
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
+import ocpp.cs._2012._06.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -19,6 +19,7 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.ws.BindingType;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,8 +28,9 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  * Time: 5:26 PM
  * To change this template use File | Settings | File Templates.
  */
-@WebService(name = "CentralSystemService", targetNamespace = "http://Impl.service.centralservice.charger.vega.lk")
-@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
+@WebService(name = "CentralSystemService", targetNamespace = "urn://Ocpp/Cs/2012/06/")
+@SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE, style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
+@BindingType(value="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
 @XmlSeeAlso({
         ObjectFactory.class
 })
@@ -57,11 +59,11 @@ public class VegaChargingCentralManager implements CentralSystemService
 
     /**
      * in this request, authorizeKey has particular format
-     * phonenum#intialamount@timestamp
+     * phonenum#intialamount#timestamp
      * @param parameters
-     * @return id  phonenum#intialamount@timestamp%crossReference
+     * @return id  phonenum#intialamount#timestamp%crossReference
      */
-    @WebMethod
+    @WebMethod (action = "/Authorize")
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
@@ -128,7 +130,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         return authorizeResponse;
     }
 
-    @WebMethod
+    @WebMethod (action = "/StartTransaction")
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
@@ -156,7 +158,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         return startTransactionResponse;
     }
 
-    @WebMethod
+    @WebMethod (action = "/StopTransaction")
     @Override
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )
     {
@@ -194,42 +196,49 @@ public class VegaChargingCentralManager implements CentralSystemService
         return stopTransactionResponse;
     }
 
+    @WebMethod (action = "/Heartbeat")
     @Override
     public HeartbeatResponse heartbeat( @WebParam(name = "heartbeatRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") HeartbeatRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @WebMethod (action = "/MeterValues")
     @Override
     public MeterValuesResponse meterValues( @WebParam(name = "meterValuesRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") MeterValuesRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @WebMethod (action = "/BootNotification")
     @Override
     public BootNotificationResponse bootNotification( @WebParam(name = "bootNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") BootNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @WebMethod (action = "/StatusNotification")
     @Override
     public StatusNotificationResponse statusNotification( @WebParam(name = "statusNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StatusNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @WebMethod (action = "/FirmwareStatusNotification")
     @Override
     public FirmwareStatusNotificationResponse firmwareStatusNotification( @WebParam(name = "firmwareStatusNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") FirmwareStatusNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @WebMethod (action = "/DiagnosticsStatusNotification")
     @Override
     public DiagnosticsStatusNotificationResponse diagnosticsStatusNotification( @WebParam(name = "diagnosticsStatusNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") DiagnosticsStatusNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    @WebMethod (action = "/DataTransfer")
     @Override
     public DataTransferResponse dataTransfer( @WebParam(name = "dataTransferRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") DataTransferRequest parameters )
     {

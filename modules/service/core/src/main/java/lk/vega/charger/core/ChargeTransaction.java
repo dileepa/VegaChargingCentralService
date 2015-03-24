@@ -236,8 +236,7 @@ public class ChargeTransaction extends Savable
         //        }
         //        DBUtility.close( rs1 );
         //        DBUtility.close( ps1 );
-        StringBuilder sb = new StringBuilder( "INSERT INTO TRS_CHG_TRANSACTION ( " );
-        sb.append( "ID, " );
+        StringBuilder sb = new StringBuilder( "INSERT INTO   ( " );
         sb.append( "TRS_ID, " );
         sb.append( "STATR_TIME, " );
         sb.append( "END_TIME, " );
@@ -251,21 +250,12 @@ public class ChargeTransaction extends Savable
         sb.append( "METER_END, " );
         sb.append( "STATUS, " );
         sb.append( "RESERVATION_ID " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?");
+        sb.append( ") VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,? )");
         int count = 0;
         PreparedStatement ps = null;
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            if( this.id != -1 )
-            {
-                ps.setInt( ++count, this.id );
-            }
-            else
-            {
-                ps.setNull( ++count, java.sql.Types.NUMERIC );
-            }
-
             if( this.transactionId != null )
             {
                 ps.setString( ++count, this.transactionId );

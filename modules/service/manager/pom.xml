@@ -6,7 +6,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>service</groupId>
     <artifactId>centralservice.manager</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -117,7 +116,7 @@
                         </goals>
                         <configuration>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
-                            <packageName>lk.vega.charger.centralservice.service</packageName>
+                            <!--<packageName>lk.vega.charger.centralservice.service</packageName>-->
                             <keep>true</keep>
                             <extension>true</extension>
                             <sourceDestDir>${basedir}/target/src/main/java</sourceDestDir>

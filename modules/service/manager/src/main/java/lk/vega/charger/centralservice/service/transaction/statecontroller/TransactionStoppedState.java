@@ -1,6 +1,6 @@
 package lk.vega.charger.centralservice.service.transaction.statecontroller;
 
-import lk.vega.charger.centralservice.service.StopTransactionRequest;
+import ocpp.cs._2012._06.*;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentDetail;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWayFactory;

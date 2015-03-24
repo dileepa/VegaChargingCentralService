@@ -1,8 +1,6 @@
 package lk.vega.charger.centralservice.service.transaction.statecontroller;
 
-import lk.vega.charger.centralservice.service.AuthorizeRequest;
-import lk.vega.charger.centralservice.service.StartTransactionRequest;
-import lk.vega.charger.centralservice.service.StopTransactionRequest;
+import ocpp.cs._2012._06.*;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 

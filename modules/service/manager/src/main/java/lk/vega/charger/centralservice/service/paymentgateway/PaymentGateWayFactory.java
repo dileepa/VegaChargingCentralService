@@ -1,8 +1,8 @@
 package lk.vega.charger.centralservice.service.paymentgateway;
 
-import lk.vega.charger.centralservice.service.AuthorizeRequest;
-import lk.vega.charger.centralservice.service.StopTransactionRequest;
 import lk.vega.charger.util.ChgResponse;
+import ocpp.cs._2012._06.AuthorizeRequest;
+import ocpp.cs._2012._06.StopTransactionRequest;
 
 /**
  * Created by dileepa on 3/20/15.

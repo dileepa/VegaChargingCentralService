@@ -33,6 +33,7 @@ public class DummyPaymentGateWay implements PaymentGateWay
     @Override public ChgResponse commitPayment( PaymentDetail paymentDetail ) throws Exception
     {
         ChgResponse chgResponse = new ChgResponse( ChgResponse.SUCCESS, "Payment is committed Successfully" );
+        chgResponse.setReturnData( "CROSS-REF" );
         return chgResponse;
     }
 
