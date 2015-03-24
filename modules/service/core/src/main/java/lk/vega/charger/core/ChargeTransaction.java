@@ -32,6 +32,17 @@ public class ChargeTransaction extends Savable
     private int meterEnd;
     private String transactionStatus;
     private int reservationId;
+    private String paymentGateWayType;
+
+    public String getPaymentGateWayType()
+    {
+        return paymentGateWayType;
+    }
+
+    public void setPaymentGateWayType( String paymentGateWayType )
+    {
+        this.paymentGateWayType = paymentGateWayType;
+    }
 
     public String getTransactionStatus()
     {
@@ -239,8 +250,9 @@ public class ChargeTransaction extends Savable
         sb.append( "METER_START, " );
         sb.append( "METER_END, " );
         sb.append( "STATUS, " );
-        sb.append( "RESERVATION_ID " );
-        sb.append( ") VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,? )");
+        sb.append( "RESERVATION_ID, " );
+        sb.append( "PAYMENT_GATEWAY_TYPE " );
+        sb.append( ") VALUES( ?,?,?,?,?,?,?,?,?,?,?,?,?,? )");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -280,6 +292,7 @@ public class ChargeTransaction extends Savable
             ps.setInt( ++count, this.meterEnd );
             ps.setString( ++count, this.transactionStatus );
             ps.setInt( ++count, this.reservationId );
+            ps.setString( ++count, this.paymentGateWayType );
             ps.execute();
             ps.close();
         }
@@ -307,6 +320,7 @@ public class ChargeTransaction extends Savable
         this.meterEnd = rs.getInt( "METER_END" );
         this.transactionStatus = rs.getString( "STATUS" );
         this.reservationId = rs.getInt( "RESERVATION_ID" );
+        this.paymentGateWayType = rs.getString( "PAYMENT_GATEWAY_TYPE" );
     }
 
     private void update( Connection con ) throws SQLException
@@ -325,7 +339,8 @@ public class ChargeTransaction extends Savable
         sb.append( "METER_START = ?, " );
         sb.append( "METER_END = ?, " );
         sb.append( "STATUS = ?, " );
-        sb.append( "RESERVATION_ID = ? " );
+        sb.append( "RESERVATION_ID = ?, " );
+        sb.append( "PAYMENT_GATEWAY_TYPE = ? " );
         sb.append( "WHERE " );
         sb.append( "ID = ? " );
         int count = 0;
@@ -367,6 +382,7 @@ public class ChargeTransaction extends Savable
             ps.setInt( ++count, this.meterEnd );
             ps.setString( ++count, this.transactionStatus );
             ps.setInt( ++count, this.reservationId );
+            ps.setString( ++count, this.paymentGateWayType );
             ps.setInt( ++count, this.id );
             ps.execute();
             ps.close();
@@ -413,6 +429,7 @@ public class ChargeTransaction extends Savable
         this.meterStart = -1;
         this.reservationId = -1;
         this.transactionStatus = null;
+        this.paymentGateWayType = null;
         this.status = Savable.UNCHANGED;
     }
 
