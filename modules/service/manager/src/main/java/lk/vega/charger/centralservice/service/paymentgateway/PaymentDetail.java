@@ -6,6 +6,17 @@ package lk.vega.charger.centralservice.service.paymentgateway;
 public class PaymentDetail
 {
     private String authenticationKey;
+    private String transactionKey;
+
+    public String getTransactionKey()
+    {
+        return transactionKey;
+    }
+
+    public void setTransactionKey( String transactionKey )
+    {
+        this.transactionKey = transactionKey;
+    }
 
     public String getAuthenticationKey()
     {
@@ -20,5 +31,6 @@ public class PaymentDetail
     public void init ()
     {
         this.authenticationKey = null;
+        this.transactionKey = null;
     }
 }

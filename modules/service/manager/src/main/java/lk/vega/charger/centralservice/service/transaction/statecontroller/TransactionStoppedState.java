@@ -31,7 +31,7 @@ public class TransactionStoppedState implements TransactionState
         inProgressChargeTransaction.setEnergyConsumption( 0.0d );
 
         ChgResponse res = null;
-        PaymentDetail paymentDetail = PaymentGateWayFactory.decodeStopTransactionRequestToPaymentDetail( stopTransactionRequest );
+        PaymentDetail paymentDetail = PaymentGateWayFactory.decodeStopTransactionRequestToPaymentDetail( inProgressChargeTransaction );
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay(paymentDetail);
         if( paymentGateWay != null )
         {

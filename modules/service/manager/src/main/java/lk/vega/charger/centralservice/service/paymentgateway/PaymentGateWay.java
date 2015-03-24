@@ -28,6 +28,6 @@ public interface PaymentGateWay
 
     public ChgResponse refundPayment( PaymentDetail paymentDetail ) throws Exception;
 
-
+    public String getPaymentGateWayType();
 
 }

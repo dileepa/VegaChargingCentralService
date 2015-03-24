@@ -42,4 +42,9 @@ public class DummyPaymentGateWay implements PaymentGateWay
         ChgResponse chgResponse = new ChgResponse( ChgResponse.SUCCESS, "Refund is successfully done" );
         return chgResponse;
     }
+
+    @Override public String getPaymentGateWayType()
+    {
+        return PaymentGateWayFactory.DUMMY;
+    }
 }

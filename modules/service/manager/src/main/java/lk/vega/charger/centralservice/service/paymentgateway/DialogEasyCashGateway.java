@@ -39,4 +39,9 @@ public class DialogEasyCashGateway implements PaymentGateWay
         return null;
     }
 
+    @Override public String getPaymentGateWayType()
+    {
+        return PaymentGateWayFactory.DIALOG;
+    }
+
 }

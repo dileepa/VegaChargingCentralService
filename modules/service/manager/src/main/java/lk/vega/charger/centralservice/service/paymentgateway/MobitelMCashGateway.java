@@ -39,4 +39,9 @@ public class MobitelMCashGateway implements PaymentGateWay
         return null;
     }
 
+    @Override public String getPaymentGateWayType()
+    {
+        return PaymentGateWayFactory.MOBITEL;
+    }
+
 }

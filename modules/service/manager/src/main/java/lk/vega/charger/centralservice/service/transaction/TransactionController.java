@@ -1,5 +1,8 @@
 package lk.vega.charger.centralservice.service.transaction;
 
+import lk.vega.charger.centralservice.service.paymentgateway.PaymentDetail;
+import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
+import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWayFactory;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.ChgTimeStamp;
@@ -41,6 +44,9 @@ public class TransactionController
         String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
         String phoneNum = phoneAmountTimeArray[0];
         String initialAmount = phoneAmountTimeArray[1];
+        PaymentDetail paymentDetail = new PaymentDetail();
+        paymentDetail.setAuthenticationKey( authenticationKey );
+        PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay( paymentDetail );
 
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
@@ -58,6 +64,7 @@ public class TransactionController
         chargeTransaction.setMeterEnd( 0 );
         chargeTransaction.setTransactionStatus( TRS_STARTED );
         chargeTransaction.setReservationId( parameters.getReservationId() );
+        chargeTransaction.setPaymentGateWayType( paymentGateWay.getPaymentGateWayType() );
         chargeTransaction.setStatus( Savable.NEW );
         return chargeTransaction;
 
