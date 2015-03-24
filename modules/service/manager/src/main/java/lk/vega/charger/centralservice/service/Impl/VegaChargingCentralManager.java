@@ -168,7 +168,7 @@ public class VegaChargingCentralManager implements CentralSystemService
      * in this request, authorizeKey has particular format
      * phonenum#intialamount#timestamp%crossRef
      * @param parameters
-     * @return id  trsID
+     * @return id  trsID%newCrossRef
      */
     @WebMethod (action = "/StopTransaction")
     @Override
