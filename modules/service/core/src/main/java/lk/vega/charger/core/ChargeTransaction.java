@@ -236,7 +236,7 @@ public class ChargeTransaction extends Savable
         //        }
         //        DBUtility.close( rs1 );
         //        DBUtility.close( ps1 );
-        StringBuilder sb = new StringBuilder( "INSERT INTO   ( " );
+        StringBuilder sb = new StringBuilder( "INSERT INTO TRS_CHG_TRANSACTION ( " );
         sb.append( "TRS_ID, " );
         sb.append( "STATR_TIME, " );
         sb.append( "END_TIME, " );
