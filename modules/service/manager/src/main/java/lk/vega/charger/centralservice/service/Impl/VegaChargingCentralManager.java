@@ -68,7 +68,7 @@ public class VegaChargingCentralManager implements CentralSystemService
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
         String authorizeKey = parameters.getIdTag();
-        ChgResponse chgResponse = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
+        ChgResponse chgResponse = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED, "" );
 
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
         authorizeResponse.setIdTagInfo( new IdTagInfo() );
@@ -181,7 +181,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         String authorizeKeyWithCrossRef = parameters.getIdTag();
         String []authKeyCrossRefArray = TransactionController.phoneNumAmountAndCrossRefSeparator( authorizeKeyWithCrossRef );
         String authorizeKey = authKeyCrossRefArray[0];
-        ChgResponse response = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_PROCESSED );
+        ChgResponse response = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_PROCESSED, String.valueOf( parameters.getTransactionId() ) );
         if (response.isSuccess())
         {
             ChargeTransaction inProgressChargeTransaction = (ChargeTransaction)response.getReturnData();
