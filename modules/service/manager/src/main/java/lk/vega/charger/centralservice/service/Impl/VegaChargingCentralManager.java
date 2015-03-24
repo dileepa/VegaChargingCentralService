@@ -68,6 +68,9 @@ public class VegaChargingCentralManager implements CentralSystemService
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
         String authorizeKey = parameters.getIdTag();
+
+        System.out.println();
+
         ChgResponse chgResponse = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
 
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
