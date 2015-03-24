@@ -45,8 +45,9 @@ public class TransactionController
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
         chargeTransaction.setTransactionId( transactionId );
-        chargeTransaction.setStartTime( new ChgTimeStamp() );
-        chargeTransaction.setEndTime( null );
+        ChgTimeStamp startingTime = new ChgTimeStamp(  );
+        chargeTransaction.setStartTime( startingTime );
+        chargeTransaction.setEndTime( startingTime );
         chargeTransaction.setAuthenticationKey( authenticationKey );
         chargeTransaction.setPointId( parameters.getConnectorId() );
         chargeTransaction.setInitialAmount( Double.parseDouble( initialAmount ) );

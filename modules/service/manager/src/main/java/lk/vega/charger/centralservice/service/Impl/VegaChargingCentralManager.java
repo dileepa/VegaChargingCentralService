@@ -68,9 +68,6 @@ public class VegaChargingCentralManager implements CentralSystemService
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
         String authorizeKey = parameters.getIdTag();
-
-        System.out.println();
-
         ChgResponse chgResponse = TransactionController.loadProcessingTransaction( authorizeKey, TransactionController.TRS_STARTED );
 
         AuthorizeResponse authorizeResponse = new AuthorizeResponse();
@@ -151,7 +148,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         {
             ChargeTransaction chargeTransaction = (ChargeTransaction)chgResponse.getReturnData();
             idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
-            startTransactionResponse.setTransactionId( Integer.parseInt( chargeTransaction.getTransactionId() ) );
+            startTransactionResponse.setTransactionId( 123 );  //TODO need to remove after transactionId generation logic implementation
         }
         else
         {
