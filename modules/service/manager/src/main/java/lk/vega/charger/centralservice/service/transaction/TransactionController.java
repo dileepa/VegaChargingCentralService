@@ -36,7 +36,6 @@ public class TransactionController
      */
     public static ChargeTransaction generateTransaction( StartTransactionRequest parameters )
     {
-        String transactionId = "123"; //TODO can override it, temp solution -
 
         String []authKeyCroRefArray = phoneNumAmountAndCrossRefSeparator( parameters.getIdTag() );
         String authenticationKey = authKeyCroRefArray[0];
@@ -47,6 +46,8 @@ public class TransactionController
         PaymentDetail paymentDetail = new PaymentDetail();
         paymentDetail.setAuthenticationKey( authenticationKey );
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay( paymentDetail );
+
+        int transactionId = generateTransactionID( new ChgTimeStamp(  ), phoneNum );
 
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
@@ -141,5 +142,48 @@ public class TransactionController
         return key.split( TRS_AUTH_KEY_SPLITTER );
     }
 
+//    public static void main( String[] args )
+//    {
+////        int p =  2147483647; //Integer Max value
+//        ChgTimeStamp chgTimeStamp = new ChgTimeStamp(  );
+//        chgTimeStamp.setYear( 2015 );
+//        chgTimeStamp.setMonth( 2 );
+//        chgTimeStamp.setDate( 22 );
+//        chgTimeStamp.setHour( 5 );
+//        chgTimeStamp.setMinute( 4 );
+//        chgTimeStamp.setSecond( 7 );
+//        System.out.println(chgTimeStamp);
+//        System.out.println(chgTimeStamp.getLastTwoDigitsOfYear());
+//        System.out.println(chgTimeStamp.getDayOfYear());
+//        System.out.println(chgTimeStamp._getTimeValue());
+//        System.out.println(generateTransactionID( chgTimeStamp, "0719028959" ));
+//    }
+
+    /**
+     *
+     * @param chgTimeStamp
+     * @param phoneNum
+     * PhoneNum - Integer Value of phone Number
+     * yearVal - ex : year is 2015 last 2 digits of year(15*pow(10,7) -> 150000000)
+     * dayVal - ex : mar 22 -> 84 (day num of year max 366) -> 84*pow(10,4) -> 840000
+     * time val - ex : time 03:45 -> 0345
+     * final unique key- yearVal+ dayVal+timeVal
+     * 150000000
+     *    840000
+     *      0345
+     *final -> 150840345
+     * @return transactionID = uniqueDateKey + PhoneNum
+     */
+    private static int generateTransactionID(ChgTimeStamp chgTimeStamp, String phoneNum)
+    {
+        int phoneNumInt = Integer.parseInt( phoneNum );
+        System.out.println(phoneNumInt);
+        int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int)Math.pow( 10,7 );
+        int modifyDayValue =  chgTimeStamp.getDayOfYear() * (int)Math.pow( 10,4 );
+        int modifyTimeValue = chgTimeStamp._getTimeValue();
+        int uniqueKeyFromDate = modifyYearValue + modifyDayValue + modifyTimeValue;
+        System.out.println(uniqueKeyFromDate);
+        return  uniqueKeyFromDate + phoneNumInt;
+    }
 
 }

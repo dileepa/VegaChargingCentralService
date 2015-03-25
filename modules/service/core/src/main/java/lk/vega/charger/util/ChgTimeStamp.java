@@ -226,6 +226,11 @@ public class ChgTimeStamp implements Comparable, Cloneable, java.io.Serializable
         return cal.get( Calendar.YEAR );
     }
 
+    public int getDayOfYear()
+    {
+        return cal.get( Calendar.DAY_OF_YEAR );
+    }
+
     public void setYear( int year )
     {
         cal.set( Calendar.YEAR, year );
@@ -328,5 +333,9 @@ public class ChgTimeStamp implements Comparable, Cloneable, java.io.Serializable
         return new ChgDate( getYear(),getMonth(),getDate());
     }
 
+    public int getLastTwoDigitsOfYear ()
+    {
+        return (cal.get( Calendar.YEAR )%100);
+    }
 
 }
