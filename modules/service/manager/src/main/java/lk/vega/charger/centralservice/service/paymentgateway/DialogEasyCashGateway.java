@@ -5,6 +5,8 @@ import lk.vega.charger.util.ChgResponse;
 
 import java.lang.Exception;
 
+import static lk.vega.charger.centralservice.service.transaction.TransactionController.phoneNumAmountAndDateSeparator;
+
 
 /**
  * Created by dileepa on 3/19/15.
@@ -12,7 +14,6 @@ import java.lang.Exception;
 public class DialogEasyCashGateway implements PaymentGateWay
 {
     public static String EZ_CASH_AGENT_TRANSACTIONS_SERVICE = "https://172.26.132.204/PaymentModule/ezcashagentservice?wsdl";
-    public static String EZ_CASH_CUSTOMER_TRANSACTIONS_SERVICE = "https://172.26.132.204/PaymentModule/ezcashcustomerservice?wsdl";
     public static String EZ_CASH_USERNAME = "ivr_system";
     public static String EZ_CASH_PASSWORD = "password";
     public static int TRANSACTION_HISTORY_SIZE = 5;
@@ -24,22 +25,26 @@ public class DialogEasyCashGateway implements PaymentGateWay
     private static final String PAYMENT_MERCHANT = "TX_COTC";
     private static final String PAYMENT_VOUCHER = "TX_ACWT";
     private static final String CHANNEL = "WEB";
-    private static AuthenticationRequest authenticationRequest = null;
-    private static String requestid=null;
 
 
 
     @Override
     public ChgResponse connect(PaymentDetail paymentDetail) throws Exception {
-        EzcashAgentTransactionsImplServiceLocator serviceLocator = new EzcashAgentTransactionsImplServiceLocator();
-        serviceLocator = new EzcashAgentTransactionsImplServiceLocator(EZ_CASH_AGENT_TRANSACTIONS_SERVICE, serviceLocator.getServiceName());
+        EzcashAgentTransactionsImplService serviceLocator = new EzcashAgentTransactionsImplService();
         EzcashAgentTransactions service = serviceLocator.getEzcashAgentTransactionsImplPort();
         ChgResponse chgResponse = new ChgResponse();
+        paymentDetail.setService(service);
+        chgResponse.setReturnData(paymentDetail);
+
         if(service!=null) {
-            paymentDetail.setService(service);
-            chgResponse.setReturnData(service);
+            chgResponse.setNo(ChgResponse.SUCCESS);
+            chgResponse.setMsg("Connection established Successfully");
         }
-        return null;
+        else{
+            chgResponse.setNo(ChgResponse.ERROR);
+            chgResponse.setMsg("Connection Failed");
+        }
+        return chgResponse;
     }
 
     @Override public ChgResponse rollbackPayment( PaymentDetail paymentDetail ) throws Exception
@@ -49,57 +54,128 @@ public class DialogEasyCashGateway implements PaymentGateWay
 
     @Override public ChgResponse validatePayment( PaymentDetail paymentDetail ) throws Exception
     {
-        ChgResponse response = new ChgResponse();
+        ChgResponse chgResponse = new ChgResponse();
         String authenticationKey = paymentDetail.getAuthenticationKey();
-        if(authenticationKey.length()==10){
-            return response;
+        String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
+        String phoneNum = phoneAmountTimeArray[0];
+
+        chgResponse.setReturnData(paymentDetail);
+        if(phoneNum.length()==10){
+            chgResponse.setNo(ChgResponse.SUCCESS);
+            chgResponse.setMsg("validate Payment");
         }
-        return null;
+        else{
+            chgResponse.setNo(ChgResponse.ERROR);
+            chgResponse.setMsg("Invalidate Payment");
+        }
+        return chgResponse;
     }
 
     @Override public ChgResponse validatePaymentWithHold( PaymentDetail paymentDetail ) throws Exception
     {
-        return null;
+        ChgResponse chgResponse = new ChgResponse();
+        chgResponse.setReturnData(paymentDetail);
+        chgResponse.setNo(ChgResponse.SUCCESS);
+        chgResponse.setMsg("validate Payment With Hold");
+        return chgResponse;
     }
 
     @Override public ChgResponse commitPayment( PaymentDetail paymentDetail ) throws Exception
     {
+        ChgResponse chgResponse = new ChgResponse();
+        chgResponse.setReturnData(paymentDetail);
+
         try {
-            EzcashAgentTransactions service = getAgentService();
+            EzcashAgentTransactions service = paymentDetail.getService();
             AgentTransactionRequest request = new AgentTransactionRequest();
+
+            String authenticationKey = paymentDetail.getAuthenticationKey();
+            String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
+            String phoneNum = phoneAmountTimeArray[0];
+            String initialAmount = phoneAmountTimeArray[1];
+
             request.setAgentAlias("VEGA_AGENT");
             request.setAgentPin("1234");
             request.setAgentnotificationSend(true);
             request.setChannel(CHANNEL);
-            request.setRequestId(requestid);
-            request.setSubscriberMobile( paymentDetail.getAuthenticationKey() );
+            request.setRequestId(paymentDetail.getAuthenticationKey());
+            request.setSubscriberMobile( phoneNum );
             request.setSubscribernotificationSend(false);
-            request.setTxAmount(amount);
+            request.setTxAmount(Double.valueOf(initialAmount));
             request.setTxType("TX_AOTC");
             request.setAgentnotificationSend(false);
 
-            SubmitTransactionRequest transactionRequest = new SubmitTransactionRequest(request);
-            SubmitTransactionRequestResponse response = service.submitTransactionRequest(transactionRequest, getAuthenticationRequest());
+            AuthenticationRequest authenticationRequest = new AuthenticationRequest();
+            authenticationRequest.setUserName(EZ_CASH_USERNAME);
+            authenticationRequest.setPassword(EZ_CASH_PASSWORD);
 
-/*            System.out.println("response ="+response.get_return().getEZCashRefId());
-            System.out.println("response ="+response.get_return().getStatusDescription());
-            System.out.println("response type="+response.get_return().getTxType());
-            System.out.println("response owner="+response.get_return().getOwnerAlias());
-            System.out.println("response status="+response.get_return().getStatus());*/
-            if (response != null && response.get_return() != null && response.get_return().getStatus() == 62) {
-                return response;
+            SubmitTransactionRequest transactionRequest = new SubmitTransactionRequest();
+            transactionRequest.setAgenttransactionrequest(request);
+            SubmitTransactionRequestResponse response = service.submitTransactionRequest(transactionRequest, authenticationRequest);
+
+            if (response != null && response.getReturn() != null && response.getReturn().getStatus() == 62) {
+                chgResponse.setNo(ChgResponse.SUCCESS);
+                chgResponse.setMsg("Payment Commited Successfully");
+            }
+            else{
+                chgResponse.setNo(ChgResponse.ERROR);
+                chgResponse.setMsg("Invalidate Payment");
             }
 
         } catch (Exception e) {
-           /* logger.error("Submit Transaction Error", e);*/
+            chgResponse.setNo(ChgResponse.ERROR);
+            chgResponse.setMsg("Exception Fired");
         }
-
-        return null;
+        return chgResponse;
     }
 
     @Override public ChgResponse refundPayment( PaymentDetail paymentDetail ) throws Exception
     {
-        return null;
+        ChgResponse chgResponse = new ChgResponse();
+        chgResponse.setReturnData(paymentDetail);
+
+        try {
+            EzcashAgentTransactions service = paymentDetail.getService();
+            AgentTransactionRequest request = new AgentTransactionRequest();
+
+            String authenticationKey = paymentDetail.getAuthenticationKey();
+            String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
+            String phoneNum = phoneAmountTimeArray[0];
+            String initialAmount = phoneAmountTimeArray[1];
+
+            request.setAgentAlias("VEGA_AGENT");
+            request.setAgentPin("1234");
+            request.setAgentnotificationSend(true);
+            request.setChannel(CHANNEL);
+            request.setRequestId(paymentDetail.getAuthenticationKey());
+            request.setSubscriberMobile( phoneNum );
+            request.setSubscribernotificationSend(true);
+            request.setTxAmount(Double.valueOf(initialAmount));
+            request.setTxType("TX_ACWT");
+            request.setAgentnotificationSend(false);
+
+            AuthenticationRequest authenticationRequest = new AuthenticationRequest();
+            authenticationRequest.setUserName(EZ_CASH_USERNAME);
+            authenticationRequest.setPassword(EZ_CASH_PASSWORD);
+
+            SubmitTransactionRequest transactionRequest = new SubmitTransactionRequest();
+            transactionRequest.setAgenttransactionrequest(request);
+            SubmitTransactionRequestResponse response = service.submitTransactionRequest(transactionRequest, authenticationRequest);
+
+            if (response != null && response.getReturn() != null && response.getReturn().getStatus() == 62) {
+                chgResponse.setNo(ChgResponse.SUCCESS);
+                chgResponse.setMsg("Payment Commited Successfully");
+            }
+            else{
+                chgResponse.setNo(ChgResponse.ERROR);
+                chgResponse.setMsg("Invalidate Payment");
+            }
+
+        } catch (Exception e) {
+            chgResponse.setNo(ChgResponse.ERROR);
+            chgResponse.setMsg("Exception Fired");
+        }
+        return chgResponse;
     }
 
     @Override public String getPaymentGateWayType()
