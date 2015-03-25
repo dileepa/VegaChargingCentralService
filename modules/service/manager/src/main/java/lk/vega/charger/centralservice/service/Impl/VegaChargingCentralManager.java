@@ -154,7 +154,7 @@ public class VegaChargingCentralManager implements CentralSystemService
         {
             ChargeTransaction chargeTransaction = (ChargeTransaction)chgResponse.getReturnData();
             idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
-            startTransactionResponse.setTransactionId( Integer.parseInt( chargeTransaction.getTransactionId() ) );
+            startTransactionResponse.setTransactionId(  chargeTransaction.getTransactionId() );
         }
         else
         {
