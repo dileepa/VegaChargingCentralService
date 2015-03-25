@@ -1,0 +1,608 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.payment.ezcash.dialog.lk/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="EzcashAgentTransactionsImplService" targetNamespace="http://service.payment.ezcash.dialog.lk/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.payment.ezcash.dialog.lk/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.payment.ezcash.dialog.lk/">
+  <xs:element name="getDialogProviderList" type="tns:getDialogProviderList"/>
+  <xs:element name="getDialogProviderListResponse" type="tns:getDialogProviderListResponse"/>
+  <xs:element name="getSubscriberBalance" type="tns:getSubscriberBalance"/>
+  <xs:element name="getSubscriberBalanceResponse" type="tns:getSubscriberBalanceResponse"/>
+  <xs:element name="getTransactionStatus" type="tns:getTransactionStatus"/>
+  <xs:element name="getTransactionStatusResponse" type="tns:getTransactionStatusResponse"/>
+  <xs:element name="getTransactionStatusViaRequestId" type="tns:getTransactionStatusViaRequestId"/>
+  <xs:element name="getTransactionStatusViaRequestIdResponse" type="tns:getTransactionStatusViaRequestIdResponse"/>
+  <xs:element name="getUtilityProviderList" type="tns:getUtilityProviderList"/>
+  <xs:element name="getUtilityProviderListResponse" type="tns:getUtilityProviderListResponse"/>
+  <xs:element name="isWalletAvailable" type="tns:isWalletAvailable"/>
+  <xs:element name="isWalletAvailableResponse" type="tns:isWalletAvailableResponse"/>
+  <xs:element name="pin" type="tns:pin"/>
+  <xs:element name="pinResponse" type="tns:pinResponse"/>
+  <xs:element name="submitInitPinRequiredRequest" type="tns:submitInitPinRequiredRequest"/>
+  <xs:element name="submitInitPinRequiredRequestResponse" type="tns:submitInitPinRequiredRequestResponse"/>
+  <xs:element name="submitTransactionRequest" type="tns:submitTransactionRequest"/>
+  <xs:element name="submitTransactionRequestResponse" type="tns:submitTransactionRequestResponse"/>
+  <xs:element name="validateOwner" type="tns:validateOwner"/>
+  <xs:element name="validateOwnerResponse" type="tns:validateOwnerResponse"/>
+  <xs:element name="walletAdjestment" type="tns:walletAdjestment"/>
+  <xs:element name="walletAdjestmentResponse" type="tns:walletAdjestmentResponse"/>
+  <xs:complexType name="walletAdjestment">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="walletadjustmentRequest" type="tns:walletAdjustmentRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="walletAdjustmentRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="actualUser" type="xs:string"/>
+      <xs:element name="amount" type="xs:double"/>
+      <xs:element minOccurs="0" name="initiatorAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="reason" type="xs:string"/>
+      <xs:element minOccurs="0" name="recipientAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="transactionRef" type="xs:string"/>
+      <xs:element minOccurs="0" name="transactionType" type="xs:string"/>
+      <xs:element name="walletCrDrStatus" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="authenticationRequest">
+    <xs:sequence>
+      <xs:element name="userName" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="walletAdjestmentResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:transactionResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transactionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element name="netAmount" type="xs:double"/>
+      <xs:element minOccurs="0" name="ownerAlias" type="xs:string"/>
+      <xs:element name="ownernotificationSend" type="xs:boolean"/>
+      <xs:element name="receivingCommission" type="xs:double"/>
+      <xs:element minOccurs="0" name="recipientAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="responseId" type="xs:string"/>
+      <xs:element name="serviceCharge" type="xs:double"/>
+      <xs:element name="status" type="xs:int"/>
+      <xs:element minOccurs="0" name="statusDescription" type="xs:string"/>
+      <xs:element name="subscribernotificationSend" type="xs:boolean"/>
+      <xs:element name="txAmount" type="xs:double"/>
+      <xs:element minOccurs="0" name="txType" type="xs:string"/>
+      <xs:element minOccurs="0" name="eZCashRefId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validateOwner">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="rechargedistributorequest" type="tns:ownerValidationRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ownerValidationRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ownerAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="pin" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="validateOwnerResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:ownerValidationResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ownerValidationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="ownerAlias" type="xs:string"/>
+      <xs:element name="status" type="xs:int"/>
+      <xs:element minOccurs="0" name="statusDescription" type="xs:string"/>
+      <xs:element name="valid" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getSubscriberBalance">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="emoneybalancerequest" type="tns:eMoneyBalanceRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eMoneyBalanceRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="subscriberAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="subscriberPin" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getSubscriberBalanceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:eMoneyBalanceResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eMoneyBalanceResponse">
+    <xs:complexContent>
+      <xs:extension base="tns:generalResponse">
+        <xs:sequence>
+          <xs:element name="availableAmount" type="xs:double"/>
+          <xs:element minOccurs="0" name="description" type="xs:string"/>
+          <xs:element minOccurs="0" name="msisdn" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="generalResponse">
+    <xs:sequence>
+      <xs:element name="status" type="xs:int"/>
+      <xs:element minOccurs="0" name="statusDescription" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTransactionStatusViaRequestId">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="requesttransactionstatus" type="tns:requestTransactionStatus"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestTransactionStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ownerAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="ownerPin" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTransactionStatusViaRequestIdResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:transactionResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="submitTransactionRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="agenttransactionrequest" type="tns:agentTransactionRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="agentTransactionRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="accountNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="agentAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="agentPin" type="xs:string"/>
+      <xs:element name="agentnotificationSend" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="channel" type="xs:string"/>
+      <xs:element minOccurs="0" name="domain" type="xs:string"/>
+      <xs:element minOccurs="0" name="refernceMobileNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="requestId" type="xs:string"/>
+      <xs:element minOccurs="0" name="subscriberMobile" type="xs:string"/>
+      <xs:element name="subscribernotificationSend" type="xs:boolean"/>
+      <xs:element name="txAmount" type="xs:double"/>
+      <xs:element minOccurs="0" name="txReference" type="xs:string"/>
+      <xs:element minOccurs="0" name="txType" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="submitTransactionRequestResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:transactionResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="submitInitPinRequiredRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="agenttransactionrequest" type="tns:agentTransactionRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="submitInitPinRequiredRequestResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:transactionResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getUtilityProviderList">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getUtilityProviderListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:utilityProviderListResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="utilityProviderListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element name="status" type="xs:int"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="utilityPrividerList" nillable="true" type="tns:utilityPaymentProvider"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="utilityPaymentProvider">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="providerCode" type="xs:string"/>
+      <xs:element name="providerId" type="xs:long"/>
+      <xs:element minOccurs="0" name="providerName" type="xs:string"/>
+      <xs:element minOccurs="0" name="providerType" type="xs:string"/>
+      <xs:element name="validationMaxLength" type="xs:int"/>
+      <xs:element name="validationMinLength" type="xs:int"/>
+      <xs:element minOccurs="0" name="validationPattern" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="pin">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="pinResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="isWalletAvailable">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="walletAlias" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="isWalletAvailableResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:walletAvailabilityCheckResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="walletAvailabilityCheckResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="availability" type="xs:string"/>
+      <xs:element minOccurs="0" name="errorDescription" type="xs:string"/>
+      <xs:element name="msisdn" type="xs:long"/>
+      <xs:element name="status" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTransactionStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="transactionstatusrequest" type="tns:transactionStatusRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="transactionStatusRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ownerAlias" type="xs:string"/>
+      <xs:element minOccurs="0" name="ownerPin" type="xs:string"/>
+      <xs:element minOccurs="0" name="responseId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getTransactionStatusResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:transactionResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="getDialogProviderList">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="getDialogProviderListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:dialogProviderListResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dialogProviderListResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="description" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="dialogPrividerList" nillable="true" type="tns:dialogPaymentType"/>
+      <xs:element name="status" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="dialogPaymentType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="paymentCode" type="xs:string"/>
+      <xs:element minOccurs="0" name="paymentProviderDomain" type="xs:string"/>
+      <xs:element name="paymentProviderId" type="xs:long"/>
+      <xs:element minOccurs="0" name="paymentProviderName" type="xs:string"/>
+      <xs:element minOccurs="0" name="paymentProviderType" type="xs:string"/>
+      <xs:element minOccurs="0" name="ussdView" type="xs:string"/>
+      <xs:element name="validationMaxLength" type="xs:int"/>
+      <xs:element name="validationMinLength" type="xs:int"/>
+      <xs:element minOccurs="0" name="validationPattern" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Exception" type="tns:Exception"/>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="authenticationRequest" nillable="true" type="tns:authenticationRequest"/>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="walletAdjestment">
+    <wsdl:part element="tns:walletAdjestment" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityProviderList">
+    <wsdl:part element="tns:getUtilityProviderList" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSubscriberBalanceResponse">
+    <wsdl:part element="tns:getSubscriberBalanceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionStatusViaRequestIdResponse">
+    <wsdl:part element="tns:getTransactionStatusViaRequestIdResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionStatus">
+    <wsdl:part element="tns:getTransactionStatus" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionStatusViaRequestId">
+    <wsdl:part element="tns:getTransactionStatusViaRequestId" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pin">
+    <wsdl:part element="tns:pin" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitTransactionRequestResponse">
+    <wsdl:part element="tns:submitTransactionRequestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitInitPinRequiredRequest">
+    <wsdl:part element="tns:submitInitPinRequiredRequest" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitInitPinRequiredRequestResponse">
+    <wsdl:part element="tns:submitInitPinRequiredRequestResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionStatusResponse">
+    <wsdl:part element="tns:getTransactionStatusResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="walletAdjestmentResponse">
+    <wsdl:part element="tns:walletAdjestmentResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isWalletAvailableResponse">
+    <wsdl:part element="tns:isWalletAvailableResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getSubscriberBalance">
+    <wsdl:part element="tns:getSubscriberBalance" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="submitTransactionRequest">
+    <wsdl:part element="tns:submitTransactionRequest" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDialogProviderListResponse">
+    <wsdl:part element="tns:getDialogProviderListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validateOwner">
+    <wsdl:part element="tns:validateOwner" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validateOwnerResponse">
+    <wsdl:part element="tns:validateOwnerResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDialogProviderList">
+    <wsdl:part element="tns:getDialogProviderList" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="isWalletAvailable">
+    <wsdl:part element="tns:isWalletAvailable" name="parameters">
+    </wsdl:part>
+    <wsdl:part element="tns:authenticationRequest" name="authenticationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pinResponse">
+    <wsdl:part element="tns:pinResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityProviderListResponse">
+    <wsdl:part element="tns:getUtilityProviderListResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EzcashAgentTransactions">
+    <wsdl:operation name="walletAdjestment">
+      <wsdl:input message="tns:walletAdjestment" name="walletAdjestment">
+    </wsdl:input>
+      <wsdl:output message="tns:walletAdjestmentResponse" name="walletAdjestmentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateOwner">
+      <wsdl:input message="tns:validateOwner" name="validateOwner">
+    </wsdl:input>
+      <wsdl:output message="tns:validateOwnerResponse" name="validateOwnerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSubscriberBalance">
+      <wsdl:input message="tns:getSubscriberBalance" name="getSubscriberBalance">
+    </wsdl:input>
+      <wsdl:output message="tns:getSubscriberBalanceResponse" name="getSubscriberBalanceResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionStatusViaRequestId">
+      <wsdl:input message="tns:getTransactionStatusViaRequestId" name="getTransactionStatusViaRequestId">
+    </wsdl:input>
+      <wsdl:output message="tns:getTransactionStatusViaRequestIdResponse" name="getTransactionStatusViaRequestIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitTransactionRequest">
+      <wsdl:input message="tns:submitTransactionRequest" name="submitTransactionRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:submitTransactionRequestResponse" name="submitTransactionRequestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitInitPinRequiredRequest">
+      <wsdl:input message="tns:submitInitPinRequiredRequest" name="submitInitPinRequiredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:submitInitPinRequiredRequestResponse" name="submitInitPinRequiredRequestResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityProviderList">
+      <wsdl:input message="tns:getUtilityProviderList" name="getUtilityProviderList">
+    </wsdl:input>
+      <wsdl:output message="tns:getUtilityProviderListResponse" name="getUtilityProviderListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pin">
+      <wsdl:input message="tns:pin" name="pin">
+    </wsdl:input>
+      <wsdl:output message="tns:pinResponse" name="pinResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isWalletAvailable">
+      <wsdl:input message="tns:isWalletAvailable" name="isWalletAvailable">
+    </wsdl:input>
+      <wsdl:output message="tns:isWalletAvailableResponse" name="isWalletAvailableResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionStatus">
+      <wsdl:input message="tns:getTransactionStatus" name="getTransactionStatus">
+    </wsdl:input>
+      <wsdl:output message="tns:getTransactionStatusResponse" name="getTransactionStatusResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDialogProviderList">
+      <wsdl:input message="tns:getDialogProviderList" name="getDialogProviderList">
+    </wsdl:input>
+      <wsdl:output message="tns:getDialogProviderListResponse" name="getDialogProviderListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EzcashAgentTransactionsImplServiceSoapBinding" type="tns:EzcashAgentTransactions">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="walletAdjestment">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="walletAdjestment">
+        <soap:header message="tns:walletAdjestment" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="walletAdjestmentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getSubscriberBalance">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getSubscriberBalance">
+        <soap:header message="tns:getSubscriberBalance" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getSubscriberBalanceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validateOwner">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="validateOwner">
+        <soap:header message="tns:validateOwner" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="validateOwnerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionStatusViaRequestId">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getTransactionStatusViaRequestId">
+        <soap:header message="tns:getTransactionStatusViaRequestId" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTransactionStatusViaRequestIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitTransactionRequest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="submitTransactionRequest">
+        <soap:header message="tns:submitTransactionRequest" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitTransactionRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="submitInitPinRequiredRequest">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="submitInitPinRequiredRequest">
+        <soap:header message="tns:submitInitPinRequiredRequest" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="submitInitPinRequiredRequestResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityProviderList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getUtilityProviderList">
+        <soap:header message="tns:getUtilityProviderList" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getUtilityProviderListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pin">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="pin">
+        <soap:header message="tns:pin" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pinResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="isWalletAvailable">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="isWalletAvailable">
+        <soap:header message="tns:isWalletAvailable" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="isWalletAvailableResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionStatus">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getTransactionStatus">
+        <soap:header message="tns:getTransactionStatus" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getTransactionStatusResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDialogProviderList">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getDialogProviderList">
+        <soap:header message="tns:getDialogProviderList" part="authenticationRequest" use="literal">
+        </soap:header>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDialogProviderListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EzcashAgentTransactionsImplService">
+    <wsdl:port binding="tns:EzcashAgentTransactionsImplServiceSoapBinding" name="EzcashAgentTransactionsImplPort">
+      <soap:address location="https://172.26.132.204/PaymentModuletransaction/ezcashagentservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
