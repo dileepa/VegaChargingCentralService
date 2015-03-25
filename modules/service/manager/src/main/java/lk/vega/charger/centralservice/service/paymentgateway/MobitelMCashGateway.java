@@ -9,8 +9,10 @@ public class MobitelMCashGateway implements PaymentGateWay
 {
 
 
-    @Override public ChgResponse connect() throws Exception
-    {
+
+
+    @Override
+    public ChgResponse connect(PaymentDetail paymentDetail) throws Exception {
         return null;
     }
 

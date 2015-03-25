@@ -80,7 +80,7 @@ public class PaymentGateWayFactory
         ChgResponse returnResponse = new ChgResponse();
         try
         {
-            connectResponse = paymentGateWay.connect();
+            connectResponse = paymentGateWay.connect(paymentDetail);
             if( connectResponse.isSuccess() )
             {
                 validatePaymentResponse = paymentGateWay.validatePayment( paymentDetail );

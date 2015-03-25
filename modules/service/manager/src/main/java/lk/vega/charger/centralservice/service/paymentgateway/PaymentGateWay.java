@@ -16,7 +16,7 @@ public interface PaymentGateWay
     6. if u got error need to rollback it - rollbackPayment
      */
 
-    public ChgResponse connect() throws Exception;
+    public ChgResponse connect(PaymentDetail paymentDetail) throws Exception;
 
     public ChgResponse rollbackPayment( PaymentDetail paymentDetail ) throws Exception;
 

@@ -7,8 +7,10 @@ import lk.vega.charger.util.ChgResponse;
  */
 public class DummyPaymentGateWay implements PaymentGateWay
 {
-    @Override public ChgResponse connect() throws Exception
-    {
+
+
+    @Override
+    public ChgResponse connect(PaymentDetail paymentDetail) throws Exception {
         ChgResponse chgResponse = new ChgResponse( ChgResponse.SUCCESS, "Successfully Connected." );
         return chgResponse;
     }
