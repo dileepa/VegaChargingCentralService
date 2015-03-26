@@ -1,9 +1,20 @@
 package lk.vega.charger.centralservice.service.paymentgateway;
 
-import lk.dialog.ezcash.payment.service.*;
+import lk.dialog.ezcash.payment.service.AgentTransactionRequest;
+import lk.dialog.ezcash.payment.service.AuthenticationRequest;
+import lk.dialog.ezcash.payment.service.EzcashAgentTransactions;
+import lk.dialog.ezcash.payment.service.EzcashAgentTransactionsImplService;
+import lk.dialog.ezcash.payment.service.GetTransactionStatusViaRequestId;
+import lk.dialog.ezcash.payment.service.GetTransactionStatusViaRequestIdResponse;
+import lk.dialog.ezcash.payment.service.RequestTransactionStatus;
+import lk.dialog.ezcash.payment.service.SubmitTransactionRequest;
+import lk.dialog.ezcash.payment.service.SubmitTransactionRequestResponse;
 import lk.vega.charger.util.ChgResponse;
 
-import java.lang.Exception;
+import javax.xml.namespace.QName;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +45,17 @@ public class DialogEasyCashGateway implements PaymentGateWay
 
     @Override
     public ChgResponse connect(PaymentDetail paymentDetail) throws Exception {
-        EzcashAgentTransactionsImplService serviceLocator = new EzcashAgentTransactionsImplService();
+        URL urlWsdl;
+        try
+        {
+            urlWsdl = new URL( EZ_CASH_AGENT_TRANSACTIONS_SERVICE );
+        }
+        catch( MalformedURLException e )
+        {
+            throw new ConnectException( "Error in creating service URL", e );
+        }
+        QName qName = new QName("http://service.payment.ezcash.dialog.lk/", "EzcashAgentTransactionsImplService");
+        EzcashAgentTransactionsImplService serviceLocator = new EzcashAgentTransactionsImplService(urlWsdl, qName);
         EzcashAgentTransactions service = serviceLocator.getEzcashAgentTransactionsImplPort();
         ChgResponse chgResponse = new ChgResponse();
         paymentDetail.setService(service);
