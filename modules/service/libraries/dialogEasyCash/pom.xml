@@ -95,9 +95,12 @@
                         </goals>
                         <configuration>
                             <wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
+                            <!--<wsdlUrls>-->
+                                <!--<wsdlUrl>https://172.26.132.204/PaymentModule/ezcashagentservice?wsdl</wsdlUrl>-->
+                            <!--</wsdlUrls>-->
                             <!--<packageName>lk.vega.charger.centralservice.service</packageName>-->
                             <keep>true</keep>
-                            <extension>true</extension>
+                            <!--<extension>true</extension>-->
                             <sourceDestDir>${basedir}/target/src/main/java</sourceDestDir>
                         </configuration>
                     </execution>

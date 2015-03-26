@@ -27,7 +27,7 @@ public class TransactionStoppedState implements TransactionState
         inProgressChargeTransaction.setStatus( Savable.MODIFIED );
         inProgressChargeTransaction.setEndTime( new ChgTimeStamp() );
         inProgressChargeTransaction.setMeterEnd( stopTransactionRequest.getMeterStop() );
-        inProgressChargeTransaction.setFinalAmount( 0.0d );
+        inProgressChargeTransaction.setFinalAmount( 50.0d );   //TODO final amount and energy consumption calculation.
         inProgressChargeTransaction.setEnergyConsumption( 0.0d );
 
         ChgResponse res = null;

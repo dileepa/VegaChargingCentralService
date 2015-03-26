@@ -8,6 +8,7 @@ import lk.dialog.ezcash.payment.service.GetTransactionStatusViaRequestIdResponse
 import lk.dialog.ezcash.payment.service.RequestTransactionStatus;
 import lk.dialog.ezcash.payment.service.SubmitTransactionRequest;
 import lk.dialog.ezcash.payment.service.SubmitTransactionRequestResponse;
+import lk.dialog.ezcash.payment.service.TransactionResponse;
 import lk.vega.charger.util.ChgResponse;
 
 import javax.net.ssl.HostnameVerifier;
@@ -17,6 +18,8 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.handler.Handler;
 import javax.xml.ws.spi.Provider;
 import javax.xml.ws.spi.ServiceDelegate;
 import java.net.MalformedURLException;
@@ -26,6 +29,7 @@ import java.rmi.RemoteException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,10 +55,10 @@ public class DialogEasyCashGateway implements PaymentGateWay
     private static final String PAYMENT_VOUCHER = "TX_ACWT";
     private static final String CHANNEL = "WEB";
 
-    static
-    {
-        disableSslVerification();
-    }
+//    static
+//    {
+//        disableSslVerification();
+//    }
 
     private static void disableSslVerification()
     {
@@ -107,6 +111,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
     @Override
     public ChgResponse connect( PaymentDetail paymentDetail ) throws Exception
     {
+        disableSslVerification();
         URL urlWsdl;
         try
         {
@@ -124,6 +129,9 @@ public class DialogEasyCashGateway implements PaymentGateWay
         ChgResponse chgResponse = new ChgResponse();
         paymentDetail.setService( ezcashAgentTransactions );
         chgResponse.setReturnData( paymentDetail );
+        List<Handler> handlerChain = ( (BindingProvider) ezcashAgentTransactions ).getBinding().getHandlerChain();
+        handlerChain.add( new SOAPLoggingHandler() );
+        ( (BindingProvider) ezcashAgentTransactions ).getBinding().setHandlerChain( handlerChain );
 
         if( ezcashAgentTransactions != null )
         {
@@ -193,7 +201,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
             request.setAgentnotificationSend( true );
             request.setChannel( CHANNEL );
             request.setRequestId( paymentDetail.getAuthenticationKey() );
-            request.setSubscriberMobile( phoneNum );
+            request.setSubscriberMobile( phoneNum.substring( 1 ) );
             request.setSubscribernotificationSend( false );
             request.setTxAmount( Double.valueOf( initialAmount ) );
             request.setTxType( "TX_AOTC" );
@@ -212,6 +220,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
 
 
                 int transactionConfirmation = 0;
+                TransactionResponse transactionResponse = null;
 
                 try
                 {
@@ -223,7 +232,8 @@ public class DialogEasyCashGateway implements PaymentGateWay
                 }
                 try
                 {
-                    transactionConfirmation = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                    transactionResponse = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                    transactionConfirmation = transactionResponse.getStatus();
                 }
                 catch( RemoteException ex )
                 {
@@ -237,6 +247,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
                 if( transactionConfirmation == 5 )
                 {
                     chgResponse.setNo( ChgResponse.SUCCESS );
+                    chgResponse.setReturnData( transactionResponse.getEZCashRefId() );
                     chgResponse.setMsg( "Payment Commited Successfully" );
                 }
                 else
@@ -251,7 +262,8 @@ public class DialogEasyCashGateway implements PaymentGateWay
                     }
                     try
                     {
-                        transactionConfirmation = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                        transactionResponse = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                        transactionConfirmation = transactionResponse.getStatus();
                     }
                     catch( RemoteException ex )
                     {
@@ -265,6 +277,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
                     if( transactionConfirmation == 5 )
                     {
                         chgResponse.setNo( ChgResponse.SUCCESS );
+                        chgResponse.setReturnData( transactionResponse.getEZCashRefId() );
                         chgResponse.setMsg( "Payment Commited Successfully" );
                     }
                     else
@@ -279,7 +292,8 @@ public class DialogEasyCashGateway implements PaymentGateWay
                         }
                         try
                         {
-                            transactionConfirmation = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                            transactionResponse = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                            transactionConfirmation = transactionResponse.getStatus();
                         }
                         catch( RemoteException ex )
                         {
@@ -294,6 +308,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
                         if( transactionConfirmation == 5 )
                         {
                             chgResponse.setNo( ChgResponse.SUCCESS );
+                            chgResponse.setReturnData( transactionResponse.getEZCashRefId() );
                             chgResponse.setMsg( "Payment Commited Successfully" );
                         }
                         else
@@ -380,7 +395,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
         return PaymentGateWayFactory.DIALOG;
     }
 
-    public static int getTransactionConfirmation( PaymentDetail paymentDetail, AuthenticationRequest authenticationRequest ) throws RemoteException
+    public static TransactionResponse getTransactionConfirmation( PaymentDetail paymentDetail, AuthenticationRequest authenticationRequest ) throws RemoteException
     {
         EzcashAgentTransactions service = paymentDetail.getService();
         RequestTransactionStatus requestTransactionStatus = new RequestTransactionStatus();
@@ -391,7 +406,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
         GetTransactionStatusViaRequestId transactionStatusViaRequestId = new GetTransactionStatusViaRequestId();
         transactionStatusViaRequestId.setRequesttransactionstatus( requestTransactionStatus );
         GetTransactionStatusViaRequestIdResponse transactionStatusViaRequestIdResponse = service.getTransactionStatusViaRequestId( transactionStatusViaRequestId, authenticationRequest );
-        return transactionStatusViaRequestIdResponse.getReturn().getStatus();
+        return transactionStatusViaRequestIdResponse.getReturn();
     }
 
     public static void main( String[] args )

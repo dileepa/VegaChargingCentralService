@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.service.paymentgateway;
 
+import lk.vega.charger.centralservice.service.transaction.TransactionController;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 import ocpp.cs._2012._06.AuthorizeRequest;
@@ -10,6 +11,7 @@ import ocpp.cs._2012._06.AuthorizeRequest;
 public class PaymentGateWayFactory
 {
     public static final String DIALOG_UNIQUE_KEY = "077";
+    public static final String DIALOG_UNIQUE_KEY_1 = "076";
     public static final String MOBITEL_UNIQUE_KEY = "071";
     public static final String DIALOG = "DIALOG";
     public static final String MOBITEL = "MOBITEL";
@@ -28,6 +30,14 @@ public class PaymentGateWayFactory
         PaymentDetail paymentDetail = new PaymentDetail();
         paymentDetail.init();
         paymentDetail.setTransactionKey( parameters.getPaymentGateWayType() );
+        StringBuilder newAuthKey = new StringBuilder(  );
+        String phoneAmountArray [] = TransactionController.phoneNumAmountAndDateSeparator( parameters.getAuthenticationKey() );
+        newAuthKey.append( phoneAmountArray[0] );
+        newAuthKey.append( TransactionController.TRS_AUTH_KEY_SPLITTER );
+        newAuthKey.append( parameters.getFinalAmount() );
+        newAuthKey.append( TransactionController.TRS_AUTH_KEY_SPLITTER );
+        newAuthKey.append( parameters.getTransactionId() );
+        paymentDetail.setAuthenticationKey( newAuthKey.toString() );
         return paymentDetail;
     }
 
@@ -36,7 +46,7 @@ public class PaymentGateWayFactory
         PaymentGateWay paymentGateWay = null;
         String authKey = paymentDetail.getAuthenticationKey();
         boolean validAuthKey = authKey != null && authKey.length() != 0;
-        if( ( validAuthKey && authKey.startsWith( DIALOG_UNIQUE_KEY ) ) || DIALOG.equals( paymentDetail.getTransactionKey() ) )
+        if( ( validAuthKey && (authKey.startsWith( DIALOG_UNIQUE_KEY )||authKey.startsWith( DIALOG_UNIQUE_KEY_1 )) ) || DIALOG.equals( paymentDetail.getTransactionKey() ) )
         {
             paymentGateWay = new DialogEasyCashGateway();
         }
@@ -55,7 +65,7 @@ public class PaymentGateWayFactory
     public static String selectPaymentGateWayType( String authKey )
     {
         String paymentGateWayType = "";
-        if( authKey.startsWith( DIALOG_UNIQUE_KEY ) )
+        if( authKey.startsWith( DIALOG_UNIQUE_KEY ) || authKey.startsWith( DIALOG_UNIQUE_KEY_1 ) )
         {
             paymentGateWayType = DIALOG;
         }
