@@ -4,7 +4,11 @@ import lk.dialog.ezcash.payment.service.*;
 import lk.vega.charger.util.ChgResponse;
 
 import java.lang.Exception;
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import static java.lang.Thread.sleep;
 import static lk.vega.charger.centralservice.service.transaction.TransactionController.phoneNumAmountAndDateSeparator;
 
 
@@ -114,8 +118,70 @@ public class DialogEasyCashGateway implements PaymentGateWay
             SubmitTransactionRequestResponse response = service.submitTransactionRequest(transactionRequest, authenticationRequest);
 
             if (response != null && response.getReturn() != null && response.getReturn().getStatus() == 62) {
-                chgResponse.setNo(ChgResponse.SUCCESS);
-                chgResponse.setMsg("Payment Commited Successfully");
+
+
+                int transactionConfirmation = 0;
+
+                try {
+                    sleep(10000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    transactionConfirmation = getTransactionConfirmation( paymentDetail,authenticationRequest);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                }catch (Exception ex) {
+                    Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if(transactionConfirmation==5){
+                    chgResponse.setNo(ChgResponse.SUCCESS);
+                    chgResponse.setMsg("Payment Commited Successfully");
+                }
+                else {
+                    try {
+                        sleep(10000);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        transactionConfirmation = getTransactionConfirmation( paymentDetail,authenticationRequest);
+                    } catch (RemoteException  ex) {
+                        Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                    }catch (Exception ex) {
+                        Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    if (transactionConfirmation == 5) {
+                        chgResponse.setNo(ChgResponse.SUCCESS);
+                        chgResponse.setMsg("Payment Commited Successfully");
+                    } else {
+                        try {
+                            sleep(10000);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        try {
+                            transactionConfirmation = getTransactionConfirmation( paymentDetail,authenticationRequest);
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                        }catch (Exception ex) {
+                            Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+
+                        if (transactionConfirmation == 5) {
+                            chgResponse.setNo(ChgResponse.SUCCESS);
+                            chgResponse.setMsg("Payment Commited Successfully");
+                        } else {
+                            chgResponse.setNo(ChgResponse.ERROR);
+                            chgResponse.setMsg("Invalidate Payment");
+                        }
+                    }
+                }
+
+
             }
             else{
                 chgResponse.setNo(ChgResponse.ERROR);
@@ -181,6 +247,19 @@ public class DialogEasyCashGateway implements PaymentGateWay
     @Override public String getPaymentGateWayType()
     {
         return PaymentGateWayFactory.DIALOG;
+    }
+
+    public static int getTransactionConfirmation(PaymentDetail paymentDetail ,  AuthenticationRequest authenticationRequest) throws RemoteException{
+        EzcashAgentTransactions service =paymentDetail.getService();
+        RequestTransactionStatus requestTransactionStatus = new RequestTransactionStatus();
+        requestTransactionStatus.setOwnerAlias("VEGA_AGENT");
+        requestTransactionStatus.setOwnerPin("1234");
+        requestTransactionStatus.setRequestId(paymentDetail.getAuthenticationKey());
+
+        GetTransactionStatusViaRequestId transactionStatusViaRequestId = new GetTransactionStatusViaRequestId();
+        transactionStatusViaRequestId.setRequesttransactionstatus(requestTransactionStatus);
+        GetTransactionStatusViaRequestIdResponse transactionStatusViaRequestIdResponse = service.getTransactionStatusViaRequestId(transactionStatusViaRequestId, authenticationRequest);
+        return transactionStatusViaRequestIdResponse.getReturn().getStatus();
     }
 
 }
