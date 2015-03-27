@@ -63,7 +63,7 @@ public class VegaChargingCentralManager implements CentralSystemService
      * @param parameters
      * @return id  phonenum#intialamount#timestamp%crossReference
      */
-    @WebMethod (action = "/Authorize")
+    @WebMethod (operationName = "Authorize",action = "/Authorize")
     @Override
     public AuthorizeResponse authorize( @WebParam(name = "authorizeRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") AuthorizeRequest parameters )
     {
@@ -136,7 +136,7 @@ public class VegaChargingCentralManager implements CentralSystemService
      * @param parameters
      * @return id  trsID
      */
-    @WebMethod (action = "/StartTransaction")
+    @WebMethod (operationName = "StartTransaction",action = "/StartTransaction")
     @Override
     public StartTransactionResponse startTransaction( @WebParam(name = "startTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StartTransactionRequest parameters )
     {
@@ -170,7 +170,7 @@ public class VegaChargingCentralManager implements CentralSystemService
      * @param parameters
      * @return id  trsID%newCrossRef
      */
-    @WebMethod (action = "/StopTransaction")
+    @WebMethod (operationName = "StopTransaction",action = "/StopTransaction")
     @Override
     public StopTransactionResponse stopTransaction( @WebParam(name = "stopTransactionRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StopTransactionRequest parameters )
     {
@@ -216,49 +216,49 @@ public class VegaChargingCentralManager implements CentralSystemService
         return stopTransactionResponse;
     }
 
-    @WebMethod (action = "/Heartbeat")
+    @WebMethod (operationName = "Heartbeat",action = "/Heartbeat")
     @Override
     public HeartbeatResponse heartbeat( @WebParam(name = "heartbeatRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") HeartbeatRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @WebMethod (action = "/MeterValues")
+    @WebMethod (operationName = "MeterValues",action = "/MeterValues")
     @Override
     public MeterValuesResponse meterValues( @WebParam(name = "meterValuesRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") MeterValuesRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @WebMethod (action = "/BootNotification")
+    @WebMethod (operationName = "BootNotification",action = "/BootNotification")
     @Override
     public BootNotificationResponse bootNotification( @WebParam(name = "bootNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") BootNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @WebMethod (action = "/StatusNotification")
+    @WebMethod (operationName = "StatusNotification",action = "/StatusNotification")
     @Override
     public StatusNotificationResponse statusNotification( @WebParam(name = "statusNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") StatusNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @WebMethod (action = "/FirmwareStatusNotification")
+    @WebMethod (operationName = "FirmwareStatusNotification",action = "/FirmwareStatusNotification")
     @Override
     public FirmwareStatusNotificationResponse firmwareStatusNotification( @WebParam(name = "firmwareStatusNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") FirmwareStatusNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @WebMethod (action = "/DiagnosticsStatusNotification")
+    @WebMethod (operationName = "DiagnosticsStatusNotification",action = "/DiagnosticsStatusNotification")
     @Override
     public DiagnosticsStatusNotificationResponse diagnosticsStatusNotification( @WebParam(name = "diagnosticsStatusNotificationRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") DiagnosticsStatusNotificationRequest parameters )
     {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @WebMethod (action = "/DataTransfer")
+    @WebMethod (operationName = "DataTransfer",action = "/DataTransfer")
     @Override
     public DataTransferResponse dataTransfer( @WebParam(name = "dataTransferRequest", targetNamespace = "urn://Ocpp/Cs/2012/06/", partName = "parameters") DataTransferRequest parameters )
     {

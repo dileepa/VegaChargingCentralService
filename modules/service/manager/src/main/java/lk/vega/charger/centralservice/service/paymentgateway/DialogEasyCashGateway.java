@@ -348,7 +348,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
 
             String authenticationKey = paymentDetail.getAuthenticationKey();
             String phoneAmountTimeArray[] = phoneNumAmountAndDateSeparator( authenticationKey );
-            String phoneNum = phoneAmountTimeArray[0];
+            String phoneNum = phoneAmountTimeArray[0].substring( 1 );
             String initialAmount = phoneAmountTimeArray[1];
 
             request.setAgentAlias( "VEGA_AGENT" );
@@ -358,7 +358,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
             request.setRequestId( paymentDetail.getAuthenticationKey() );
             request.setSubscriberMobile( phoneNum );
             request.setSubscribernotificationSend( true );
-            request.setTxAmount( Double.valueOf( initialAmount ) );
+            request.setTxAmount( 50.0 );   //TODO load final value from chargingTransaction object.
             request.setTxType( "TX_ACWT" );
             request.setAgentnotificationSend( false );
 
@@ -370,10 +370,11 @@ public class DialogEasyCashGateway implements PaymentGateWay
             transactionRequest.setAgenttransactionrequest( request );
             SubmitTransactionRequestResponse response = service.submitTransactionRequest( transactionRequest, authenticationRequest );
 
-            if( response != null && response.getReturn() != null && response.getReturn().getStatus() == 62 )
+            if( response != null && response.getReturn() != null && response.getReturn().getStatus() == 5 )
             {
                 chgResponse.setNo( ChgResponse.SUCCESS );
                 chgResponse.setMsg( "Payment Commited Successfully" );
+                chgResponse.setReturnData( response.getReturn().getEZCashRefId() );
             }
             else
             {

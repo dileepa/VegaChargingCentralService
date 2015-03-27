@@ -127,4 +127,51 @@ public class PaymentGateWayFactory
         }
         return returnResponse;
     }
+
+    public static ChgResponse refundPayment( PaymentDetail paymentDetail, PaymentGateWay paymentGateWay )
+    {
+        ChgResponse connectResponse = null;
+        ChgResponse validatePaymentResponse = null;
+        ChgResponse validatePaymentWithHoldResponse = null;
+        ChgResponse refundRes = null;
+        ChgResponse returnResponse = new ChgResponse();
+        try
+        {
+            connectResponse = paymentGateWay.connect(paymentDetail);
+            if( connectResponse.isSuccess() )
+            {
+                validatePaymentResponse = paymentGateWay.validatePayment( paymentDetail );
+                if( validatePaymentResponse.isSuccess() )
+                {
+                    validatePaymentWithHoldResponse = paymentGateWay.validatePaymentWithHold( paymentDetail );
+                    if( validatePaymentWithHoldResponse.isSuccess() )
+                    {
+                        refundRes = paymentGateWay.refundPayment( paymentDetail );
+                        if( refundRes.isError() )
+                        {
+                            returnResponse = paymentGateWay.rollbackPayment( paymentDetail );
+                        }
+                        returnResponse = refundRes;
+                    }
+                    else
+                    {
+                        returnResponse = validatePaymentWithHoldResponse;
+                    }
+                }
+                else
+                {
+                    returnResponse = validatePaymentResponse;
+                }
+            }
+            else
+            {
+                returnResponse = connectResponse;
+            }
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+        return returnResponse;
+    }
 }

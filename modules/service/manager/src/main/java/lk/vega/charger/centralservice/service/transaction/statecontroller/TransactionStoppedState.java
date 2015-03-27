@@ -27,7 +27,7 @@ public class TransactionStoppedState implements TransactionState
         inProgressChargeTransaction.setStatus( Savable.MODIFIED );
         inProgressChargeTransaction.setEndTime( new ChgTimeStamp() );
         inProgressChargeTransaction.setMeterEnd( stopTransactionRequest.getMeterStop() );
-        inProgressChargeTransaction.setFinalAmount( 50.0d );   //TODO final amount and energy consumption calculation.
+        inProgressChargeTransaction.setFinalAmount( 25.0d );   //TODO final amount and energy consumption calculation.
         inProgressChargeTransaction.setEnergyConsumption( 0.0d );
 
         ChgResponse res = null;
@@ -35,11 +35,11 @@ public class TransactionStoppedState implements TransactionState
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay(paymentDetail);
         if( paymentGateWay != null )
         {
-            res = PaymentGateWayFactory.doPayment( paymentDetail, paymentGateWay );
+            res = PaymentGateWayFactory.refundPayment( paymentDetail, paymentGateWay );
         }
         if (res.isSuccess())
         {
-            inProgressChargeTransaction.setCrossReference( "NEW_CROSS_REF" );//TODO add to new cross ref
+            inProgressChargeTransaction.setCrossReference( (String)res.getReturnData() );
             res = CoreController.save( inProgressChargeTransaction );
         }
 
