@@ -13,5 +13,6 @@
     <modules>
         <module>core</module>
         <module>manager</module>
+        <module>libraries/dialogEasyCash</module>
     </modules>
 </project>
