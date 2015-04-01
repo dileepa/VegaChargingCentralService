@@ -166,7 +166,8 @@ public class VegaChargingCentralManager implements CentralSystemService
 
     /**
      * in this request, authorizeKey has particular format
-     * phonenum#intialamount#timestamp%crossRef
+     * mandatory - trsID
+     * optional - phonenum#intialamount#timestamp%crossRef
      * @param parameters
      * @return id  trsID%newCrossRef
      */
