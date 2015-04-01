@@ -88,7 +88,15 @@ public class TransactionController
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
             ps = con.prepareStatement( sb.toString() );
             ps.setString( 1, state );
-            ps.setString( 2, transactionIdNotExist ? authorizeKey : transactionId );
+            if( transactionIdNotExist )
+            {
+                ps.setString( 2, authorizeKey );
+            }
+            else
+            {
+                ps.setInt( 2, Integer.parseInt( transactionId ) );
+            }
+//            ps.setString( 2, transactionIdNotExist ? authorizeKey : transactionId );
             rs = ps.executeQuery();
             if (rs.next())
             {
