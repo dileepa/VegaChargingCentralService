@@ -49,7 +49,8 @@ public class TransactionController
         paymentDetail.setAuthenticationKey( authenticationKey );
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay( paymentDetail );
 
-        int transactionId = generateTransactionID( new ChgTimeStamp(  ), phoneNum );
+//        int transactionId = generateTransactionID( new ChgTimeStamp(  ), phoneNum );
+        int transactionId = generateTransactionID( new ChgTimeStamp(  ) );
 
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
@@ -176,16 +177,41 @@ public class TransactionController
      *final -> 150840345
      * @return transactionID = uniqueDateKey
      */
-    private static int generateTransactionID(ChgTimeStamp chgTimeStamp, String phoneNum)
-    {
+//    private static int generateTransactionID(ChgTimeStamp chgTimeStamp, String phoneNum)
+//    {
 //        int phoneNumInt = Integer.parseInt( phoneNum );
 //        System.out.println(phoneNumInt);
-        int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int)Math.pow( 10,7 );
-        int modifyDayValue =  chgTimeStamp.getDayOfYear() * (int)Math.pow( 10,4 );
-        int modifyTimeValue = chgTimeStamp._getTimeValue();
-        int uniqueKeyFromDate = modifyYearValue + modifyDayValue + modifyTimeValue;
-        System.out.println(uniqueKeyFromDate);
-        return  uniqueKeyFromDate ;//+ phoneNumInt;
+//        int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int)Math.pow( 10,7 );
+//        int modifyDayValue =  chgTimeStamp.getDayOfYear() * (int)Math.pow( 10,4 );
+//        int modifyTimeValue = chgTimeStamp._getTimeValue();
+//        int uniqueKeyFromDate = modifyYearValue + modifyDayValue + modifyTimeValue;
+//        System.out.println(uniqueKeyFromDate);
+//        return  uniqueKeyFromDate + phoneNumInt;
+//    }
+
+    /**
+     *
+     * @param chgTimeStamp
+     * PhoneNum - Integer Value of phone Number
+     * yearVal - ex : year is 2015 last 2 digits of year(15*pow(10,7) -> 150000000)
+     * dayVal - ex : mar 22 -> 84 (day num of year max 366) -> 84*pow(10,4) -> 840000
+     * final unique key- yearVal+ dayVal
+     * 150000000
+     *    840000
+     *final -> 150840000
+     * @return transactionID = uniqueDateKey + TRS_ID_COUNTER_PER_DAY
+     */
+    private static int generateTransactionID( ChgTimeStamp chgTimeStamp )
+    {
+        TRS_ID_COUNTER_PER_DAY++;
+        if( TRS_ID_COUNTER_PER_DAY > MAXIMUM_TRS_ID_COUNTER )
+        {
+            TRS_ID_COUNTER_PER_DAY = 1;
+        }
+        int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int) Math.pow( 10, 7 );
+        int modifyDayValue = chgTimeStamp.getDayOfYear() * (int) Math.pow( 10, 4 );
+        int uniqueKeyFromDate = modifyYearValue + modifyDayValue;
+        return uniqueKeyFromDate + TRS_ID_COUNTER_PER_DAY;
     }
 
 }
