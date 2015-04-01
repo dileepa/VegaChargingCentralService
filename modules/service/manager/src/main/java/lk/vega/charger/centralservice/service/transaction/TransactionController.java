@@ -27,6 +27,8 @@ public class TransactionController
     public static final String TRS_NEW= "NEW_ONE";
     public static final String TRS_CROSS_REF_SPLITTER= "%";
     public static final String TRS_AUTH_KEY_SPLITTER = "#";
+    private static int TRS_ID_COUNTER_PER_DAY = 0;
+    private static int MAXIMUM_TRS_ID_COUNTER = 9999;
 
     /**
      * id tag format - phonenum#intialamount#timestamp%crossReference
@@ -172,18 +174,18 @@ public class TransactionController
      *    840000
      *      0345
      *final -> 150840345
-     * @return transactionID = uniqueDateKey + PhoneNum
+     * @return transactionID = uniqueDateKey
      */
     private static int generateTransactionID(ChgTimeStamp chgTimeStamp, String phoneNum)
     {
-        int phoneNumInt = Integer.parseInt( phoneNum );
-        System.out.println(phoneNumInt);
+//        int phoneNumInt = Integer.parseInt( phoneNum );
+//        System.out.println(phoneNumInt);
         int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int)Math.pow( 10,7 );
         int modifyDayValue =  chgTimeStamp.getDayOfYear() * (int)Math.pow( 10,4 );
         int modifyTimeValue = chgTimeStamp._getTimeValue();
         int uniqueKeyFromDate = modifyYearValue + modifyDayValue + modifyTimeValue;
         System.out.println(uniqueKeyFromDate);
-        return  uniqueKeyFromDate + phoneNumInt;
+        return  uniqueKeyFromDate ;//+ phoneNumInt;
     }
 
 }
