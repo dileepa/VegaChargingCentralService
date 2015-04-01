@@ -54,6 +54,9 @@ public class DialogEasyCashGateway implements PaymentGateWay
     private static final String PAYMENT_MERCHANT = "TX_COTC";
     private static final String PAYMENT_VOUCHER = "TX_ACWT";
     private static final String CHANNEL = "WEB";
+    private static final String AGENTID = "VEGA_AGENT";
+    private static final String AGENTPIN = "1234";
+    public static final int STATUS_CODE_TX_ACCEPTED = 62;
 
 //    static
 //    {
@@ -196,8 +199,8 @@ public class DialogEasyCashGateway implements PaymentGateWay
             String phoneNum = phoneAmountTimeArray[0];
             String initialAmount = phoneAmountTimeArray[1];
 
-            request.setAgentAlias( "VEGA_AGENT" );
-            request.setAgentPin( "1234" );
+            request.setAgentAlias(AGENTID);
+            request.setAgentPin( AGENTPIN);
             request.setAgentnotificationSend( true );
             request.setChannel( CHANNEL );
             request.setRequestId( paymentDetail.getAuthenticationKey() );
@@ -215,111 +218,35 @@ public class DialogEasyCashGateway implements PaymentGateWay
             transactionRequest.setAgenttransactionrequest( request );
             SubmitTransactionRequestResponse response = service.submitTransactionRequest( transactionRequest, authenticationRequest );
 
-            if( response != null && response.getReturn() != null && response.getReturn().getStatus() == 62 )
+            if( response != null && response.getReturn() != null && response.getReturn().getStatus() == STATUS_CODE_TX_ACCEPTED )
             {
-
-
                 int transactionConfirmation = 0;
                 TransactionResponse transactionResponse = null;
 
-                try
-                {
-                    sleep( 10000 );
-                }
-                catch( InterruptedException ex )
-                {
-                    Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                }
-                try
-                {
-                    transactionResponse = getTransactionConfirmation( paymentDetail, authenticationRequest );
-                    transactionConfirmation = transactionResponse.getStatus();
-                }
-                catch( RemoteException ex )
-                {
-                    Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                }
-                catch( Exception ex )
-                {
-                    Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                }
-
-                if( transactionConfirmation == 5 )
-                {
-                    chgResponse.setNo( ChgResponse.SUCCESS );
-                    chgResponse.setReturnData( transactionResponse.getEZCashRefId() );
-                    chgResponse.setMsg( "Payment Commited Successfully" );
-                }
-                else
-                {
-                    try
-                    {
-                        sleep( 10000 );
-                    }
-                    catch( InterruptedException ex )
-                    {
-                        Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                    }
-                    try
-                    {
-                        transactionResponse = getTransactionConfirmation( paymentDetail, authenticationRequest );
+                int i = 0;
+                do{
+                    try {
+                        Thread.sleep(10000);
+                        transactionResponse = getTransactionConfirmation(paymentDetail, authenticationRequest);
                         transactionConfirmation = transactionResponse.getStatus();
+                        System.out.println("transactionConfirmation =" + transactionConfirmation);
+                        if (transactionConfirmation == STATUS_CODE_SUCCESS) {
+                            chgResponse.setNo(ChgResponse.SUCCESS);
+                            chgResponse.setReturnData(transactionResponse.getEZCashRefId());
+                            chgResponse.setMsg("Payment Commited Successfully");
+                            i = 4;
+                        }
                     }
-                    catch( RemoteException ex )
-                    {
-                        Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
+                    catch (Exception ex) {
+                        Logger.getLogger(DialogEasyCashGateway.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    catch( Exception ex )
-                    {
-                        Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                    }
+                    i++;
+                }while(i<4);
 
-                    if( transactionConfirmation == 5 )
-                    {
-                        chgResponse.setNo( ChgResponse.SUCCESS );
-                        chgResponse.setReturnData( transactionResponse.getEZCashRefId() );
-                        chgResponse.setMsg( "Payment Commited Successfully" );
-                    }
-                    else
-                    {
-                        try
-                        {
-                            sleep( 10000 );
-                        }
-                        catch( InterruptedException ex )
-                        {
-                            Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                        }
-                        try
-                        {
-                            transactionResponse = getTransactionConfirmation( paymentDetail, authenticationRequest );
-                            transactionConfirmation = transactionResponse.getStatus();
-                        }
-                        catch( RemoteException ex )
-                        {
-                            Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                        }
-                        catch( Exception ex )
-                        {
-                            Logger.getLogger( DialogEasyCashGateway.class.getName() ).log( Level.SEVERE, null, ex );
-                        }
-
-
-                        if( transactionConfirmation == 5 )
-                        {
-                            chgResponse.setNo( ChgResponse.SUCCESS );
-                            chgResponse.setReturnData( transactionResponse.getEZCashRefId() );
-                            chgResponse.setMsg( "Payment Commited Successfully" );
-                        }
-                        else
-                        {
-                            chgResponse.setNo( ChgResponse.ERROR );
-                            chgResponse.setMsg( "Invalidate Payment" );
-                        }
-                    }
+                if (transactionConfirmation != STATUS_CODE_SUCCESS) {
+                    chgResponse.setNo(ChgResponse.ERROR);
+                    chgResponse.setMsg("Invalidate Payment");
                 }
-
-
             }
             else
             {
@@ -351,8 +278,8 @@ public class DialogEasyCashGateway implements PaymentGateWay
             String phoneNum = phoneAmountTimeArray[0].substring( 1 );
             String initialAmount = phoneAmountTimeArray[1];
 
-            request.setAgentAlias( "VEGA_AGENT" );
-            request.setAgentPin( "1234" );
+            request.setAgentAlias(AGENTID);
+            request.setAgentPin( AGENTPIN);
             request.setAgentnotificationSend( true );
             request.setChannel( CHANNEL );
             request.setRequestId( paymentDetail.getAuthenticationKey() );
@@ -370,11 +297,11 @@ public class DialogEasyCashGateway implements PaymentGateWay
             transactionRequest.setAgenttransactionrequest( request );
             SubmitTransactionRequestResponse response = service.submitTransactionRequest( transactionRequest, authenticationRequest );
 
-            if( response != null && response.getReturn() != null && response.getReturn().getStatus() == 5 )
+            if( response != null && response.getReturn() != null && response.getReturn().getStatus() == STATUS_CODE_SUCCESS )
             {
                 chgResponse.setNo( ChgResponse.SUCCESS );
-                chgResponse.setMsg( "Payment Commited Successfully" );
-                chgResponse.setReturnData( response.getReturn().getEZCashRefId() );
+                chgResponse.setMsg("Payment Commited Successfully");
+                chgResponse.setReturnData(response.getReturn().getEZCashRefId());
             }
             else
             {
@@ -400,8 +327,8 @@ public class DialogEasyCashGateway implements PaymentGateWay
     {
         EzcashAgentTransactions service = paymentDetail.getService();
         RequestTransactionStatus requestTransactionStatus = new RequestTransactionStatus();
-        requestTransactionStatus.setOwnerAlias( "VEGA_AGENT" );
-        requestTransactionStatus.setOwnerPin( "1234" );
+        requestTransactionStatus.setOwnerAlias(AGENTID );
+        requestTransactionStatus.setOwnerPin( AGENTPIN );
         requestTransactionStatus.setRequestId( paymentDetail.getAuthenticationKey() );
 
         GetTransactionStatusViaRequestId transactionStatusViaRequestId = new GetTransactionStatusViaRequestId();
