@@ -306,6 +306,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
             {
                 chgResponse.setNo( ChgResponse.ERROR );
                 chgResponse.setMsg( "Invalidate Payment" );
+                chgResponse.setReturnData( response.getReturn().getStatus() );
             }
 
         }

@@ -88,6 +88,11 @@ public class VegaChargingCentralManager implements CentralSystemService
                 if( response.isError() )
                 {
                     idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                    StringBuilder sb = new StringBuilder();
+                    sb.append( parameters.getIdTag() );
+                    sb.append( TransactionController.TRS_CROSS_REF_SPLITTER );//use for separate the cross reference of payment gate way.
+                    sb.append( response.getReturnData() );
+                    idTagInfo.setParentIdTag( sb.toString() );
                 }
                 else if( response.isSuccess() )
                 {
@@ -224,7 +229,11 @@ public class VegaChargingCentralManager implements CentralSystemService
                 else
                 {
                     idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
-                    idTagInfo.setParentIdTag( String.valueOf( parameters.getTransactionId() ) );
+                    StringBuilder sb = new StringBuilder(  );
+                    sb.append( String.valueOf( parameters.getTransactionId() )  );
+                    sb.append( TransactionController.TRS_AUTH_KEY_SPLITTER );
+                    sb.append( response.getReturnData() );
+                    idTagInfo.setParentIdTag(sb.toString() );
                 }
             }
         }

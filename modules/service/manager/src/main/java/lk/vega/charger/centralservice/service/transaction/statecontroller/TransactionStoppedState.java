@@ -24,7 +24,6 @@ public class TransactionStoppedState implements TransactionState
     {
         StopTransactionRequest stopTransactionRequest = transactionContext.getStopTransactionRequest();
         ChargeTransaction inProgressChargeTransaction = transactionContext.getChargeTransaction();
-        inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_FINISHED );
         inProgressChargeTransaction.setStatus( Savable.MODIFIED );
         inProgressChargeTransaction.setEndTime( new ChgTimeStamp() );
         inProgressChargeTransaction.setMeterEnd( stopTransactionRequest.getMeterStop() );
@@ -40,6 +39,7 @@ public class TransactionStoppedState implements TransactionState
         }
         if (res.isSuccess())
         {
+            inProgressChargeTransaction.setTransactionStatus( TransactionController.TRS_FINISHED );
             inProgressChargeTransaction.setCrossReference( (String)res.getReturnData() );
             res = CoreController.save( inProgressChargeTransaction );
         }
