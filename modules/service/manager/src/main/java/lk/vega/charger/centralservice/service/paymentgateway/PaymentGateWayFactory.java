@@ -36,8 +36,10 @@ public class PaymentGateWayFactory
         newAuthKey.append( TransactionController.TRS_AUTH_KEY_SPLITTER );
         newAuthKey.append( parameters.getFinalAmount() );
         newAuthKey.append( TransactionController.TRS_AUTH_KEY_SPLITTER );
-        newAuthKey.append( parameters.getTransactionId() );
+        newAuthKey.append( parameters.getId() );
         paymentDetail.setAuthenticationKey( newAuthKey.toString() );
+        paymentDetail.setInitialAmount( parameters.getInitialAmount() );
+        paymentDetail.setFinalAmount( parameters.getFinalAmount() );
         return paymentDetail;
     }
 

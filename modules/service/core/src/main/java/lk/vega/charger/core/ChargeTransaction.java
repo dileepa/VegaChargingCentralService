@@ -18,7 +18,7 @@ import java.sql.Types;
 public class ChargeTransaction extends Savable
 {
     private int id;
-    private int transactionId;
+    private String transactionId;
     private ChgTimeStamp startTime;
     private ChgTimeStamp endTime;
     private String authenticationKey;
@@ -184,12 +184,12 @@ public class ChargeTransaction extends Savable
         this.startTime = startTime;
     }
 
-    public int getTransactionId()
+    public String getTransactionId()
     {
         return transactionId;
     }
 
-    public void setTransactionId( int transactionId )
+    public void setTransactionId( String transactionId )
     {
         this.transactionId = transactionId;
     }
@@ -258,14 +258,7 @@ public class ChargeTransaction extends Savable
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            if( this.transactionId != -1 )
-            {
-                ps.setInt( ++count, this.transactionId );
-            }
-            else
-            {
-                ps.setNull( ++count, Types.INTEGER );
-            }
+            ps.setString( ++count, this.transactionId );
             if( this.startTime == null )
             {
                 ps.setNull( ++count, Types.TIMESTAMP );
@@ -307,7 +300,7 @@ public class ChargeTransaction extends Savable
     {
         this.status = Savable.UNCHANGED;
         this.id = rs.getInt( "ID" );
-        this.transactionId = rs.getInt( "TRS_ID" );
+        this.transactionId = rs.getString( "TRS_ID" );
         this.startTime = new ChgTimeStamp( rs.getTimestamp( "STATR_TIME" ));
         this.endTime = new ChgTimeStamp(rs.getTimestamp( "END_TIME" ));
         this.authenticationKey = rs.getString( "AUTENTICATION_KEY" );
@@ -348,14 +341,7 @@ public class ChargeTransaction extends Savable
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            if( this.transactionId != -1 )
-            {
-                ps.setInt( ++count, this.transactionId );
-            }
-            else
-            {
-                ps.setNull( ++count, Types.INTEGER );
-            }
+            ps.setString( ++count, this.transactionId );
             if( this.startTime == null )
             {
                 ps.setNull( ++count, Types.TIMESTAMP );
@@ -416,7 +402,7 @@ public class ChargeTransaction extends Savable
     public void init()
     {
         this.id = -1;
-        this.transactionId = -1;
+        this.transactionId = null;
         this.startTime = null;
         this.endTime = null;
         this.authenticationKey = null;

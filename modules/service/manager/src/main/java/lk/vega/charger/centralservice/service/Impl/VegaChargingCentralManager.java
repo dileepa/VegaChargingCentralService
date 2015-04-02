@@ -7,6 +7,7 @@ import lk.vega.charger.centralservice.service.transaction.statecontroller.Transa
 import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionStartedState;
 import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionState;
 import lk.vega.charger.centralservice.service.transaction.statecontroller.TransactionStoppedState;
+import lk.vega.charger.core.ChargeAuthKey;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
@@ -43,12 +44,12 @@ public class VegaChargingCentralManager implements CentralSystemService
         try
         {
             CoreController.init();
+            CoreController.loadServiceConfigurations();
         }
         catch( Exception e )
         {
             e.printStackTrace();
         }
-        //TODO load service configurations.
     }
 
     @WebMethod(exclude = true) @PreDestroy
@@ -145,22 +146,35 @@ public class VegaChargingCentralManager implements CentralSystemService
         IdTagInfo idTagInfo = startTransactionResponse.getIdTagInfo();
         idTagInfo.setParentIdTag( parameters.getIdTag() );
 
-        TransactionContext transactionContext = new TransactionContext();
-        transactionContext.setStartTransactionRequest(parameters);
-        TransactionState transactionStartedState = new TransactionStartedState();
-        transactionContext.setTransactionState(transactionStartedState);
-        ChgResponse chgResponse = transactionContext.proceedState();
-        if (chgResponse.isSuccess())
+        ChgResponse validRes = TransactionController.checkValidityOfTransaction( parameters.getIdTag() );
+
+        if (validRes.isSuccess())
         {
-            ChargeTransaction chargeTransaction = (ChargeTransaction)chgResponse.getReturnData();
-            idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
-            startTransactionResponse.setTransactionId(  chargeTransaction.getTransactionId() );
+            ChargeAuthKey validChargeAuthKey = (ChargeAuthKey)validRes.getReturnData();
+            TransactionContext transactionContext = new TransactionContext();
+            transactionContext.setStartTransactionRequest(parameters);
+            transactionContext.setValidChargeAuthKey( validChargeAuthKey );
+            TransactionState transactionStartedState = new TransactionStartedState();
+            transactionContext.setTransactionState(transactionStartedState);
+            ChgResponse chgResponse = transactionContext.proceedState();
+            if (chgResponse.isSuccess())
+            {
+                ChargeTransaction chargeTransaction = (ChargeTransaction)chgResponse.getReturnData();
+                idTagInfo.setStatus( AuthorizationStatus.ACCEPTED );
+                startTransactionResponse.setTransactionId(  chargeTransaction.getId() );
+            }
+            else
+            {
+                idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
+                startTransactionResponse.setTransactionId( -1 );
+            }
         }
         else
         {
             idTagInfo.setStatus( AuthorizationStatus.BLOCKED );
             startTransactionResponse.setTransactionId( -1 );
         }
+
         return startTransactionResponse;
     }
 

@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.service.transaction.statecontroller;
 
+import lk.vega.charger.core.ChargeAuthKey;
 import ocpp.cs._2012._06.*;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
@@ -14,6 +15,17 @@ public class TransactionContext
     private AuthorizeRequest authorizeRequest;
     private StartTransactionRequest startTransactionRequest;
     private StopTransactionRequest stopTransactionRequest;
+    private ChargeAuthKey validChargeAuthKey;
+
+    public ChargeAuthKey getValidChargeAuthKey()
+    {
+        return validChargeAuthKey;
+    }
+
+    public void setValidChargeAuthKey( ChargeAuthKey validChargeAuthKey )
+    {
+        this.validChargeAuthKey = validChargeAuthKey;
+    }
 
     public StopTransactionRequest getStopTransactionRequest()
     {

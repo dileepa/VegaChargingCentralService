@@ -3,6 +3,7 @@ package lk.vega.charger.centralservice.service.transaction;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentDetail;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWay;
 import lk.vega.charger.centralservice.service.paymentgateway.PaymentGateWayFactory;
+import lk.vega.charger.core.ChargeAuthKey;
 import lk.vega.charger.core.ChargeTransaction;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.ChgTimeStamp;
@@ -27,8 +28,6 @@ public class TransactionController
     public static final String TRS_NEW= "NEW_ONE";
     public static final String TRS_CROSS_REF_SPLITTER= "%";
     public static final String TRS_AUTH_KEY_SPLITTER = "#";
-    private static int TRS_ID_COUNTER_PER_DAY = 0;
-    private static int MAXIMUM_TRS_ID_COUNTER = 9999;
     private static final double unitPrice = 15f;     // rs.150 / 10 min
     private static final double serviceCharge = 300;
     /**
@@ -51,7 +50,7 @@ public class TransactionController
         PaymentGateWay paymentGateWay = PaymentGateWayFactory.selectPaymentGateWay( paymentDetail );
 
 //        int transactionId = generateTransactionID( new ChgTimeStamp(  ), phoneNum );
-        int transactionId = generateTransactionID( new ChgTimeStamp(  ) );
+        String transactionId = generateTransactionID( new ChgTimeStamp(  ), phoneNum );
 
         ChargeTransaction chargeTransaction = new ChargeTransaction();
         chargeTransaction.init();
@@ -83,7 +82,7 @@ public class TransactionController
         StringBuilder sb = new StringBuilder(  );
         sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE STATUS =? " );
         boolean transactionIdNotExist = "".equals( transactionId );
-        sb = transactionIdNotExist ? sb.append( "AND AUTENTICATION_KEY = ?" ) :sb.append( "AND TRS_ID = ? " );
+        sb = transactionIdNotExist ? sb.append( "AND AUTENTICATION_KEY = ?" ) :sb.append( "AND ID = ? " );
         try
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
@@ -130,6 +129,57 @@ public class TransactionController
         s.append( "." );
         return new ChgResponse( ChgResponse.SUCCESS, s.toString(), null, TRS_NEW );
     }
+
+
+    public static ChgResponse checkValidityOfTransaction( String authorizeKey )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "SELECT * FROM TRS_AUTH_KEY_STORE WHERE AUTH_KEY =? " );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1, authorizeKey );
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                ChargeAuthKey chargeAuthKey = new ChargeAuthKey();
+                chargeAuthKey.init();
+                chargeAuthKey.load( rs, con, 0 );
+                ChgTimeStamp nowTime = new ChgTimeStamp();
+                if( nowTime.before( chargeAuthKey.getEndTime() ) )
+                {
+                    return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Authentication DetailsTransaction Successfully", chargeAuthKey );
+                }
+            }
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+        StringBuilder s = new StringBuilder(  );
+        s.append( "Invalid Authentication Key : " );
+        s.append( authorizeKey );
+        s.append( "." );
+        return new ChgResponse( ChgResponse.ERROR, s.toString(), null);
+    }
+
 
     /**
      *
@@ -210,22 +260,73 @@ public class TransactionController
      *final -> 150840000
      * @return transactionID = uniqueDateKey + TRS_ID_COUNTER_PER_DAY
      */
-    private static int generateTransactionID( ChgTimeStamp chgTimeStamp )
+//    private static int generateTransactionID( ChgTimeStamp chgTimeStamp )
+//    {
+//        int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int) Math.pow( 10, 7 );
+//        int modifyDayValue = chgTimeStamp.getDayOfYear() * (int) Math.pow( 10, 4 );
+//        int uniqueKeyFromDate = modifyYearValue + modifyDayValue;
+//        return uniqueKeyFromDate + TRS_ID_COUNTER_PER_DAY;
+//    }
+
+    private static String generateTransactionID(ChgTimeStamp chgTimeStamp, String phoneNum)
     {
-        TRS_ID_COUNTER_PER_DAY++;
-        if( TRS_ID_COUNTER_PER_DAY > MAXIMUM_TRS_ID_COUNTER )
-        {
-            TRS_ID_COUNTER_PER_DAY = 1;
-        }
-        int modifyYearValue = chgTimeStamp.getLastTwoDigitsOfYear() * (int) Math.pow( 10, 7 );
-        int modifyDayValue = chgTimeStamp.getDayOfYear() * (int) Math.pow( 10, 4 );
-        int uniqueKeyFromDate = modifyYearValue + modifyDayValue;
-        return uniqueKeyFromDate + TRS_ID_COUNTER_PER_DAY;
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( chgTimeStamp.toStringYYYYMMDDHHmmss() );
+        sb.append( TRS_CROSS_REF_SPLITTER );
+        sb.append( phoneNum );
+        return sb.toString();
     }
 
-    public static double finalAmountCalculation(int meterStart, int meterStop){
-        int units = meterStop-meterStart;
-        double amount = units*unitPrice + serviceCharge;
+    public static double finalAmountCalculation( int meterStart, int meterStop )
+    {
+        int units = meterStop - meterStart;
+        double amount = units * unitPrice + serviceCharge;
         return amount;
+    }
+
+    public static ChgResponse loadSpecificTransaction( String transactionId )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE TRS_ID =? " );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1, transactionId );
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                ChargeTransaction chargeTransaction = new ChargeTransaction();
+                chargeTransaction.init();
+                chargeTransaction.load( rs, con, 0 );
+                return new ChgResponse( ChgResponse.SUCCESS, "Load Specific Transaction Successfully", chargeTransaction );
+            }
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+        StringBuilder s = new StringBuilder(  );
+        s.append( "No Transaction for Transaction ID : " );
+        s.append( transactionId );
+        s.append( "." );
+        return new ChgResponse( ChgResponse.ERROR, s.toString(), null);
+
     }
 }

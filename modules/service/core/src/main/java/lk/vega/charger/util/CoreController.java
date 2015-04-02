@@ -3,8 +3,10 @@ package lk.vega.charger.util;
 import lk.vega.charger.util.connection.CHGConnectionPoolFactory;
 import lk.vega.charger.util.connection.ConnectionPool;
 
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Created by dileepa on 3/20/15.
@@ -12,8 +14,9 @@ import java.sql.SQLException;
 public class CoreController
 {
     public static ConnectionPool pool = null;
+    public static int AUTH_KEY_EXPIRE_TIMEOUT_VAL = 5; //value of seconds for expire transaction or not.
+    public static String AUTH_KEY_EXPIRE_TIMEOUT_KEY = "AUTH_KEY_EXPIRE_TIMEOUT";
 
-    //TODO call when service init.
 
     public static void init()
     {
@@ -90,6 +93,24 @@ public class CoreController
         return err;
     }
 
+
+    public static void loadServiceConfigurations ()
+    {
+        if ( System.getProperty("vega.config.path") != null )
+        {
+            String confFile = System.getProperty("vega.config.path");
+            Properties configurations = new Properties();
+            try
+            {
+                configurations.load(new FileInputStream(confFile));
+                AUTH_KEY_EXPIRE_TIMEOUT_VAL = Integer.parseInt( configurations.getProperty( AUTH_KEY_EXPIRE_TIMEOUT_KEY ) );
+            }
+            catch( Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 }

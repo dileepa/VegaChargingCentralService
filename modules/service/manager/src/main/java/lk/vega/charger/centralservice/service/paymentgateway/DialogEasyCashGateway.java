@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.lang.Thread.sleep;
 import static lk.vega.charger.centralservice.service.transaction.TransactionController.phoneNumAmountAndDateSeparator;
 
 
@@ -285,7 +284,7 @@ public class DialogEasyCashGateway implements PaymentGateWay
             request.setRequestId( paymentDetail.getAuthenticationKey() );
             request.setSubscriberMobile( phoneNum );
             request.setSubscribernotificationSend( true );
-            request.setTxAmount( 50.0 );   //TODO load final value from chargingTransaction object.
+            request.setTxAmount( paymentDetail.getInitialAmount() - paymentDetail.getFinalAmount() );
             request.setTxType( "TX_ACWT" );
             request.setAgentnotificationSend( false );
 

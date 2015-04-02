@@ -10,6 +10,29 @@ public class PaymentDetail
     private String authenticationKey;
     private String transactionKey;
     private EzcashAgentTransactions service;
+    private double finalAmount;
+    private double initialAmount;
+
+
+    public double getInitialAmount()
+    {
+        return initialAmount;
+    }
+
+    public void setInitialAmount( double initialAmount )
+    {
+        this.initialAmount = initialAmount;
+    }
+
+    public double getFinalAmount()
+    {
+        return finalAmount;
+    }
+
+    public void setFinalAmount( double finalAmount )
+    {
+        this.finalAmount = finalAmount;
+    }
 
     public EzcashAgentTransactions getService() {
         return service;
@@ -43,5 +66,7 @@ public class PaymentDetail
     {
         this.authenticationKey = null;
         this.transactionKey = null;
+        finalAmount = 0.0d;
+        initialAmount = 0.0d;
     }
 }
