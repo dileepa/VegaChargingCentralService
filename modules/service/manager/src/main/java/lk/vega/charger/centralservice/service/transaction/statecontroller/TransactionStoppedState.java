@@ -11,7 +11,6 @@ import lk.vega.charger.util.ChgTimeStamp;
 import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.Savable;
 
-import static lk.vega.charger.centralservice.service.transaction.TransactionController.finalAmountCalculation;
 
 /**
  * Created by Dileepa on 3/21/15.
@@ -29,7 +28,7 @@ public class TransactionStoppedState implements TransactionState
         inProgressChargeTransaction.setStatus( Savable.MODIFIED );
         inProgressChargeTransaction.setEndTime( new ChgTimeStamp() );
         inProgressChargeTransaction.setMeterEnd( stopTransactionRequest.getMeterStop() );
-        inProgressChargeTransaction.setFinalAmount(finalAmountCalculation( inProgressChargeTransaction.getMeterStart(), inProgressChargeTransaction.getMeterEnd()) );
+        inProgressChargeTransaction.setFinalAmount(TransactionController.finalAmountCalculation( inProgressChargeTransaction.getMeterStart(), inProgressChargeTransaction.getMeterEnd()) );
         inProgressChargeTransaction.setEnergyConsumption( 0.0d ); //TODO energy consumption calculation.
 
         ChgResponse res = null;
