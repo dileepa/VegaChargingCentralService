@@ -29,7 +29,8 @@ public class TransactionController
     public static final String TRS_AUTH_KEY_SPLITTER = "#";
     private static int TRS_ID_COUNTER_PER_DAY = 0;
     private static int MAXIMUM_TRS_ID_COUNTER = 9999;
-
+    private static final double unitPrice = 15f;     // rs.150 / 10 min
+    private static final double serviceCharge = 300;
     /**
      * id tag format - phonenum#intialamount#timestamp%crossReference
      * authenticationKey format - phonenum#intialamount#timestamp
@@ -222,4 +223,9 @@ public class TransactionController
         return uniqueKeyFromDate + TRS_ID_COUNTER_PER_DAY;
     }
 
+    public static double finalAmountCalculation(int meterStart, int meterStop){
+        int units = meterStop-meterStart;
+        double amount = units*unitPrice + serviceCharge;
+        return amount;
+    }
 }

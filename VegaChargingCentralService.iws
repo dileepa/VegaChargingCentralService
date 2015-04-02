@@ -15,38 +15,21 @@
     <option name="historyRevisionsNumber" value="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69c95529-7fe4-4149-9934-67ce9ee5aa4f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionBeginningState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionContext.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionProceedState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStartedState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePoint.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePoint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePointAvailability.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePointAvailability.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/CoreController.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/CoreController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWay.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWay.java" />
+    <list default="true" id="69c95529-7fe4-4149-9934-67ce9ee5aa4f" name="Default" comment="dialog ez cash gateway was modified including a do while loop to check transaction status.. Final keywords are assigned at the top of the class.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/centralservice.libraries.dialogEasyCash.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/src/test/java/lk/vega/charger/centralservice/service/transaction/TransactionControllerTest.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/test/java/lk/vega/charger/centralservice/service/transaction/TransactionControllerTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VegaChargingCentralService.iml" afterPath="$PROJECT_DIR$/VegaChargingCentralService.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VegaChargingCentralService.ipr" afterPath="$PROJECT_DIR$/VegaChargingCentralService.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VegaChargingCentralService.iws" afterPath="$PROJECT_DIR$/VegaChargingCentralService.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/core/pom.xml" afterPath="$PROJECT_DIR$/modules/service/core/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/service/manager/pom.xml" afterPath="$PROJECT_DIR$/modules/service/manager/pom.xml" />
-      <change type="MOVED" beforePath="H:\VegaChargingCentralService\modules\service\core\src\main\java\lk\vega\charger\util\VegaDate.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgDate.java" />
-      <change type="MOVED" beforePath="H:\VegaChargingCentralService\modules\service\core\src\main\java\lk\vega\charger\util\VegaError.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgResponse.java" />
-      <change type="MOVED" beforePath="H:\VegaChargingCentralService\modules\service\core\src\main\java\lk\vega\charger\util\VegaTime.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTime.java" />
-      <change type="MOVED" beforePath="H:\VegaChargingCentralService\modules\service\core\src\main\java\lk\vega\charger\util\VegaTimestamp.java" afterPath="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTimeStamp.java" />
-      <change type="MOVED" beforePath="H:\VegaChargingCentralService\modules\service\manager\central_service.iml" afterPath="$PROJECT_DIR$/modules/service/manager/centralservice.manager.iml" />
-      <change type="MOVED" beforePath="H:\VegaChargingCentralService\modules\service\manager\src\main\java\lk\vega\charger\centralservice\service\paymentgateway\PaymentGateWayController.java" afterPath="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayFactory.java" />
     </list>
     <list id="38c216d2-48d9-4657-b013-935294594067" name="New changelist" comment="" />
     <ignored path="VegaChargingCentraService.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/target/" />
+    <ignored path="$PROJECT_DIR$/modules/service/libraries/CentralSystemStubs/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +49,8 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
+    <ui_properties converted="true" />
+    <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true" converted="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
         <option name="NOTIFY_UNCAUGHT" value="true" />
@@ -102,9 +86,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <breakpoint_rules />
-    <ui_properties />
+    <breakpoint_rules converted="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -112,93 +94,109 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TransactionBeginningState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionBeginningState.java">
+      <file leaf-file-name="TransactionController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="30" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="612">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3468" max-vertical-offset="3740">
+              <caret line="221" column="5" selection-start-line="221" selection-start-column="5" selection-end-line="221" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionStartedState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStartedState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="72" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="510">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransactionProceedState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionProceedState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="0" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="510">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TransactionStoppedState.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="TransactionStoppedState.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
+            <state vertical-scroll-proportion="0.64306784" vertical-offset="173" max-vertical-offset="765">
+              <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChargeTransaction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="970" max-vertical-offset="5848">
+              <caret line="131" column="44" selection-start-line="131" selection-start-column="38" selection-end-line="131" selection-end-column="44" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#1862#1863#0" expanded="true" />
+                <element signature="e#1903#1904#0" expanded="true" />
+                <element signature="e#2797#2798#0" expanded="true" />
+                <element signature="e#2855#2856#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VegaChargingCentralManager.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="PaymentGateWayFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1258" max-vertical-offset="3060">
+              <caret line="83" column="57" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VegaChargingCentralManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="87" selection-start="1099" selection-end="1099" vertical-scroll-proportion="0.65346533" vertical-offset="95" max-vertical-offset="2567">
+            <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="4335">
+              <caret line="139" column="13" selection-start-line="139" selection-start-column="13" selection-end-line="139" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChgDate.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgDate.java">
+      <file leaf-file-name="test.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/test.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="20" selection-start="588" selection-end="588" vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="6273">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1340" max-vertical-offset="1921">
+              <caret line="107" column="49" selection-start-line="107" selection-start-column="49" selection-end-line="107" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChgTime.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTime.java">
+      <file leaf-file-name="CentralSystemService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/target/src/main/java/ocpp/cs/_2012/_06/CentralSystemService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="20" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="2958">
+            <state vertical-scroll-proportion="0.0" vertical-offset="290" max-vertical-offset="2499">
+              <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChgTimeStamp.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTimeStamp.java">
+      <file leaf-file-name="SOAPLoggingHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/SOAPLoggingHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="5" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" vertical-offset="1654" max-vertical-offset="5746">
+            <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="1020">
+              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionContext.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionContext.java">
+      <file leaf-file-name="DialogEasyCashGateway.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="4" selection-start="795" selection-end="795" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="1156">
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="4284" max-vertical-offset="5389">
+              <caret line="315" column="29" selection-start-line="315" selection-start-column="29" selection-end-line="315" selection-end-column="29" />
+              <folding>
+                <element signature="e#13466#13467#0" expanded="true" />
+                <element signature="e#13517#13518#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TransactionState.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionState.java">
+      <file leaf-file-name="DummyPaymentGateWay.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DummyPaymentGateWay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="22" selection-start="255" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="323">
+            <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="935">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -215,50 +213,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateWay.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateWay.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/ConnectionPool.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/CHGConnectionPoolFactory.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/DBUtility.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/Savable.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/SavingSQLException.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/Savable.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeConnector.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeLocation.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePoint.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePointAvailability.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/DBConnectionPool.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/MySQLConnectionPoolImpl.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentDetail.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/target/src/main/java/ocpp/cs/_2012/_06/AuthorizeRequest.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/test/java/lk/vega/charger/centralservice/service/transaction/TransactionControllerTest.java" />
         <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWay.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/CoreController.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/modules/service/manager/pom.xml" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionBeginingState.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/VegaError.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgResponse.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/VegaDate.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgDate.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/VegaTime.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTime.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/VegaTimestamp.java" />
-        <option value="$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTimeStamp.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionState.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionBeginningState.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionContext.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStartedState.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionProceedState.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.java" />
-        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayController.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DummyPaymentGateWay.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java" />
         <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayFactory.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentDetail.java" />
+        <option value="$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/pom.xml" />
         <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/test.xml" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java" />
+        <option value="$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.java" />
       </list>
     </option>
   </component>
@@ -276,7 +245,7 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="centralServiceWebApp" />
+          <option name="myItemId" value="centralSystemServiceStubs" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
       </PATH>
@@ -286,31 +255,7 @@
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
-          <option name="myItemId" value="centralServiceWebApp" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Lifecycle" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$LifecycleNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="centralServiceCore" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="centralServiceCore" />
+          <option name="myItemId" value="centralSystemServiceStubs" />
           <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$ProjectNode" />
         </PATH_ELEMENT>
         <PATH_ELEMENT>
@@ -360,7 +305,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -372,6 +317,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -400,6 +347,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -427,6 +388,192 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vega" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="charger" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="centralservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="transaction" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="target" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="lk" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="vega" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="charger" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="centralservice" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VegaChargingCentralService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="service" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -499,52 +646,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="transaction" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VegaChargingCentralService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VegaChargingCentralService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="manager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="transaction" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="statecontroller" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -632,62 +733,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VegaChargingCentralService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VegaChargingCentralService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VegaChargingCentralService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="VegaChargingCentralService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -729,24 +776,164 @@
     <property name="dynamic.classpath" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FullScreen" value="false" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.includeInheritedMembers" value="false" />
+    <property name="LayoutCode.rearrangeEntriesXML" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\VegaChargingCentraService\modules\service\manager\src\main\resources\wsdl" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\VegaServer\VegaChargingCentralService\modules\service\libraries\dialogEasyCash\src\main\resources\lib\cert" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="lk.vega.charger.centralservice.service.transaction" />
+    </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails" singleton="true">
-      <module name="" />
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="depsClasspath" value="false" />
-      <setting name="passParentEnv" value="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <setting name="launchBrowser" value="false" />
+  <component name="RunManager" selected="JUnit.TransactionControllerTest.testGenerateTransactionID">
+    <configuration default="false" name="TransactionControllerTest.testGenerateTransactionID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="lk.vega.charger.centralservice.service.transaction.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="VegaChargingCentralService" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="lk.vega.charger.centralservice.service.transaction" />
+      <option name="MAIN_CLASS_NAME" value="lk.vega.charger.centralservice.service.transaction.TransactionControllerTest" />
+      <option name="METHOD_NAME" value="testGenerateTransactionID" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <ConfigurationWrapper RunnerId="Debug" />
       <method />
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin" singleton="true">
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method>
+        <option name="Make" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="XSLT" factoryName="XSLT">
+      <option name="myOutputFile" />
+      <option name="myOpenOutputFile" value="false" />
+      <option name="myOpenInBrowser" value="false" />
+      <option name="mySmartErrorHandling" value="true" />
+      <option name="myRunnerPort" value="34873" />
+      <option name="myVmArguments" />
+      <option name="myWorkingDirectory" />
+      <option name="myModule" />
+      <option name="myJdk" />
+      <parameters />
+      <OutputType value="CONSOLE" save-to-file="false" />
+      <FileType name="XML" />
+      <JdkChoice value="FROM_MODULE" />
+      <method>
+        <option name="Make" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
       <option name="PROGRAM_PARAMETERS" />
@@ -788,17 +975,6 @@
       </MavenSettings>
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
-      <method />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -813,6 +989,11 @@
       <method>
         <option name="Make" enabled="false" />
       </method>
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -844,135 +1025,6 @@
         <option name="Make" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="XSLT" factoryName="XSLT">
-      <option name="myOutputFile" />
-      <option name="myOpenOutputFile" value="false" />
-      <option name="myOpenInBrowser" value="false" />
-      <option name="mySmartErrorHandling" value="true" />
-      <option name="myRunnerPort" value="34873" />
-      <option name="myVmArguments" />
-      <option name="myWorkingDirectory" />
-      <option name="myModule" />
-      <option name="myJdk" />
-      <parameters />
-      <OutputType value="CONSOLE" save-to-file="false" />
-      <FileType name="XML" />
-      <JdkChoice value="FROM_MODULE" />
-      <method>
-        <option name="Make" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method>
-        <option name="Make" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browserFamily" value="FIREFOX" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" output_log_level="null" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browserFamily" value="FIREFOX" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="myFilePath" />
-      <option name="GLUE" />
-      <option name="myNameFilter" />
-      <option name="myGeneratedName" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -990,26 +1042,14 @@
         <option name="Make" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
-    <list size="0" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JUnit.TransactionControllerTest.testGenerateTransactionID" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.TransactionControllerTest.testGenerateTransactionID" />
+      </list>
+    </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -1036,58 +1076,92 @@
     <option name="LOCK_ON_CHECKOUT" value="false" />
     <option name="UNLOCK_ON_CHECKIN" value="false" />
   </component>
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <configuration useDefault="true">C:\Users\dileepa\AppData\Roaming\Subversion</configuration>
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration>C:\Users\dileepa\AppData\Roaming\Subversion</configuration>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="69c95529-7fe4-4149-9934-67ce9ee5aa4f" name="Default" comment="Payment gateway structure implementation&#10;" />
       <changelist id="38c216d2-48d9-4657-b013-935294594067" name="New changelist" comment="" />
       <created>1426676968609</created>
+      <option name="number" value="Default" />
       <updated>1426676968609</updated>
       <workItem from="1426877989356" duration="8749000" />
       <workItem from="1426997380330" duration="707000" />
     </task>
     <task id="LOCAL-00001" summary="Payment gateway structure implementation&#10;">
       <created>1426742875669</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
       <updated>1426742875669</updated>
     </task>
     <task id="LOCAL-00002" summary="Payment gateway structure implementation&#10;">
       <created>1426748243385</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
       <updated>1426748243385</updated>
     </task>
     <task id="LOCAL-00003" summary="Payment gateway structure implementation&#10;">
       <created>1426757889733</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
       <updated>1426757889733</updated>
     </task>
     <task id="LOCAL-00004" summary="Payment gateway structure implementation&#10;">
       <created>1426758746476</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
       <updated>1426758746476</updated>
     </task>
     <task id="LOCAL-00005" summary="Transaction Implementation&#10;">
       <created>1426770836267</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
       <updated>1426770836267</updated>
     </task>
     <task id="LOCAL-00006" summary="Payment Gateway Structure Implementation&#10;">
       <created>1426827401832</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
       <updated>1426827401832</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="test&#10;">
+      <created>1427193566585</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1427193566585</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Dialog Easy Cash flow implementation&#10;">
+      <created>1427290439245</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1427290439245</updated>
+    </task>
+    <task id="LOCAL-00009" summary="ez cash certification jar added to dialogEzCash/resources/lib&#10;">
+      <created>1427346822408</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1427346822408</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added transaction confirmation by reference id method">
+      <created>1427350837605</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1427350837605</updated>
+    </task>
+    <task id="LOCAL-00011" summary="dialog ez cash gateway was modified including a do while loop to check transaction status.. Final keywords are assigned at the top of the class.">
+      <created>1427889039165</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1427889039165</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Final amount calculation is done">
+      <created>1427892273933</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1427892273934</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1117,78 +1191,47 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.12915407" sideWeight="0.6702381" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36253777" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.9334471" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289941" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297619" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36253777" sideWeight="0.0" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.9334471" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35153583" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21028744" sideWeight="0.6702381" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.07337884" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30937973" sideWeight="0.0" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289941" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12915407" sideWeight="0.6702381" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Atlassian " active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3993174" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32764506" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3003413" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Web Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16552901" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
   </component>
@@ -1202,7 +1245,13 @@
     <MESSAGE value="Payment gateway structure implementation&#10;" />
     <MESSAGE value="Transaction Implementation&#10;" />
     <MESSAGE value="Payment Gateway Structure Implementation&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Payment Gateway Structure Implementation&#10;" />
+    <MESSAGE value="test&#10;" />
+    <MESSAGE value="Dialog Easy Cash flow implementation&#10;" />
+    <MESSAGE value="ez cash certification jar added to dialogEzCash/resources/lib&#10;" />
+    <MESSAGE value="Added transaction confirmation by reference id method" />
+    <MESSAGE value="dialog ez cash gateway was modified including a do while loop to check transaction status.. Final keywords are assigned at the top of the class." />
+    <MESSAGE value="Final amount calculation is done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final amount calculation is done" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1239,7 +1288,10 @@
     </GetOptions>
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="6" />
+    </breakpoint-manager>
+    <watches-manager />
   </component>
   <component name="XPathView.XPathProjectComponent">
     <history />
@@ -1269,320 +1321,381 @@
     </option>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="48" selection-start="868" selection-end="868" vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="2227">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="33" selection-start="694" selection-end="694" vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="16" selection-start="89" selection-end="89" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="1377" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="30" selection-start="411" selection-end="411" vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1445">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/Savable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="172" selection-end="172" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="799" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/CoreController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="15" selection-start="439" selection-end="439" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1717" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="306" column="17" selection-start="7368" selection-end="7368" vertical-scroll-proportion="0.0" vertical-offset="5202" max-vertical-offset="7276">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="43" selection-start="3214" selection-end="3214" vertical-scroll-proportion="0.0" vertical-offset="1479" max-vertical-offset="2176">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="31" selection-start="1075" selection-end="1075" vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1666">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="289">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/resources/wsdl/centralservice.wsdl">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="48" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.0" vertical-offset="986" max-vertical-offset="12954" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="43" selection-start="3214" selection-end="3214" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="56" selection-start="1335" selection-end="1335" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/resources/wsdl/centralservice.wsdl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="48" selection-start="2610" selection-end="2610" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/resources/wsdl/centralservice.wsdl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="67" column="30" selection-start="3124" selection-end="3124" vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="12954" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="629" max-vertical-offset="12954">
+          <caret line="67" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/SavingSQLException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="48" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+          <caret line="13" column="48" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/DBUtility.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="199" selection-end="199" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1751" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePointAvailability.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="72" selection-start="440" selection-end="440" vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="3791" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1751">
+          <caret line="10" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/ConnectionPool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="17" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="7" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/CHGConnectionPoolFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="53" selection-start="572" selection-end="572" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="629">
+          <caret line="21" column="53" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/MySQLConnectionPoolImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="62" selection-start="438" selection-end="438" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2720" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2720">
+          <caret line="16" column="62" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/connection/DBConnectionPool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="32" selection-start="424" selection-end="424" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+          <caret line="12" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="261" column="15" selection-start="6397" selection-end="6397" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5474" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <folding>
-            <element signature="e#219#220#0" expanded="true" />
-            <element signature="e#259#260#0" expanded="true" />
-            <element signature="e#331#332#0" expanded="true" />
-            <element signature="e#389#390#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="26" selection-start="237" selection-end="237" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="61" selection-start="324" selection-end="337" vertical-scroll-proportion="0.0" vertical-offset="13" max-vertical-offset="816">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWay.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="17" selection-start="163" selection-end="163" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5474">
+          <caret line="261" column="15" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeConnector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="221" column="42" selection-start="5882" selection-end="5882" vertical-scroll-proportion="0.0" vertical-offset="327" max-vertical-offset="3451" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="327" max-vertical-offset="3451">
+          <caret line="221" column="42" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeLocation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="197" column="16" selection-start="5027" selection-end="5027" vertical-scroll-proportion="0.0" vertical-offset="2755" max-vertical-offset="3519" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="306" column="17" selection-start="7368" selection-end="7368" vertical-scroll-proportion="0.0" vertical-offset="4778" max-vertical-offset="5950">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2755" max-vertical-offset="3519">
+          <caret line="197" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/Savable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="13" selection-start="172" selection-end="172" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="9" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/CoreController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="15" selection-start="439" selection-end="439" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1717" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/centralservice.core.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1717">
+          <caret line="21" column="15" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$MAVEN_REPOSITORY$/com/sun/xml/ws/jaxws-rt/2.2/jaxws-rt-2.2.pom">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1938" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="20" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1768">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1938">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="21" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="27" selection-start="866" selection-end="866" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2431">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="35" selection-start="1141" selection-end="1141" vertical-scroll-proportion="0.85915494" vertical-offset="525" max-vertical-offset="1649" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgDate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="20" selection-start="588" selection-end="588" vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="6001">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="7" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTime.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="20" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="2720">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTimeStamp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="5" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0" vertical-offset="1654" max-vertical-offset="5746">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="4" selection-start="795" selection-end="795" vertical-scroll-proportion="0.0" vertical-offset="34" max-vertical-offset="1156">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="35" selection-start="342" selection-end="342" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="799">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="2618">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionBeginningState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="30" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="544">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionProceedState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="0" selection-start="394" selection-end="394" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStartedState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="72" selection-start="703" selection-end="703" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="459">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="22" selection-start="255" selection-end="266" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="306">
+          <caret line="10" column="22" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgDate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="5542">
+          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/core/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1768">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgTimeStamp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3678" max-vertical-offset="4454">
+          <caret line="296" column="54" selection-start-line="296" selection-start-column="54" selection-end-line="296" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="2686">
+          <caret line="25" column="24" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.java">
+    <entry file="file://$PROJECT_DIR$/modules/service/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="860" selection-end="860" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.39605734" vertical-offset="0" max-vertical-offset="558">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.11.jar!/junit/framework/Assert.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="36" selection-start="1592" selection-end="1592" vertical-scroll-proportion="0.33204633" vertical-offset="406" max-vertical-offset="1309">
+        <state vertical-scroll-proportion="0.2651072" vertical-offset="0" max-vertical-offset="3213">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargePointAvailability.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0331384" vertical-offset="136" max-vertical-offset="3638">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/src/main/resources/wsdl/DialogEasyCash.wsdl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3360434" vertical-offset="493" max-vertical-offset="10421">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/test/java/lk/vega/charger/centralservice/service/transaction/TransactionControllerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1020">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="583" max-vertical-offset="935">
+          <caret line="68" column="56" selection-start-line="68" selection-start-column="56" selection-end-line="68" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStartedState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/MobitelMCashGateway.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="85" max-vertical-offset="884">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/target/src/main/java/lk/dialog/ezcash/payment/service/SubmitTransactionRequestResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="424" max-vertical-offset="1037">
+          <caret line="45" column="40" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/util/ChgResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1853">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/target/src/main/java/lk/dialog/ezcash/payment/service/SubmitTransactionRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="312" max-vertical-offset="1020">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1429" max-vertical-offset="2295">
+          <caret line="93" column="47" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="215" max-vertical-offset="663">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="697">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/target/src/main/java/lk/dialog/ezcash/payment/service/EzcashAgentTransactionsImplService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="1156">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/CentralSystemStubs/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/libraries/dialogEasyCash/target/src/main/java/lk/dialog/ezcash/payment/service/EzcashAgentTransactions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="137" max-vertical-offset="3315">
+          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/target/src/main/java/ocpp/cs/_2012/_06/CentralSystemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="290" max-vertical-offset="2499">
+          <caret line="31" column="15" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/test.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1340" max-vertical-offset="1921">
+          <caret line="107" column="49" selection-start-line="107" selection-start-column="49" selection-end-line="107" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DummyPaymentGateWay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="935">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/Impl/VegaChargingCentralManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="87" selection-start="1099" selection-end="1099" vertical-scroll-proportion="0.65346533" vertical-offset="95" max-vertical-offset="2567">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2872" max-vertical-offset="4318">
+          <caret line="139" column="13" selection-start-line="139" selection-start-column="13" selection-end-line="139" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/PaymentGateWayFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1258" max-vertical-offset="3060">
+          <caret line="83" column="57" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/SOAPLoggingHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2" max-vertical-offset="1122">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/paymentgateway/DialogEasyCashGateway.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4284" max-vertical-offset="5389">
+          <caret line="315" column="29" selection-start-line="315" selection-start-column="29" selection-end-line="315" selection-end-column="29" />
+          <folding>
+            <element signature="e#13466#13467#0" expanded="true" />
+            <element signature="e#13517#13518#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/target/classes/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="731">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/target/classes/lk/vega/charger/centralservice/service/transaction/TransactionController.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2006">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/TransactionController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3074" max-vertical-offset="3655">
+          <caret line="221" column="5" selection-start-line="221" selection-start-column="5" selection-end-line="221" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/core/src/main/java/lk/vega/charger/core/ChargeTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="970" max-vertical-offset="5848">
+          <caret line="131" column="44" selection-start-line="131" selection-start-column="38" selection-end-line="131" selection-end-column="44" />
+          <folding>
+            <element signature="e#1862#1863#0" expanded="true" />
+            <element signature="e#1903#1904#0" expanded="true" />
+            <element signature="e#2797#2798#0" expanded="true" />
+            <element signature="e#2855#2856#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/service/manager/src/main/java/lk/vega/charger/centralservice/service/transaction/statecontroller/TransactionStoppedState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64306784" vertical-offset="173" max-vertical-offset="765">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -1643,7 +1756,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.31571996" />
+                <option value="0.2" />
                 <option value="0.6" />
               </list>
             </option>
@@ -1664,7 +1777,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Maven: commons-dbcp:commons-dbcp:1.2.2</last-edited>
+          <last-edited>Maven: com.sun.org.apache.xml.internal:resolver:20050927</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1677,4 +1790,3 @@
     </states>
   </component>
 </project>
-
