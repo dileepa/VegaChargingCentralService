@@ -15,6 +15,7 @@ import ocpp.cs._2012._06.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.jws.HandlerChain;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -30,6 +31,7 @@ import javax.xml.ws.BindingType;
  * To change this template use File | Settings | File Templates.
  */
 @WebService(name = "CentralSystemService", targetNamespace = "urn://Ocpp/Cs/2012/06/")
+@HandlerChain(file = "handler-chain.xml")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE, style = SOAPBinding.Style.DOCUMENT, use = SOAPBinding.Use.LITERAL)
 @BindingType(value="http://java.sun.com/xml/ns/jaxws/2003/05/soap/bindings/HTTP/")
 @XmlSeeAlso({
