@@ -1,0 +1,1140 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:tns="http://www.mobitel.lk/schemas/mCashServices" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:sch="http://www.mobitel.lk/schemas/mCashServices" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://www.mobitel.lk/schemas/mCashServices">
+  <wsdl:types>
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.mobitel.lk/schemas/mCashServices" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.mobitel.lk/schemas/mCashServices">
+         <xsd:complexType name="WSRequest">
+            <xsd:sequence>
+               <xsd:element name="merchantTransactionId">
+                  <xsd:simpleType>
+                     <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="25"></xsd:maxLength>
+                        <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="merchantOutletCode">
+                  <xsd:simpleType>
+                     <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="20"></xsd:maxLength>
+                        <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="merchantId">
+                  <xsd:simpleType>
+                     <xsd:restriction base="xsd:string">
+                        <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="mobileNumber">
+                  <xsd:simpleType>
+                     <xsd:restriction base="xsd:string">
+                        <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+               <xsd:element name="note">
+                  <xsd:simpleType>
+                     <xsd:restriction base="xsd:string">
+                        <xsd:maxLength value="50"></xsd:maxLength>
+                        <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="customerMobileNumber">
+                  <xsd:simpleType>
+                     <xsd:restriction base="xsd:string">
+                        <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                     </xsd:restriction>
+                  </xsd:simpleType>
+               </xsd:element>
+               <xsd:element name="transactionAmount" type="xsd:double"></xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="WSResponse">
+            <xsd:sequence>
+               <xsd:element name="merchantTransactionId" type="xsd:string"></xsd:element>
+               <xsd:element name="responseCode" type="xsd:int"></xsd:element>
+               <xsd:element name="response" type="xsd:string"></xsd:element>
+               <xsd:element name="transactionAmount" type="xsd:double"></xsd:element>
+               <xsd:element name="reference" type="xsd:string"></xsd:element>
+               <xsd:element name="transactionType" type="xsd:string"></xsd:element>
+            </xsd:sequence>
+         </xsd:complexType>
+         <xsd:complexType name="TransactionDetails">
+            <xsd:all>
+               <xsd:element name="merchantTransactionId" type="xsd:string"></xsd:element>
+               <xsd:element name="dateTime" type="xsd:dateTime"></xsd:element>
+               <xsd:element name="responseCode" type="xsd:int"></xsd:element>
+               <xsd:element name="transactionAmount" type="xsd:double"></xsd:element>
+               <xsd:element name="reference" type="xsd:string"></xsd:element>
+               <xsd:element name="transactionType" type="xsd:string"></xsd:element>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:complexType name="Utility">
+            <xsd:all>
+               <xsd:element name="utilityCode" type="xsd:string"></xsd:element>
+               <xsd:element name="description" type="xsd:string"></xsd:element>
+            </xsd:all>
+         </xsd:complexType>
+         <xsd:element name="pingRequest">
+            <xsd:complexType></xsd:complexType>
+         </xsd:element>
+         <xsd:element name="pingResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="status" type="xsd:string"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="cashInRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsRequest" type="WSRequest"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="cashInResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsResponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="cashOutRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsRequest" type="WSRequest"></xsd:element>
+                  <xsd:element name="reference" type="xsd:string"></xsd:element>
+                  <xsd:element name="customerOTP">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:int">
+                           <xsd:pattern value="\d{5}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="cashOutResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsReponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="validateCustomerRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsRequest" type="WSRequest"></xsd:element>
+                  <xsd:element name="validateFor">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:enumeration value="CASH_OUT"></xsd:enumeration>
+                           <xsd:enumeration value="COUNTER_PAYMENTS"></xsd:enumeration>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="validateCustomerResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsResponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="payUtilitiesDirectRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="merchantTransactionId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="25"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantOutletCode">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="20"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="note">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="50"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="utilityCode">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{6}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="utilityAccountNumber" type="xsd:string"></xsd:element>
+                  <xsd:element minOccurs="0" name="customerMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityAmount" type="xsd:double"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="payUtilitiesDirectResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsResponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="payForGoodsRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsRequest" type="WSRequest"></xsd:element>
+                  <xsd:element name="reference" type="xsd:string"></xsd:element>
+                  <xsd:element name="customerOTP">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:int">
+                           <xsd:pattern value="\d{5}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="payForGoodsResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsResponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="checkWalletBalanceRequest">
+            <xsd:complexType>
+               <xsd:all>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+               </xsd:all>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="checkWalletBalanceResponse">
+            <xsd:complexType>
+               <xsd:all>
+                  <xsd:element name="walletBalance" type="xsd:double"></xsd:element>
+                  <xsd:element name="statusCode" type="xsd:int"></xsd:element>
+                  <xsd:element name="status" type="xsd:string"></xsd:element>
+               </xsd:all>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="checkTransactionStatusRequest">
+            <xsd:complexType>
+               <xsd:all>
+                  <xsd:element name="merchantTransactionId" type="xsd:string"></xsd:element>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+               </xsd:all>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="checkTransactionStatusResponse">
+            <xsd:complexType>
+               <xsd:all>
+                  <xsd:element name="merchantTransactionId" type="xsd:string"></xsd:element>
+                  <xsd:element name="transactionAmount" type="xsd:double"></xsd:element>
+                  <xsd:element name="statusCode" type="xsd:int"></xsd:element>
+                  <xsd:element name="status" type="xsd:string"></xsd:element>
+               </xsd:all>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getAllTransactionsRequest">
+            <xsd:complexType>
+               <xsd:all>
+                  <xsd:element name="responseCode" type="xsd:int"></xsd:element>
+                  <xsd:element name="fromDate">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[2-9][0-9][0-9][0-9]-([0][1-9]|[1][0-2])-([0-2][1-9]|[3][0-1])"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="toDate">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[2-9][0-9][0-9][0-9]-([0][1-9]|[1][0-2])-([0-2][1-9]|[3][0-1])"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+               </xsd:all>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getAllTransactionsResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="transactionDetails" type="TransactionDetails"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getUtilityCodesRequest">
+            <xsd:complexType></xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getUtilityCodesResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element maxOccurs="unbounded" minOccurs="0" name="item" type="Utility"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getUtilityChargesForFullAmountRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="fullAmount" type="xsd:double"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getUtilityChargesForFullAmountResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="lookUpStatus" type="xsd:int"></xsd:element>
+                  <xsd:element name="utilityCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityAmount" type="xsd:double"></xsd:element>
+                  <xsd:element name="customerCharge" type="xsd:double"></xsd:element>
+                  <xsd:element name="totalCustomerChargeAmount" type="xsd:double"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getUtilityChargesForBillAmountRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityAmount" type="xsd:double"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="getUtilityChargesForBillAmountResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="lookUpStatus" type="xsd:int"></xsd:element>
+                  <xsd:element name="utilityCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityAmount" type="xsd:double"></xsd:element>
+                  <xsd:element name="customerCharge" type="xsd:double"></xsd:element>
+                  <xsd:element name="totalCustomerChargeAmount" type="xsd:double"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="transferToMainWalletRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="merchantTransactionId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="25"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="fromRetailerMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="toRetailerMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="mobileNumber">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+                  <xsd:element minOccurs="0" name="note">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="50"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="transferAmount" type="xsd:double"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="transferToMainWalletResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsResponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="institutionalPaymentRequest">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="merchantTransactionId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="25"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantOutletCode">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="20"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantId">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{2}-\d{4}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="merchantMobileNumber">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[0-9]{10}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="pinCode" type="xsd:string"></xsd:element>
+                  <xsd:element name="note">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:maxLength value="50"></xsd:maxLength>
+                           <xsd:pattern value="[A-Za-z\d\-_\s]+"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="utilityCode">
+                     <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                           <xsd:pattern value="[A-Z]{4}\d{6}"></xsd:pattern>
+                        </xsd:restriction>
+                     </xsd:simpleType>
+                  </xsd:element>
+                  <xsd:element name="utilityAccountNumber" type="xsd:string"></xsd:element>
+                  <xsd:element minOccurs="0" name="customerMobileNumber" type="xsd:string"></xsd:element>
+                  <xsd:element name="utilityAmount" type="xsd:double"></xsd:element>
+                  <xsd:element name="instituteCode" type="xsd:int"></xsd:element>
+                  <xsd:element name="smsParameters" type="xsd:string"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+         <xsd:element name="institutionalPaymentResponse">
+            <xsd:complexType>
+               <xsd:sequence>
+                  <xsd:element name="wsResponse" type="WSResponse"></xsd:element>
+               </xsd:sequence>
+            </xsd:complexType>
+         </xsd:element>
+      </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="payForGoodsRequest">
+    <wsdl:part name="payForGoodsRequest" element="tns:payForGoodsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkTransactionStatusResponse">
+    <wsdl:part name="checkTransactionStatusResponse" element="tns:checkTransactionStatusResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityChargesForBillAmountResponse">
+    <wsdl:part name="getUtilityChargesForBillAmountResponse" element="tns:getUtilityChargesForBillAmountResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="payForGoodsResponse">
+    <wsdl:part name="payForGoodsResponse" element="tns:payForGoodsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityChargesForFullAmountResponse">
+    <wsdl:part name="getUtilityChargesForFullAmountResponse" element="tns:getUtilityChargesForFullAmountResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkWalletBalanceResponse">
+    <wsdl:part name="checkWalletBalanceResponse" element="tns:checkWalletBalanceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllTransactionsResponse">
+    <wsdl:part name="getAllTransactionsResponse" element="tns:getAllTransactionsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkTransactionStatusRequest">
+    <wsdl:part name="checkTransactionStatusRequest" element="tns:checkTransactionStatusRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="checkWalletBalanceRequest">
+    <wsdl:part name="checkWalletBalanceRequest" element="tns:checkWalletBalanceRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pingResponse">
+    <wsdl:part name="pingResponse" element="tns:pingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transferToMainWalletResponse">
+    <wsdl:part name="transferToMainWalletResponse" element="tns:transferToMainWalletResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pingRequest">
+    <wsdl:part name="pingRequest" element="tns:pingRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validateCustomerRequest">
+    <wsdl:part name="validateCustomerRequest" element="tns:validateCustomerRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cashOutRequest">
+    <wsdl:part name="cashOutRequest" element="tns:cashOutRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="institutionalPaymentResponse">
+    <wsdl:part name="institutionalPaymentResponse" element="tns:institutionalPaymentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="transferToMainWalletRequest">
+    <wsdl:part name="transferToMainWalletRequest" element="tns:transferToMainWalletRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="payUtilitiesDirectResponse">
+    <wsdl:part name="payUtilitiesDirectResponse" element="tns:payUtilitiesDirectResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cashInRequest">
+    <wsdl:part name="cashInRequest" element="tns:cashInRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validateCustomerResponse">
+    <wsdl:part name="validateCustomerResponse" element="tns:validateCustomerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="payUtilitiesDirectRequest">
+    <wsdl:part name="payUtilitiesDirectRequest" element="tns:payUtilitiesDirectRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllTransactionsRequest">
+    <wsdl:part name="getAllTransactionsRequest" element="tns:getAllTransactionsRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="institutionalPaymentRequest">
+    <wsdl:part name="institutionalPaymentRequest" element="tns:institutionalPaymentRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityCodesResponse">
+    <wsdl:part name="getUtilityCodesResponse" element="tns:getUtilityCodesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityCodesRequest">
+    <wsdl:part name="getUtilityCodesRequest" element="tns:getUtilityCodesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cashInResponse">
+    <wsdl:part name="cashInResponse" element="tns:cashInResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cashOutResponse">
+    <wsdl:part name="cashOutResponse" element="tns:cashOutResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityChargesForBillAmountRequest">
+    <wsdl:part name="getUtilityChargesForBillAmountRequest" element="tns:getUtilityChargesForBillAmountRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getUtilityChargesForFullAmountRequest">
+    <wsdl:part name="getUtilityChargesForFullAmountRequest" element="tns:getUtilityChargesForFullAmountRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="mCashServicesWSPortType">
+    <wsdl:operation name="cashIn">
+      <wsdl:input message="tns:cashInRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/cashInRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:cashInResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/cashInResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkTransactionStatus">
+      <wsdl:input message="tns:checkTransactionStatusRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/checkTransactionStatusRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:checkTransactionStatusResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/checkTransactionStatusResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <wsdl:input message="tns:pingRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/pingRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pingResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/pingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkWalletBalance">
+      <wsdl:input message="tns:checkWalletBalanceRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/checkWalletBalanceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:checkWalletBalanceResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/checkWalletBalanceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForBillAmount">
+      <wsdl:input message="tns:getUtilityChargesForBillAmountRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getUtilityChargesForBillAmountRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getUtilityChargesForBillAmountResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getUtilityChargesForBillAmountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTransactions">
+      <wsdl:input message="tns:getAllTransactionsRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getAllTransactionsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllTransactionsResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getAllTransactionsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payUtilitiesDirect">
+      <wsdl:input message="tns:payUtilitiesDirectRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/payUtilitiesDirectRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:payUtilitiesDirectResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/payUtilitiesDirectResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForFullAmount">
+      <wsdl:input message="tns:getUtilityChargesForFullAmountRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getUtilityChargesForFullAmountRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getUtilityChargesForFullAmountResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getUtilityChargesForFullAmountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cashOut">
+      <wsdl:input message="tns:cashOutRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/cashOutRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:cashOutResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/cashOutResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="institutionalPayment">
+      <wsdl:input message="tns:institutionalPaymentRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/institutionalPaymentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:institutionalPaymentResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/institutionalPaymentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityCodes">
+      <wsdl:input message="tns:getUtilityCodesRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getUtilityCodesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getUtilityCodesResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/getUtilityCodesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transferToMainWallet">
+      <wsdl:input message="tns:transferToMainWalletRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/transferToMainWalletRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:transferToMainWalletResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/transferToMainWalletResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payForGoods">
+      <wsdl:input message="tns:payForGoodsRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/payForGoodsRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:payForGoodsResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/payForGoodsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateCustomer">
+      <wsdl:input message="tns:validateCustomerRequest" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/validateCustomerRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:validateCustomerResponse" wsaw:Action="http://www.mobitel.lk/schemas/mCashServices/mCashFinancialService/validateCustomerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="mCashServicesWSSoap11Binding" type="tns:mCashServicesWSPortType">
+    <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#UTOverTransport"></wsp:PolicyReference>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap:binding>
+    <wsdl:operation name="cashIn">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkTransactionStatus">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkWalletBalance">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForBillAmount">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTransactions">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payUtilitiesDirect">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForFullAmount">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cashOut">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="institutionalPayment">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityCodes">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transferToMainWallet">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payForGoods">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateCustomer">
+      <soap:operation soapAction="" style="document"></soap:operation>
+      <wsdl:input>
+        <soap:body use="literal"></soap:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"></soap:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mCashServicesWSSoap12Binding" type="tns:mCashServicesWSPortType">
+    <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#UTOverTransport"></wsp:PolicyReference>
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"></soap12:binding>
+    <wsdl:operation name="cashIn">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkTransactionStatus">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkWalletBalance">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForBillAmount">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTransactions">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payUtilitiesDirect">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForFullAmount">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cashOut">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="institutionalPayment">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityCodes">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transferToMainWallet">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payForGoods">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateCustomer">
+      <soap12:operation soapAction="" style="document"></soap12:operation>
+      <wsdl:input>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"></soap12:body>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="mCashServicesWSHttpBinding" type="tns:mCashServicesWSPortType">
+    <http:binding verb="POST"></http:binding>
+    <wsdl:operation name="cashIn">
+      <http:operation location="cashIn"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkTransactionStatus">
+      <http:operation location="checkTransactionStatus"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkWalletBalance">
+      <http:operation location="checkWalletBalance"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ping">
+      <http:operation location="ping"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForBillAmount">
+      <http:operation location="getUtilityChargesForBillAmount"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllTransactions">
+      <http:operation location="getAllTransactions"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payUtilitiesDirect">
+      <http:operation location="payUtilitiesDirect"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityChargesForFullAmount">
+      <http:operation location="getUtilityChargesForFullAmount"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cashOut">
+      <http:operation location="cashOut"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="institutionalPayment">
+      <http:operation location="institutionalPayment"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUtilityCodes">
+      <http:operation location="getUtilityCodes"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transferToMainWallet">
+      <http:operation location="transferToMainWallet"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="payForGoods">
+      <http:operation location="payForGoods"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="validateCustomer">
+      <http:operation location="validateCustomer"></http:operation>
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml"></mime:content>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="mCashServicesWS">
+    <wsdl:port name="mCashServicesWSHttpsSoap12Endpoint" binding="tns:mCashServicesWSSoap12Binding">
+      <soap12:address location="https://apps.mobitel.lk/Testservices/mCashServicesWS.mCashServicesWSHttpsSoap12Endpoint"></soap12:address>
+    </wsdl:port>
+    <wsdl:port name="mCashServicesWSHttpsSoap11Endpoint" binding="tns:mCashServicesWSSoap11Binding">
+      <soap:address location="https://apps.mobitel.lk/Testservices/mCashServicesWS.mCashServicesWSHttpsSoap11Endpoint"></soap:address>
+    </wsdl:port>
+    <wsdl:port name="mCashServicesWSHttpsEndpoint" binding="tns:mCashServicesWSHttpBinding">
+      <http:address location="https://apps.mobitel.lk/Testservices/mCashServicesWS.mCashServicesWSHttpsEndpoint"></http:address>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="UTOverTransport">
+      <wsp:ExactlyOne>
+         <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+               <wsp:Policy>
+                  <sp:TransportToken>
+                     <wsp:Policy>
+                        <sp:HttpsToken RequireClientCertificate="false"></sp:HttpsToken>
+                     </wsp:Policy>
+                  </sp:TransportToken>
+                  <sp:AlgorithmSuite>
+                     <wsp:Policy>
+                        <sp:Basic256></sp:Basic256>
+                     </wsp:Policy>
+                  </sp:AlgorithmSuite>
+                  <sp:Layout>
+                     <wsp:Policy>
+                        <sp:Lax></sp:Lax>
+                     </wsp:Policy>
+                  </sp:Layout>
+                  <sp:IncludeTimestamp></sp:IncludeTimestamp>
+               </wsp:Policy>
+            </sp:TransportBinding>
+            <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+               <wsp:Policy>
+                  <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient"></sp:UsernameToken>
+               </wsp:Policy>
+            </sp:SignedSupportingTokens>
+         </wsp:All>
+      </wsp:ExactlyOne>
+   </wsp:Policy>
+</wsdl:definitions>
