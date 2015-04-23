@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{edit.location}"></p>
+<div>
+    <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
+    <form action="#" th:action="@{/saveLocation}"  th:object="${location}" method="post">
+    <table>
+        <tr height="30">
+            <th align="left">Location Name: </th>
+            <th align="left"><input type="text" name="locationName" value="Test Location Name" th:value="${location.name}" th:field="*{name}"/></th>
+        </tr>
+        <tr height="30">
+            <th align="left">Location Longitude: </th>
+            <th align="left" ><input type="text" name="locationLongitude" value="Test Longitude" th:value="${location.longitude}" th:field="*{longitude}"/></th>
+        </tr>
+        <tr height="30">
+            <th align="left" >Location Latitude: </th>
+            <th align="left" ><input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}" th:field="*{latitude}"/></th>
+        </tr>
+        <tr height="30">
+            <th align="left">Location GPSLocation: </th>
+            <th align="left"><input type="text" name="locationGPSLocation" value="GPSLocation" th:value="${location.gpsLocation}" th:field="*{gpsLocation}"/></th>
+        </tr>
+        <tr height="30">
+            <th align="left"><input type="submit" value="Save Location"/></th>
+            <th align="left"><input type="hidden" name="locationGPSLocation" value="GPSLocation" th:value="${location.locationId}" th:field="*{locationId}"/></th>
+        </tr>
+    </table>
+    </form>
+    <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->
+    <!--<p>Location Longitude: <input type="text" name="locationLongitude" value="Test Longitude" th:value="${location.longitude}"/>.</p>-->
+    <!--<p>Location Latitude: <input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}"/>.</p>-->
+    <!--<p>Location GPSLocation: <input type="text" name="locationGPSLocation" value="GPSLocation" th:value="${location.gpsLocation}"/>.</p>-->
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

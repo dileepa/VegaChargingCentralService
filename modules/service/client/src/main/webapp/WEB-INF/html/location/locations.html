@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{all.locations}"></p>
+<div>
+    <table border="1" >
+        <tr>
+            <th>name</th>
+            <th>longitude</th>
+            <th>latitude</th>
+            <th>gpsLocation</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <tr th:each="location : ${locations}">
+            <td th:text="${location.name}">Test Charge Location Name</td>
+            <!--<td align="right" th:text="${chgStation.locationId}">2.41</td>-->
+            <td th:text="${location.longitude}">Test longitude</td>
+            <td th:text="${location.latitude}">Test latitude</td>
+            <td th:text="${location.gpsLocation}">Test gpsLocation</td>
+            <td >
+                <a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">
+                    EDIT
+                </a>
+            </td>
+            <td >
+                <a href="../html/chargeStationDetail.html">
+                    DELETE
+                </a>
+            </td>
+            <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
+        </tr>
+    </table>
+    <div>
+        <p>
+            <a href="../html/chargeStationDetail.html">
+                Add New Location
+            </a>
+        </p>
+    </div>
+</div>
+
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

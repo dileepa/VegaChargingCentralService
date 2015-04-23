@@ -25,7 +25,18 @@ public class ChargePoint extends Savable
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
     private int userId;
+    private ChargeLocation chargeLocation;
     private int status;
+
+    public ChargeLocation getChargeLocation()
+    {
+        return chargeLocation;
+    }
+
+    public void setChargeLocation( ChargeLocation chargeLocation )
+    {
+        this.chargeLocation = chargeLocation;
+    }
 
     public int getChargePointId()
     {
@@ -274,6 +285,34 @@ public class ChargePoint extends Savable
         this.lastUpdateDate = new ChgDate( rs.getDate( "LASTUPDATE" ) );
         this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
         this.userId = rs.getInt( "USERID" );
+        if( level > 10 )
+        {
+            PreparedStatement psChargeLocation = null;
+            ResultSet rsChargeLocation = null;
+
+            try
+            {
+                StringBuilder chargeLocationString = new StringBuilder( "SELECT * FROM CHG_POINT_LOCATION WHERE " );
+                chargeLocationString.append( "ID = ? " );
+
+                psChargeLocation = con.prepareStatement( chargeLocationString.toString() );
+                psChargeLocation.setInt( 1, locationId );
+                rsChargeLocation = psChargeLocation.executeQuery();
+                if( rsChargeLocation.next() )
+                {
+                    ChargeLocation chargeLocation = new ChargeLocation();
+                    chargeLocation.init();
+                    chargeLocation.load( rsChargeLocation, con, 0 );
+                    this.chargeLocation = chargeLocation;
+                }
+            }
+            finally
+            {
+                DBUtility.close( rsChargeLocation );
+                DBUtility.close( psChargeLocation );
+            }
+
+        }
     }
 
     private void update( Connection con ) throws SQLException

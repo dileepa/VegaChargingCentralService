@@ -9,33 +9,52 @@
     <artifactId>centralservice.client</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>CentralSystemClientWebApp</name>
+    <name>CentralSystemClientManager</name>
     <url>http://maven.apache.org</url>
-    <repositories>
-        <repository>
-            <id>java.net2</id>
-            <name>Repository hosting the jee6 artifacts</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
-        <!--<repository>-->
-        <!--<id>project.local</id>-->
-        <!--<name>centralservice</name>-->
-        <!--<url>http://192.168.6.119:8080/artifactory/libs-snapshot-local</url>-->
-        <!--</repository>-->
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>java.net2</id>
-            <name>Repository hosting the jee6 artifacts</name>
-            <url>http://download.java.net/maven/2</url>
-        </pluginRepository>
-    </pluginRepositories>
     <dependencies>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>3.2.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>3.2.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>3.2.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring3</artifactId>
+            <version>2.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
         </dependency>
         <dependency>
             <groupId>service</groupId>
@@ -43,124 +62,113 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>service</groupId>
-            <artifactId>centralservice.libraries.dialogEasyCash</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt</artifactId>
-            <version>2.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>istack-commons-runtime</artifactId>
-                    <groupId>com.sun.istack</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.6</version>
         </dependency>
     </dependencies>
-    <profiles>
-        <profile>
-            <id>jdk6</id>
-            <activation>
-                <!--needed only jdk 6-->
-                <jdk>1.6</jdk>
-            </activation>
-            <properties>
-                <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>2.0.2</version>
-                        <configuration>
-                            <source>1.6</source>
-                            <target>1.6</target>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <version>2.1-beta-1</version>
-                        <configuration>
-                            <failOnMissingWebXml>false</failOnMissingWebXml>
-                        </configuration>
-                    </plugin>
+    <build>
+        <finalName>CentralSystemClientManager</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.0.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>com.googlecode.t7mp</groupId>-->
+            <!--<artifactId>maven-t7-plugin</artifactId>-->
+            <!--<version>0.9.10.M5</version>-->
+            <!--<inherited>false</inherited>-->
+            <!--<configuration>-->
+            <!--<tomcatHttpPort>8080</tomcatHttpPort>-->
+            <!--<tomcatShutdownPort>8005</tomcatShutdownPort>-->
+            <!--<tomcatShutdownCommand>SHUTDOWN</tomcatShutdownCommand>-->
+            <!--&lt;!&ndash;<tomcatVersion>6.0.24</tomcatVersion>&ndash;&gt;-->
+            <!--<tomcatVersion>7.0.6</tomcatVersion>-->
+            <!--<tomcatSetAwait>true</tomcatSetAwait>-->
+            <!--&lt;!&ndash;<tomcatConfigDirectory>${basedir}/src/main/tomcat/conf</tomcatConfigDirectory>&ndash;&gt;-->
+            <!--<lookInside>false</lookInside>-->
+            <!--&lt;!&ndash;<overwriteWebXML>/path/to/a/webxmlfile</overwriteWebXML>&ndash;&gt;-->
+            <!--<contextPath>${project.build.finalName}</contextPath>-->
+            <!--<addGithubRepository>false</addGithubRepository>-->
+            <!--&lt;!&ndash;<contextFile>/path/to/a/contextfile</contextFile>&ndash;&gt;-->
+            <!--<downloadTomcatExamples>false</downloadTomcatExamples>-->
+            <!--<suspendConsoleOutput>false</suspendConsoleOutput>-->
+            <!--<scanners>-->
+            <!--<scannerConfiguration/>-->
+            <!--</scanners>-->
+            <!--<libs>-->
+            <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-core</artifactId>-->
+            <!--<version>3.2.1.RELEASE</version>-->
+            <!--</dependency>-->
 
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>${basedir}/target/src/main/java</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+            <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+            <!--<version>3.2.1.RELEASE</version>-->
+            <!--</dependency>-->
 
-                    <!--<plugin>-->
-                        <!--<groupId>org.codehaus.mojo</groupId>-->
-                        <!--<artifactId>jaxws-maven-plugin</artifactId>-->
-                        <!--<version>1.12</version>-->
-                        <!--<executions>-->
-                            <!--<execution>-->
-                                <!--<goals>-->
-                                    <!--<goal>wsimport</goal>-->
-                                <!--</goals>-->
-                                <!--<configuration>-->
-                                    <!--<wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>-->
-                                    <!--&lt;!&ndash;<packageName>lk.vega.charger.centralservice.service</packageName>&ndash;&gt;-->
-                                    <!--<keep>true</keep>-->
-                                    <!--<extension>true</extension>-->
-                                    <!--<sourceDestDir>${basedir}/target/src/main/java</sourceDestDir>-->
-                                <!--</configuration>-->
-                            <!--</execution>-->
-                        <!--</executions>-->
-                    <!--</plugin>-->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.3</version>
-                        <executions>
-                            <execution>
-                                <id>unzip-distribution</id>
-                                <goals>
-                                    <goal>unpack-dependencies</goal>
-                                </goals>
-                                <configuration>
-                                    <includeArtifactIds>org.jetbrains.intellij-ce</includeArtifactIds>
-                                    <outputDirectory>${project.build.directory}/dependency/IntelliJ-IDEA-CE</outputDirectory>
-                                    <includes>**/*.jar</includes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-                <finalName>CentralSystemClientWebApp</finalName>
-            </build>
-        </profile>
-    </profiles>
+            <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-webmvc</artifactId>-->
+            <!--<version>3.2.1.RELEASE</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.thymeleaf</groupId>-->
+            <!--<artifactId>thymeleaf-spring3</artifactId>-->
+            <!--<version>2.1.3.RELEASE</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-simple</artifactId>-->
+            <!--<version>1.7.5</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>1.7.5</version>-->
+            <!--</dependency>-->
+            <!--&lt;!&ndash;&lt;!&ndash;<dependency>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<groupId>javax.servlet</groupId>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<artifactId>servlet-api</artifactId>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<version>2.5</version>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;</dependency>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<dependency>&ndash;&gt;-->
+            <!--&lt;!&ndash;<groupId>javax.servlet.jsp</groupId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<artifactId>jsp-api</artifactId>&ndash;&gt;-->
+            <!--&lt;!&ndash;<version>2.1</version>&ndash;&gt;-->
+            <!--&lt;!&ndash;</dependency>&ndash;&gt;-->
+            <!--</libs>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <!--<configuration>-->
+                <!--<url>http://localhost:8080/manager/text</url>-->
+                <!--<server>TomcatServer</server>-->
+                <!--<path>/WebMVC</path>-->
+                <!--</configuration>-->
+            </plugin>
+            <!--<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.3</version>
+            <configuration>
+            <warSourceDirectory>WebContent</warSourceDirectory>
+            <failOnMissingWebXml>false</failOnMissingWebXml>
+            <warName>WebMVC</warName>
+            <outputDirectory>${basedir}/target/tomcat/webapps</outputDirectory>
+            </configuration>
+            </plugin>-->
+        </plugins>
+    </build>
 
 </project>

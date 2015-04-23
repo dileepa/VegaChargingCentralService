@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{saved.location}"></p>
+
+<div>
+    <table>
+        <tr height="30">
+            <th align="left">Location Name:</th>
+            <th align="left" th:text="${location.name}">Test Location Name</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Location Longitude:</th>
+            <th align="left" th:text="${location.longitude}">Test Location Longitude</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Location Latitude:</th>
+            <th align="left" th:text="${location.latitude}">Test Location Latitude</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Location GPSLocation:</th>
+            <th align="left" th:text="${location.gpsLocation}">Test Location GPSLocation</th>
+        </tr>
+    </table>
+    <p>
+        <a th:href="@{/AllLocations.html}">
+            See All Locations
+        </a>
+    </p>
+    <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->
+    <!--<p>Location Longitude: <input type="text" name="locationLongitude" value="Test Longitude" th:value="${location.longitude}"/>.</p>-->
+    <!--<p>Location Latitude: <input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}"/>.</p>-->
+    <!--<p>Location GPSLocation: <input type="text" name="locationGPSLocation" value="GPSLocation" th:value="${location.gpsLocation}"/>.</p>-->
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

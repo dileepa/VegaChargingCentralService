@@ -1,3 +1,49 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
 <web-app>
-    <display-name>Archetype Created Web Application</display-name>
+    <display-name>Created Central System Client Manager Web Application</display-name>
+
+    <!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext -->
+    <!--<context-param>-->
+        <!--<param-name>contextClass</param-name>-->
+        <!--<param-value>-->
+            <!--org.springframework.web.context.support.AnnotationConfigWebApplicationContext-->
+        <!--</param-value>-->
+    <!--</context-param>-->
+
+    <!--&lt;!&ndash; @Configuration classes or package &ndash;&gt;-->
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>xpadro.thymeleaf.configuration.WebAppConfiguration</param-value>-->
+        <!--&lt;!&ndash;<param-value>it.codegen.tbx.web.config</param-value>&ndash;&gt;-->
+    <!--</context-param>-->
+
+    <!--<context-param>-->
+    <!--<param-name>log4jConfigLocation</param-name>-->
+    <!--<param-value>/WEB-INF/log4j.properties</param-value>-->
+    <!--</context-param>-->
+
+    <!--<listener>-->
+    <!--<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>-->
+    <!--</listener>-->
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--</listener>-->
+
+    <!-- Spring servlet -->
+    <!--<servlet>-->
+    <!--<servlet-name>springServlet</servlet-name>-->
+    <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+    <!--<init-param>-->
+    <!--<param-name>contextClass</param-name>-->
+    <!--<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>-->
+    <!--</init-param>-->
+    <!--<load-on-startup>1</load-on-startup>-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>springServlet</servlet-name>-->
+    <!--<url-pattern>/spring/*</url-pattern>-->
+    <!--</servlet-mapping>-->
 </web-app>
