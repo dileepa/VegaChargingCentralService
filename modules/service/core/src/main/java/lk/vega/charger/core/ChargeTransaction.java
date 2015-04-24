@@ -299,7 +299,7 @@ public class ChargeTransaction extends Savable
     public void load( ResultSet rs, Connection con, int level ) throws SQLException
     {
         this.status = Savable.UNCHANGED;
-        this.id = rs.getInt( "ID" );
+        this.id = rs.getInt( "TRS_CHG_TRANSACTION_ID" );
         this.transactionId = rs.getString( "TRS_ID" );
         this.startTime = new ChgTimeStamp( rs.getTimestamp( "STATR_TIME" ));
         this.endTime = new ChgTimeStamp(rs.getTimestamp( "END_TIME" ));
@@ -335,7 +335,7 @@ public class ChargeTransaction extends Savable
         sb.append( "RESERVATION_ID = ?, " );
         sb.append( "PAYMENT_GATEWAY_TYPE = ? " );
         sb.append( "WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "TRS_CHG_TRANSACTION_ID = ? " );
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -382,7 +382,7 @@ public class ChargeTransaction extends Savable
     private void delete( Connection con ) throws SQLException
     {
         StringBuilder sb = new StringBuilder( "DELETE FROM TRS_CHG_TRANSACTION WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "TRS_CHG_TRANSACTION_ID = ? " );
 
         int count = 0;
         PreparedStatement ps = null;

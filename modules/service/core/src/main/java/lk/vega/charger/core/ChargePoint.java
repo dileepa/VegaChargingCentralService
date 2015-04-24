@@ -203,21 +203,10 @@ public class ChargePoint extends Savable
     private void insert( Connection con ) throws SQLException
     {
 
-        //TODO Generate Squence Id here
-        //        PreparedStatement ps1 = con.prepareStatement( "SELECT NAME oF SEQ.NEXTVAL FROM DUAL" );
-        //        ResultSet rs1 = ps1.executeQuery();
-        //        if( rs1.next() )
-        //        {
-        //            this.xxx = rs1.getLong( "NEXTVAL" );
-        //        }
-        //        DBUtility.close( rs1 );
-        //        DBUtility.close( ps1 );
-
         this.lastUpdateDate = new ChgDate( );
         this.lastUpdateTimeStamp = new ChgTimeStamp( );
 
         StringBuilder sb = new StringBuilder( "INSERT INTO CHG_POINT ( " );
-        sb.append( "ID, " );
         sb.append( "REFERENCE, " );
         sb.append( "LOCATIONID, " );
         sb.append( "POWER, " );
@@ -228,20 +217,12 @@ public class ChargePoint extends Savable
         sb.append( "LASTUPDATETIMESTAMP, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS, " );
         sb.append( "USERID " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?");
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            if( this.chargePointId != -1 )
-            {
-                ps.setInt( ++count, this.chargePointId );
-            }
-            else
-            {
-                ps.setNull( ++count, java.sql.Types.NUMERIC );
-            }
             if( this.reference != null )
             {
                 ps.setString( ++count, this.reference );
@@ -288,7 +269,7 @@ public class ChargePoint extends Savable
     public void load( ResultSet rs, Connection con, int level ) throws SQLException
     {
         this.status = Savable.UNCHANGED;
-        this.chargePointId = rs.getInt( "ID" );
+        this.chargePointId = rs.getInt( "CHG_POINT_ID" );
         this.reference = rs.getString( "REFERENCE" );
         this.locationId = rs.getInt( "LOCATIONID" );
         this.power = rs.getDouble( "POWER" );
@@ -299,34 +280,34 @@ public class ChargePoint extends Savable
         this.machineUniqueRef = rs.getString( "MACHINE_UNIQUE_ADDRESS" );
         this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
         this.userId = rs.getInt( "USERID" );
-        if( level > 10 )
-        {
-            PreparedStatement psChargeLocation = null;
-            ResultSet rsChargeLocation = null;
-
-            try
-            {
-                StringBuilder chargeLocationString = new StringBuilder( "SELECT * FROM CHG_POINT_LOCATION WHERE " );
-                chargeLocationString.append( "ID = ? " );
-
-                psChargeLocation = con.prepareStatement( chargeLocationString.toString() );
-                psChargeLocation.setInt( 1, locationId );
-                rsChargeLocation = psChargeLocation.executeQuery();
-                if( rsChargeLocation.next() )
-                {
-                    ChargeLocation chargeLocation = new ChargeLocation();
-                    chargeLocation.init();
-                    chargeLocation.load( rsChargeLocation, con, 0 );
-                    this.chargeLocation = chargeLocation;
-                }
-            }
-            finally
-            {
-                DBUtility.close( rsChargeLocation );
-                DBUtility.close( psChargeLocation );
-            }
-
-        }
+//        if( level > 10 )
+//        {
+//            PreparedStatement psChargeLocation = null;
+//            ResultSet rsChargeLocation = null;
+//
+//            try
+//            {
+//                StringBuilder chargeLocationString = new StringBuilder( "SELECT * FROM CHG_POINT_LOCATION WHERE " );
+//                chargeLocationString.append( "ID = ? " );
+//
+//                psChargeLocation = con.prepareStatement( chargeLocationString.toString() );
+//                psChargeLocation.setInt( 1, locationId );
+//                rsChargeLocation = psChargeLocation.executeQuery();
+//                if( rsChargeLocation.next() )
+//                {
+//                    ChargeLocation chargeLocation = new ChargeLocation();
+//                    chargeLocation.init();
+//                    chargeLocation.load( rsChargeLocation, con, 0 );
+//                    this.chargeLocation = chargeLocation;
+//                }
+//            }
+//            finally
+//            {
+//                DBUtility.close( rsChargeLocation );
+//                DBUtility.close( psChargeLocation );
+//            }
+//
+//        }
     }
 
     private void update( Connection con ) throws SQLException
@@ -346,7 +327,7 @@ public class ChargePoint extends Savable
         sb.append( "MACHINE_UNIQUE_ADDRESS = ?, " );
         sb.append( "USERID = ? " );
         sb.append( "WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "CHG_POINT_ID = ? " );
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -399,7 +380,7 @@ public class ChargePoint extends Savable
     private void delete( Connection con ) throws SQLException
     {
         StringBuilder sb = new StringBuilder( "DELETE FROM CHG_POINT WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "CHG_POINT_ID = ? " );
 
         int count = 0;
         PreparedStatement ps = null;

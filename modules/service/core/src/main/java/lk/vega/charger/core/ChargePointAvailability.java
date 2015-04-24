@@ -122,22 +122,11 @@ public class ChargePointAvailability extends Savable
     private void insert( Connection con ) throws SQLException
     {
 
-        //TODO Generate Squence Id here
-        //        PreparedStatement ps1 = con.prepareStatement( "SELECT NAME oF SEQ.NEXTVAL FROM DUAL" );
-        //        ResultSet rs1 = ps1.executeQuery();
-        //        if( rs1.next() )
-        //        {
-        //            this.xxx = rs1.getLong( "NEXTVAL" );
-        //        }
-        //        DBUtility.close( rs1 );
-        //        DBUtility.close( ps1 );
-
         StringBuilder sb = new StringBuilder( "INSERT INTO TRS_CHG_POINT_STATUS ( " );
-        sb.append( "ID, " );
         sb.append( "POINTID, " );
         sb.append( "TIMESTAMP, " );
-        sb.append( "STATUS, " );
-        sb.append( ") VALUES(?,?,?,?");
+        sb.append( "STATUS " );
+        sb.append( ") VALUES(?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -174,7 +163,7 @@ public class ChargePointAvailability extends Savable
     public void load( ResultSet rs, Connection con, int level ) throws SQLException
     {
         this.status = Savable.UNCHANGED;
-        this.id = rs.getInt( "ID" );
+        this.id = rs.getInt( "TRS_CHG_POINT_STATUS_ID" );
         this.pointId = rs.getInt( "POINTID" );
         this.time = new ChgTimeStamp( rs.getTimestamp( "TIMESTAMP" ) );
         this.availability = rs.getString( "STATUS" );
@@ -188,7 +177,7 @@ public class ChargePointAvailability extends Savable
         sb.append( "TIMESTAMP = ?, " );
         sb.append( "STATUS = ? " );
         sb.append( "WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "TRS_CHG_POINT_STATUS_ID = ? " );
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -218,7 +207,7 @@ public class ChargePointAvailability extends Savable
     private void delete( Connection con ) throws SQLException
     {
         StringBuilder sb = new StringBuilder( "DELETE FROM TRS_CHG_POINT_STATUS WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "TRS_CHG_POINT_STATUS_ID = ? " );
 
         int count = 0;
         PreparedStatement ps = null;

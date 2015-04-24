@@ -116,7 +116,7 @@ public class ChargeConnector extends Savable
     {
 
         this.status = Savable.UNCHANGED;
-        this.connectorId = rs.getInt( "ID" );
+        this.connectorId = rs.getInt( "CHG_POINT_CONNECTOR_ID" );
         this.chargePointId = rs.getInt( "POINTID" );
         this.connectorPortNum = rs.getInt( "PORTNUM" );
         this.connectorPower = rs.getDouble( "CONNECTORPOWER" );
@@ -140,7 +140,7 @@ public class ChargeConnector extends Savable
         sb.append( "PORTNUM = ?, " );
         sb.append( "CONNECTORPOWER = ? " );
         sb.append( "WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "CHG_POINT_CONNECTOR_ID = ? " );
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -164,7 +164,7 @@ public class ChargeConnector extends Savable
     private void delete( Connection con ) throws SQLException
     {
         StringBuilder sb = new StringBuilder( "DELETE FROM CHG_POINT_CONNECTOR WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "CHG_POINT_CONNECTOR_ID = ? " );
 
         int count = 0;
         PreparedStatement ps = null;
@@ -183,36 +183,16 @@ public class ChargeConnector extends Savable
 
     private void insert( Connection con ) throws SQLException
     {
-
-        //TODO Generate Squence Id here
-        //        PreparedStatement ps1 = con.prepareStatement( "SELECT NAME oF SEQ.NEXTVAL FROM DUAL" );
-        //        ResultSet rs1 = ps1.executeQuery();
-        //        if( rs1.next() )
-        //        {
-        //            this.xxx = rs1.getLong( "NEXTVAL" );
-        //        }
-        //        DBUtility.close( rs1 );
-        //        DBUtility.close( ps1 );
-
         StringBuilder sb = new StringBuilder( "INSERT INTO CHG_POINT_CONNECTOR ( " );
-        sb.append( "ID, " );
         sb.append( "POINTID, " );
         sb.append( "PORTNUM, " );
         sb.append( "CONNECTORPOWER " );
-        sb.append( ") VALUES(?,?,?,?");
+        sb.append( ") VALUES(?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            if( this.connectorId != -1 )
-            {
-                ps.setInt( ++count, this.connectorId );
-            }
-            else
-            {
-                ps.setNull( ++count, java.sql.Types.NUMERIC );
-            }
             ps.setInt( ++count, this.chargePointId );
             ps.setInt( ++count, this.connectorPortNum );
             ps.setDouble( ++count, this.connectorPower );

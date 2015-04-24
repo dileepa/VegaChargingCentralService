@@ -159,7 +159,7 @@ public class ChargeLocation extends Savable
         sb.append( "LATTITUDE = ?, " );
         sb.append( "GPSLOCATION = ? " );
         sb.append( "WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "CHG_POINT_LOCATION_ID = ? " );
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -183,7 +183,7 @@ public class ChargeLocation extends Savable
     private void delete( Connection con ) throws SQLException
     {
         StringBuilder sb = new StringBuilder( "DELETE FROM CHG_POINT_LOCATION WHERE " );
-        sb.append( "ID = ? " );
+        sb.append( "CHG_POINT_LOCATION_ID = ? " );
 
         int count = 0;
         PreparedStatement ps = null;
@@ -214,7 +214,7 @@ public class ChargeLocation extends Savable
     public void load( ResultSet rs, Connection con, int level ) throws SQLException
     {
         this.status = Savable.UNCHANGED;
-        this.locationId = rs.getInt( "ID" );
+        this.locationId = rs.getInt( "CHG_POINT_LOCATION_ID" );
         this.name = rs.getString( "LOCATION" );
         this.longitude = rs.getString( "LONGITUDE" );
         this.latitude = rs.getString( "LATTITUDE" );
