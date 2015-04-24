@@ -12,10 +12,10 @@
 <div>
     <table border="1" >
         <tr>
-            <th>name</th>
-            <th>longitude</th>
-            <th>latitude</th>
-            <th>gpsLocation</th>
+            <th>Name</th>
+            <th>Longitude</th>
+            <th>Latitude</th>
+            <th>GPSLocation</th>
             <th colspan="2">Action</th>
         </tr>
         <tr th:each="location : ${locations}">
@@ -39,7 +39,7 @@
     </table>
     <div>
         <p>
-            <a href="../html/chargeStationDetail.html">
+            <a th:href="@{/location/addLocation.html}">
                 Add New Location
             </a>
         </p>

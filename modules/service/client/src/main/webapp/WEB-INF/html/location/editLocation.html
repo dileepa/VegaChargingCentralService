@@ -11,11 +11,11 @@
 <p th:text="#{edit.location}"></p>
 <div>
     <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
-    <form action="#" th:action="@{/saveLocation}"  th:object="${location}" method="post">
+    <form action="#" th:action="@{/saveExistingLocation}"  th:object="${location}" method="post">
     <table>
         <tr height="30">
             <th align="left">Location Name: </th>
-            <th align="left"><input type="text" name="locationName" value="Test Location Name" th:value="${location.name}" th:field="*{name}"/></th>
+            <th align="left"><input type="text" name="locationName" value="Test Location Name" th:value="${location.name}" th:field="*{name}"  readonly="readonly"/></th>
         </tr>
         <tr height="30">
             <th align="left">Location Longitude: </th>
@@ -31,10 +31,15 @@
         </tr>
         <tr height="30">
             <th align="left"><input type="submit" value="Save Location"/></th>
-            <th align="left"><input type="hidden" name="locationGPSLocation" value="GPSLocation" th:value="${location.locationId}" th:field="*{locationId}"/></th>
+            <th align="left"><input type="hidden" name="locationLocationID" value="LocationID" th:value="${location.locationId}" th:field="*{locationId}"/></th>
         </tr>
     </table>
     </form>
+    <p>
+        <a th:href="@{/AllLocations.html}">
+            See All Locations
+        </a>
+    </p>
     <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->
     <!--<p>Location Longitude: <input type="text" name="locationLongitude" value="Test Longitude" th:value="${location.longitude}"/>.</p>-->
     <!--<p>Location Latitude: <input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}"/>.</p>-->

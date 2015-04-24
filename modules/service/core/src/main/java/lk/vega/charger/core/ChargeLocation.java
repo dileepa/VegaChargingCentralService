@@ -126,36 +126,17 @@ public class ChargeLocation extends Savable
     private void insert( Connection con ) throws SQLException
     {
 
-        //TODO Generate Squence Id here
-        //        PreparedStatement ps1 = con.prepareStatement( "SELECT NAME oF SEQ.NEXTVAL FROM DUAL" );
-        //        ResultSet rs1 = ps1.executeQuery();
-        //        if( rs1.next() )
-        //        {
-        //            this.xxx = rs1.getLong( "NEXTVAL" );
-        //        }
-        //        DBUtility.close( rs1 );
-        //        DBUtility.close( ps1 );
-
         StringBuilder sb = new StringBuilder( "INSERT INTO CHG_POINT_LOCATION ( " );
-        sb.append( "ID, " );
         sb.append( "LOCATION, " );
         sb.append( "LONGITUDE, " );
         sb.append( "LATTITUDE, " );
-        sb.append( "GPSLOCATION, " );
-        sb.append( ") VALUES(?,?,?,?,?");
+        sb.append( "GPSLOCATION " );
+        sb.append( ") VALUES(?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            if( this.locationId != -1 )
-            {
-                ps.setInt( ++count, this.locationId );
-            }
-            else
-            {
-                ps.setNull( ++count, java.sql.Types.NUMERIC );
-            }
             ps.setString( ++count, this.name );
             ps.setString( ++count, this.longitude );
             ps.setString( ++count, this.latitude );
