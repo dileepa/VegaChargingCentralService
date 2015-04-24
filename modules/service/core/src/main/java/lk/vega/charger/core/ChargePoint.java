@@ -26,7 +26,18 @@ public class ChargePoint extends Savable
     private ChgTimeStamp lastUpdateTimeStamp;
     private int userId;
     private ChargeLocation chargeLocation;
+    private String machineUniqueRef;
     private int status;
+
+    public String getMachineUniqueRef()
+    {
+        return machineUniqueRef;
+    }
+
+    public void setMachineUniqueRef( String machineUniqueRef )
+    {
+        this.machineUniqueRef = machineUniqueRef;
+    }
 
     public ChargeLocation getChargeLocation()
     {
@@ -215,8 +226,9 @@ public class ChargePoint extends Savable
         sb.append( "VERSION, " );
         sb.append( "LASTUPDATE, " );
         sb.append( "LASTUPDATETIMESTAMP, " );
+        sb.append( "MACHINE_UNIQUE_ADDRESS, " );
         sb.append( "USERID " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?");
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -259,6 +271,7 @@ public class ChargePoint extends Savable
             {
                 ps.setTimestamp( ++count, lastUpdateTimeStamp._getSQLTimestamp());
             }
+            ps.setString( ++count, this.machineUniqueRef );
             ps.setInt( ++count, this.userId );
 
             ps.execute();
@@ -283,6 +296,7 @@ public class ChargePoint extends Savable
         this.protocol = rs.getString( "PROTOCOL" );
         this.version = rs.getString( "VERSION" );
         this.lastUpdateDate = new ChgDate( rs.getDate( "LASTUPDATE" ) );
+        this.machineUniqueRef = rs.getString( "MACHINE_UNIQUE_ADDRESS" );
         this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
         this.userId = rs.getInt( "USERID" );
         if( level > 10 )
@@ -329,6 +343,7 @@ public class ChargePoint extends Savable
         sb.append( "VERSION = ?, " );
         sb.append( "LASTUPDATE = ?, " );
         sb.append( "LASTUPDATETIMESTAMP = ?, " );
+        sb.append( "MACHINE_UNIQUE_ADDRESS = ?, " );
         sb.append( "USERID = ? " );
         sb.append( "WHERE " );
         sb.append( "ID = ? " );
@@ -366,6 +381,7 @@ public class ChargePoint extends Savable
             {
                 ps.setTimestamp( ++count, lastUpdateTimeStamp._getSQLTimestamp() );
             }
+            ps.setString( ++count, this.machineUniqueRef );
             ps.setInt( ++count, this.userId );
             ps.setInt( ++count, this.chargePointId );
 
@@ -410,6 +426,7 @@ public class ChargePoint extends Savable
         this.protocol = null;
         this.version = null;
         this.lastUpdateDate = null;
+        this.machineUniqueRef = null;
         this.lastUpdateTimeStamp = null;
         this.userId = -1;
         this.status = Savable.UNCHANGED;

@@ -1,5 +1,7 @@
-package lk.vega.charger.centralservice.client.web.controller.user.chargeStation;
+package lk.vega.charger.centralservice.client.web.controller.chargeStation;
 
+import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.core.ChargePoint;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.DBUtility;
@@ -19,39 +21,39 @@ import java.util.List;
 /**
  * Intelij Idea IDE
  * Created by dileepa.
- * Date on 4/23/15.
- * Time on 9:46 AM
+ * Date on 4/24/15.
+ * Time on 1:12 PM
  */
 @Controller
 public class ChargeStationsController
 {
-    @RequestMapping(value = "/UserChargeStations", method = RequestMethod.GET)
+    @RequestMapping(value = "/AllChargeStations", method = RequestMethod.GET)
     public ModelAndView index()
     {
-        ChgResponse chgResponse = loadUserSpecificChargePoints();
+        ChgResponse chgResponse = loadAllChargePoints();
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
-            List<ChargePoint>  userSpecificChargePointList = (List)chgResponse.getReturnData();
-            modelAndView.setViewName( "user/chargeStation/chargeStations" );
-            modelAndView.getModel().put( "chgStations", userSpecificChargePointList );
+            List<ChargePoint> allChargePointList = (List)chgResponse.getReturnData();
+            List allChargePointBeanList = ChargeStationBean.getBeanList( allChargePointList, DomainBeanImpl.CHARGE_STATION_BEAN_ID );
+            modelAndView.setViewName( "chargeStation/chargeStations" );
+            modelAndView.getModel().put( "chgStations", allChargePointBeanList );
         }
         return modelAndView;
     }
 
-    public  ChgResponse loadUserSpecificChargePoints( )
+    public  ChgResponse loadAllChargePoints()
     {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         StringBuilder sb = new StringBuilder(  );
         List<ChargePoint>  userSpecificChargePointList = new ArrayList<ChargePoint>(  );
-        sb.append( "SELECT * FROM CHG_POINT WHERE USERID =? " );
+        sb.append( "SELECT * FROM CHG_POINT " );
         try
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
             ps = con.prepareStatement( sb.toString() );
-            ps.setInt( 1, 1 );    //TODO set specific user id
             rs = ps.executeQuery();
             while(rs.next())
             {

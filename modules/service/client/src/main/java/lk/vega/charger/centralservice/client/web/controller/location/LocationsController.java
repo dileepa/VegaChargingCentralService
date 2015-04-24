@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.controller.location;
 
+import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.core.ChargeLocation;
 import lk.vega.charger.util.ChgResponse;
@@ -38,7 +39,7 @@ public class LocationsController
         if (chgResponse.isSuccess())
         {
             List<ChargeLocation> chargeLocations = (List)chgResponse.getReturnData();
-            List <LocationBean> locationBeanList = LocationBean.getBeanList( chargeLocations );
+            List locationBeanList = LocationBean.getBeanList( chargeLocations, DomainBeanImpl.LOCATION_BEAN_ID );
             modelAndView.setViewName( "location/locations" );
             modelAndView.getModel().put( "locations", locationBeanList );
         }

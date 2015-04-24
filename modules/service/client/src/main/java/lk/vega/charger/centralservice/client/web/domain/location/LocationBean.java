@@ -1,10 +1,7 @@
 package lk.vega.charger.centralservice.client.web.domain.location;
 
-import lk.vega.charger.centralservice.client.web.domain.DomainBean;
+import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.core.ChargeLocation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Intelij Idea IDE
@@ -12,7 +9,7 @@ import java.util.List;
  * Date on 4/24/15.
  * Time on 10:17 AM
  */
-public class LocationBean implements DomainBean
+public class LocationBean extends DomainBeanImpl
 {
 
     private int locationId;
@@ -94,15 +91,4 @@ public class LocationBean implements DomainBean
         chargeLocation.setGpsLocation( getGpsLocation() );
     }
 
-    public static List getBeanList( List objectList )
-    {
-        List<LocationBean> locationBeanList = new ArrayList<LocationBean>();
-        for( Object o : objectList )
-        {
-            LocationBean locationBean = new LocationBean();
-            locationBean.createBean( (ChargeLocation)o );
-            locationBeanList.add( locationBean );
-        }
-        return locationBeanList;
-    }
 }
