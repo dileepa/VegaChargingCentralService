@@ -25,7 +25,6 @@ public class ChargePoint extends Savable
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
     private int userId;
-    private ChargeLocation chargeLocation;
     private String machineUniqueRef;
     private int status;
 
@@ -37,16 +36,6 @@ public class ChargePoint extends Savable
     public void setMachineUniqueRef( String machineUniqueRef )
     {
         this.machineUniqueRef = machineUniqueRef;
-    }
-
-    public ChargeLocation getChargeLocation()
-    {
-        return chargeLocation;
-    }
-
-    public void setChargeLocation( ChargeLocation chargeLocation )
-    {
-        this.chargeLocation = chargeLocation;
     }
 
     public int getChargePointId()

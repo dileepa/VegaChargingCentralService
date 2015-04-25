@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.controller.location;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.loacation.LocationLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.core.ChargeLocation;
@@ -34,7 +35,7 @@ public class LocationsController
     @RequestMapping(value = "/AllLocations", method = RequestMethod.GET)
     public ModelAndView index()
     {
-        ChgResponse chgResponse = loadAllChargeLocations();
+        ChgResponse chgResponse = LocationLoader.loadAllChargeLocations();
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
@@ -47,46 +48,6 @@ public class LocationsController
 
     }
 
-    private  ChgResponse loadAllChargeLocations()
-    {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        StringBuilder sb = new StringBuilder(  );
-        List<ChargeLocation>  chargeLocations = new ArrayList<ChargeLocation>(  );
-        sb.append( "SELECT * FROM CHG_POINT_LOCATION " );
-        try
-        {
-            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
-            ps = con.prepareStatement( sb.toString() );
-            rs = ps.executeQuery();
-            while(rs.next())
-            {
-                ChargeLocation chargeLocation = new ChargeLocation();
-                chargeLocation.init();
-                chargeLocation.load( rs, con, 0 );
-                chargeLocations.add( chargeLocation );
-            }
-            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeLocations);
-
-        }
-        catch( SQLException e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
-        }
-        finally
-        {
-            DBUtility.close( rs );
-            DBUtility.close( ps );
-            DBUtility.close( con );
-        }
-    }
 
     @RequestMapping(value = "/location/addLocation", method = RequestMethod.GET)
     public ModelAndView addLocation()
@@ -104,7 +65,7 @@ public class LocationsController
     @RequestMapping(value = "/location/editLocation", method = RequestMethod.GET)
     public ModelAndView editLocation(@RequestParam(value = "locationID", required = false ) Integer locationId )
     {
-        ChgResponse chgResponse = loadSpecificLocationByLocationID( locationId );
+        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( locationId );
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
@@ -117,89 +78,6 @@ public class LocationsController
         return modelAndView;
     }
 
-    private  ChgResponse loadSpecificLocationByLocationID( int locationId )
-    {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        StringBuilder sb = new StringBuilder(  );
-        sb.append( "SELECT * FROM CHG_POINT_LOCATION WHERE ID = ?" );
-        try
-        {
-            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
-            ps = con.prepareStatement( sb.toString() );
-            ps.setInt( 1, locationId );
-            rs = ps.executeQuery();
-            if (rs.next())
-            {
-                ChargeLocation chargeLocation = new ChargeLocation();
-                chargeLocation.init();
-                chargeLocation.load( rs, con, 0 );
-                return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeLocation);
-            }
-
-        }
-        catch( SQLException e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
-        }
-        finally
-        {
-            DBUtility.close( rs );
-            DBUtility.close( ps );
-            DBUtility.close( con );
-        }
-        return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
-    }
-
-    private  ChgResponse loadSpecificLocationByLocationName( String name )
-    {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        StringBuilder sb = new StringBuilder(  );
-        sb.append( "SELECT * FROM CHG_POINT_LOCATION WHERE LOCATION = ?" );
-        try
-        {
-            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
-            ps = con.prepareStatement( sb.toString() );
-            ps.setString( 1, name );
-            rs = ps.executeQuery();
-            if (rs.next())
-            {
-                ChargeLocation chargeLocation = new ChargeLocation();
-                chargeLocation.init();
-                chargeLocation.load( rs, con, 0 );
-                return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeLocation);
-            }
-
-        }
-        catch( SQLException e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
-        }
-        finally
-        {
-            DBUtility.close( rs );
-            DBUtility.close( ps );
-            DBUtility.close( con );
-        }
-        return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
-    }
-
-
     @RequestMapping(value = "/saveExistingLocation", method = RequestMethod.POST)
     public ModelAndView updateLocation(@ModelAttribute("ChargeLocation" ) LocationBean locationBean )
     {
@@ -210,7 +88,7 @@ public class LocationsController
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
-            ChgResponse loadedLocationResponse = loadSpecificLocationByLocationID( chargeLocation.getLocationId() );
+            ChgResponse loadedLocationResponse = LocationLoader.loadSpecificLocationByLocationID( chargeLocation.getLocationId() );
             if (loadedLocationResponse.isSuccess())
             {
                 ChargeLocation updatedChargeLocation = (ChargeLocation)loadedLocationResponse.getReturnData();
@@ -235,7 +113,7 @@ public class LocationsController
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
-            ChgResponse loadedLocationResponse = loadSpecificLocationByLocationName( chargeLocation.getName() );
+            ChgResponse loadedLocationResponse = LocationLoader.loadSpecificLocationByLocationName( chargeLocation.getName() );
             if (loadedLocationResponse.isSuccess())
             {
                 ChargeLocation updatedChargeLocation = (ChargeLocation)loadedLocationResponse.getReturnData();

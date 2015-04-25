@@ -1,9 +1,12 @@
 package lk.vega.charger.centralservice.client.web.domain.chargeStation;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.loacation.LocationLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
+import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.core.ChargeLocation;
 import lk.vega.charger.core.ChargePoint;
 import lk.vega.charger.util.ChgDate;
+import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.ChgTimeStamp;
 
 /**
@@ -24,8 +27,16 @@ public class ChargeStationBean extends DomainBeanImpl
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
     private int userId;
-    private ChargeLocation chargeLocation;
+    private LocationBean chargeLocationBean;
     private String machineUniqueRef;
+
+    public LocationBean getChargeLocationBean() {
+        return chargeLocationBean;
+    }
+
+    public void setChargeLocationBean(LocationBean chargeLocationBean) {
+        this.chargeLocationBean = chargeLocationBean;
+    }
 
     public String getMachineUniqueRef()
     {
@@ -35,16 +46,6 @@ public class ChargeStationBean extends DomainBeanImpl
     public void setMachineUniqueRef( String machineUniqueRef )
     {
         this.machineUniqueRef = machineUniqueRef;
-    }
-
-    public ChargeLocation getChargeLocation()
-    {
-        return chargeLocation;
-    }
-
-    public void setChargeLocation( ChargeLocation chargeLocation )
-    {
-        this.chargeLocation = chargeLocation;
     }
 
     public int getChargePointId()
@@ -152,18 +153,33 @@ public class ChargeStationBean extends DomainBeanImpl
     {
         ChargePoint chargePoint = (ChargePoint)object;
         setChargePointId( chargePoint.getChargePointId() );
-        setReference( chargePoint.getReference() );
-        setLocationId( chargePoint.getLocationId() );
-        setPower( chargePoint.getPower() );
-        setType( chargePoint.getType() );
-        setProtocol( chargePoint.getProtocol() );
-        setVersion( chargePoint.getVersion() );
-        setLastUpdateDate( chargePoint.getLastUpdateDate() );
-        setLastUpdateTimeStamp( chargePoint.getLastUpdateTimeStamp() );
-        setUserId( chargePoint.getUserId() );
-        setChargeLocation( chargePoint.getChargeLocation() );
-        setMachineUniqueRef( chargePoint.getMachineUniqueRef() );
+        setReference(chargePoint.getReference());
+        setLocationId(chargePoint.getLocationId());
+        setPower(chargePoint.getPower());
+        setType(chargePoint.getType());
+        setProtocol(chargePoint.getProtocol());
+        setVersion(chargePoint.getVersion());
+        setLastUpdateDate(chargePoint.getLastUpdateDate());
+        setLastUpdateTimeStamp(chargePoint.getLastUpdateTimeStamp());
+        setUserId(chargePoint.getUserId());
+        setMachineUniqueRef(chargePoint.getMachineUniqueRef());
 
+        //Load Special Display Attributes.
+        setChargeLocationBean(loadChargeLocation(getLocationId()));
+
+    }
+
+    private LocationBean loadChargeLocation(int locationId)
+    {
+        LocationBean locationBean = new LocationBean();
+        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID(locationId);
+        if (chgResponse.isSuccess())
+        {
+            ChargeLocation chargeLocation = (ChargeLocation)chgResponse.getReturnData();
+            locationBean.createBean( chargeLocation );
+            return locationBean;
+        }
+        return locationBean;
     }
 
     @Override
@@ -171,17 +187,16 @@ public class ChargeStationBean extends DomainBeanImpl
     {
         ChargePoint chargePoint = (ChargePoint)object;
         chargePoint.init();
-        chargePoint.setChargePointId( getChargePointId() );
-        chargePoint.setReference( getReference() );
-        chargePoint.setLocationId( getLocationId() );
-        chargePoint.setPower( getPower() );
-        chargePoint.setType( getType() );
-        chargePoint.setProtocol( getProtocol() );
-        chargePoint.setVersion( getVersion() );
-        chargePoint.setLastUpdateDate( getLastUpdateDate() );
-        chargePoint.setLastUpdateTimeStamp( getLastUpdateTimeStamp() );
-        chargePoint.setUserId( getUserId() );
-        chargePoint.setChargeLocation( getChargeLocation() );
+        chargePoint.setChargePointId(getChargePointId());
+        chargePoint.setReference(getReference());
+        chargePoint.setLocationId(getLocationId());
+        chargePoint.setPower(getPower());
+        chargePoint.setType(getType());
+        chargePoint.setProtocol(getProtocol());
+        chargePoint.setVersion(getVersion());
+        chargePoint.setLastUpdateDate(getLastUpdateDate());
+        chargePoint.setLastUpdateTimeStamp(getLastUpdateTimeStamp());
+        chargePoint.setUserId(getUserId());
         chargePoint.setMachineUniqueRef( getMachineUniqueRef() );
     }
 

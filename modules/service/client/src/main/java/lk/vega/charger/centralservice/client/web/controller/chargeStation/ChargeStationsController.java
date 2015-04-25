@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.controller.chargeStation;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargeStationLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.core.ChargeLocation;
@@ -32,7 +33,7 @@ public class ChargeStationsController
     @RequestMapping(value = "/AllChargeStations", method = RequestMethod.GET)
     public ModelAndView index()
     {
-        ChgResponse chgResponse = loadAllChargePoints();
+        ChgResponse chgResponse = ChargeStationLoader.loadAllChargePoints();
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
@@ -44,51 +45,10 @@ public class ChargeStationsController
         return modelAndView;
     }
 
-    public  ChgResponse loadAllChargePoints()
-    {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        StringBuilder sb = new StringBuilder(  );
-        List<ChargePoint>  userSpecificChargePointList = new ArrayList<ChargePoint>(  );
-        sb.append( "SELECT * FROM CHG_POINT " );
-        try
-        {
-            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
-            ps = con.prepareStatement( sb.toString() );
-            rs = ps.executeQuery();
-            while(rs.next())
-            {
-                ChargePoint chargePoint = new ChargePoint();
-                chargePoint.init();
-                chargePoint.load( rs, con, 0 );
-                userSpecificChargePointList.add( chargePoint );
-            }
-            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", userSpecificChargePointList);
-
-        }
-        catch( SQLException e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
-        }
-        finally
-        {
-            DBUtility.close( rs );
-            DBUtility.close( ps );
-            DBUtility.close( con );
-        }
-    }
-
     @RequestMapping(value = "/chargeStation/editChargeStation", method = RequestMethod.GET)
     public ModelAndView editLocation(@RequestParam(value = "chgStationID", required = false ) Integer chgStationID )
     {
-        ChgResponse chgResponse = loadSpecificChargePointByPointID( chgStationID );
+        ChgResponse chgResponse = ChargeStationLoader.loadSpecificChargePointByPointID(chgStationID);
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {
@@ -100,46 +60,4 @@ public class ChargeStationsController
         }
         return modelAndView;
     }
-
-    private  ChgResponse loadSpecificChargePointByPointID( int chgStationID )
-    {
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        StringBuilder sb = new StringBuilder(  );
-        sb.append( "SELECT * FROM CHG_POINT WHERE ID = ?" );
-        try
-        {
-            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
-            ps = con.prepareStatement( sb.toString() );
-            ps.setInt( 1, chgStationID );
-            rs = ps.executeQuery();
-            if (rs.next())
-            {
-                ChargeLocation chargeLocation = new ChargeLocation();
-                chargeLocation.init();
-                chargeLocation.load( rs, con, 0 );
-                return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeLocation);
-            }
-
-        }
-        catch( SQLException e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace();
-            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
-        }
-        finally
-        {
-            DBUtility.close( rs );
-            DBUtility.close( ps );
-            DBUtility.close( con );
-        }
-        return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
-    }
-
 }
