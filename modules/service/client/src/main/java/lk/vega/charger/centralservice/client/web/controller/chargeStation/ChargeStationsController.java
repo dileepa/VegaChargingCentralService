@@ -61,7 +61,7 @@ public class ChargeStationsController
             {
                 ChargePoint chargePoint = new ChargePoint();
                 chargePoint.init();
-                chargePoint.load( rs, con, 11 );
+                chargePoint.load( rs, con, 0 );
                 userSpecificChargePointList.add( chargePoint );
             }
             return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", userSpecificChargePointList);
