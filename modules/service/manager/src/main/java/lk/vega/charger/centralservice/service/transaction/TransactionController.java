@@ -82,7 +82,7 @@ public class TransactionController
         StringBuilder sb = new StringBuilder(  );
         sb.append( "SELECT * FROM TRS_CHG_TRANSACTION WHERE STATUS =? " );
         boolean transactionIdNotExist = "".equals( transactionId );
-        sb = transactionIdNotExist ? sb.append( "AND AUTENTICATION_KEY = ?" ) :sb.append( "AND ID = ? " );
+        sb = transactionIdNotExist ? sb.append( "AND AUTENTICATION_KEY = ?" ) :sb.append( "AND TRS_CHG_TRANSACTION_ID = ? " );
         try
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
