@@ -10,19 +10,6 @@
 </div>
 <p th:text="#{edit.charge.stations}"></p>
 <div>
-
-    private int chargePointId;
-    private String reference;
-    private int locationId;
-    private double power;
-    private String type;
-    private String protocol;
-    private String version;
-    private ChgDate lastUpdateDate;
-    private ChgTimeStamp lastUpdateTimeStamp;
-    private int userId;
-    private ChargeLocation chargeLocation;
-    private String machineUniqueRef;
     <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
     <form action="#" th:action="@{/saveExistingChargeStation}"  th:object="${chargeStation}" method="post">
         <table>
@@ -32,25 +19,49 @@
             </tr>
             <tr height="30">
                 <th align="left">Charge Station Location: </th>
-                <th align="left" ><input type="text" name="chargeStationLocation" value="Test Location" th:value="${chargeStation.chargeLocation.name}"/></th>
+                <th align="left" >
+                    <select th:field="*{locationId}">
+                        <option th:each="location : ${locations}"
+                                th:value="${location.locationId}"
+                                th:text="${location.name}"
+                                th:selected="${location.selected}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
             </tr>
             <tr height="30">
-                <th align="left" >Location Latitude: </th>
-                <th align="left" ><input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}" th:field="*{latitude}"/></th>
+                <th align="left">Charge Station Type: </th>
+                <th align="left"><input type="text" name="chargeStationType" value="Charge Station Power" th:value="${chargeStation.type}" th:field="*{type}"/></th>
             </tr>
             <tr height="30">
-                <th align="left">Location GPSLocation: </th>
-                <th align="left"><input type="text" name="locationGPSLocation" value="GPSLocation" th:value="${location.gpsLocation}" th:field="*{gpsLocation}"/></th>
+                <th align="left">Charge Station Power: </th>
+                <th align="left"><input type="text" name="chargeStationPower" value="Charge Station Power" th:value="${chargeStation.power}" th:field="*{power}"/></th>
             </tr>
             <tr height="30">
-                <th align="left"><input type="submit" value="Save Location"/></th>
-                <th align="left"><input type="hidden" name="locationLocationID" value="LocationID" th:value="${location.locationId}" th:field="*{locationId}"/></th>
+                <th align="left">Charge Machine Reference: </th>
+                <th align="left"><input type="text" name="chargeMachineReference" value="Charge Machine Reference" th:value="${chargeStation.machineUniqueRef}" th:field="*{machineUniqueRef}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Protocol: </th>
+                <th align="left"><input type="text" name="chargeProtocol" value="Charge Protocol" th:value="${chargeStation.protocol}" th:field="*{protocol}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Version: </th>
+                <th align="left"><input type="text" name="chargeVersion" value="Charge Version" th:value="${chargeStation.version}" th:field="*{version}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left"><input type="submit" value="Save Charge Station"/></th>
+                <th align="left"><input type="hidden" name="chargeStationID" value="StationID" th:value="${chargeStation.chargePointId}" th:field="*{chargePointId}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left"><input type="hidden" name="chargeStationUserID" value="StationUserID" th:value="${chargeStation.userId}" th:field="*{userId}"/></th>
             </tr>
         </table>
     </form>
     <p>
-        <a th:href="@{/AllLocations.html}">
-            See All Locations
+        <a th:href="@{/AllChargeStations.html}">
+            See All Charge Stations
         </a>
     </p>
     <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->

@@ -391,7 +391,7 @@ public class ChargePoint extends Savable
         this.chargePointId = -1;
         this.reference = null;
         this.locationId = -1;
-        this.power = -1;
+        this.power = 0.0d;
         this.type = null;
         this.protocol = null;
         this.version = null;

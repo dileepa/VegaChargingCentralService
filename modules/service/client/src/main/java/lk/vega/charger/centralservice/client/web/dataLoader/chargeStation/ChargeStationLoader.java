@@ -101,4 +101,45 @@ public class ChargeStationLoader
             DBUtility.close( con );
         }
     }
+
+    public static  ChgResponse loadSpecificChargePointByReference( String refName )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "SELECT * FROM CHG_POINT WHERE REFERENCE = ?" );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1, refName );
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                ChargePoint chargePoint = new ChargePoint();
+                chargePoint.init();
+                chargePoint.load( rs, con, 0 );
+                return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargePoint);
+            }
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+        return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
+    }
 }

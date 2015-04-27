@@ -17,6 +17,17 @@ public class LocationBean extends DomainBeanImpl
     private String longitude;
     private String latitude;
     private String gpsLocation;
+    private boolean selected;
+
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    public void setSelected( boolean selected )
+    {
+        this.selected = selected;
+    }
 
     public int getLocationId()
     {
@@ -77,6 +88,7 @@ public class LocationBean extends DomainBeanImpl
         setLatitude( chargeLocation.getLatitude() );
         setLongitude( chargeLocation.getLongitude() );
         setGpsLocation( chargeLocation.getGpsLocation() );
+        setSelected( false );
     }
 
     @Override
@@ -89,6 +101,7 @@ public class LocationBean extends DomainBeanImpl
         chargeLocation.setLatitude( getLatitude() );
         chargeLocation.setLongitude( getLongitude() );
         chargeLocation.setGpsLocation( getGpsLocation() );
+        setSelected( false );
     }
 
 }

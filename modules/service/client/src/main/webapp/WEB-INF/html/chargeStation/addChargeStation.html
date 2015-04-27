@@ -1,9 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="ISO-8859-1"/>
     <title></title>
 </head>
 <body>
-
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{add.charge.stations}"></p>
+<div>
+    <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
+    <form action="#" th:action="@{/saveNewChargeStation}"  th:object="${chargeStation}" method="post">
+        <table>
+            <tr height="30">
+                <th align="left">Charge Station Reference: </th>
+                <th align="left"><input type="text" name="chargeStationReference" value="" th:field="*{reference}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Location: </th>
+                <th align="left" >
+                    <select th:field="*{locationId}">
+                        <option th:each="location : ${locations}"
+                                th:value="${location.locationId}"
+                                th:text="${location.name}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Type: </th>
+                <th align="left"><input type="text" name="chargeStationType" value="" th:field="*{type}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Power: </th>
+                <th align="left"><input type="text" name="chargeStationPower" value="" th:field="*{power}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Machine Reference: </th>
+                <th align="left"><input type="text" name="chargeMachineReference" value="" th:field="*{machineUniqueRef}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Protocol: </th>
+                <th align="left"><input type="text" name="chargeProtocol" value="" th:field="*{protocol}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Version: </th>
+                <th align="left"><input type="text" name="chargeVersion" value="" th:field="*{version}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left"><input type="submit" value="Save Charge Station"/></th>
+                <th align="left"><input type="hidden" name="chargeStationID" value="StationID" th:field="*{chargePointId}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left"><input type="hidden" name="chargeStationUserID" value="StationUserID" th:field="*{userId}"/></th>
+            </tr>
+        </table>
+    </form>
+    <p>
+        <a th:href="@{/AllChargeStations.html}">
+            See All Charge Stations
+        </a>
+    </p>
+    <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->
+    <!--<p>Location Longitude: <input type="text" name="locationLongitude" value="Test Longitude" th:value="${location.longitude}"/>.</p>-->
+    <!--<p>Location Latitude: <input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}"/>.</p>-->
+    <!--<p>Location GPSLocation: <input type="text" name="locationGPSLocation" value="GPSLocation" th:value="${location.gpsLocation}"/>.</p>-->
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
 </body>
 </html>
