@@ -24,7 +24,7 @@
         </tr>
         <tr th:each="chgStation : ${chgStations}">
             <td th:text="${chgStation.reference}">Test Charge Station</td>
-            <td th:text="${chgStation.chargeLocation.name}">Test Location</td>
+            <td th:text="${chgStation.chargeLocationBean.name}">Test Location</td>
             <td th:text="${chgStation.power}">2.41</td>
             <td th:text="${chgStation.type}">Test Type</td>
             <td th:text="${chgStation.machineUniqueRef}">Test Machine Reference</td>
