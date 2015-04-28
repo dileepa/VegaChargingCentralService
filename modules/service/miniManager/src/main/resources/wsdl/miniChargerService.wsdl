@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.hascode.com/bookService/1.0" xmlns:tns="http://www.hascode.com/bookService/1.0" elementFormDefault="qualified">
+
+    <element name="BookServiceRequest"
+                            type="tns:BookServiceRequestType">
+</element>
+
+    <complexType name="BookServiceRequestType">
+        <sequence>
+            <element name="limit" type="int"></element>
+        </sequence>
+    </complexType>
+
+    <complexType name="BookServiceResponseType">
+        <sequence>
+            <element name="book" type="tns:BookType" maxOccurs="unbounded" minOccurs="0"></element>
+        </sequence>
+    </complexType>
+
+    <element name="BookServiceResponse"
+             type="tns:BookServiceResponseType">
+    </element>
+
+    <complexType name="BookType">
+        <sequence>
+            <element name="title" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="author" type="string" maxOccurs="1" minOccurs="1"></element>
+            <element name="published" type="date" maxOccurs="1" minOccurs="1"></element>
+        </sequence>
+    </complexType>
+</schema>
