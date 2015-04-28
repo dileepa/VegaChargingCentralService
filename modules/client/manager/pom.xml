@@ -33,6 +33,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>2.2</version>
@@ -82,6 +88,7 @@
                         <version>2.1-beta-1</version>
                         <configuration>
                             <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <outputDirectory>C:\Users\dileepa\Desktop\VEGA\apache-tomcat-7.0.30\webapps</outputDirectory>
                         </configuration>
                     </plugin>
 
@@ -122,24 +129,34 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>2.3</version>
-                        <executions>
-                            <execution>
-                                <id>unzip-distribution</id>
-                                <goals>
-                                    <goal>unpack-dependencies</goal>
-                                </goals>
-                                <configuration>
-                                    <includeArtifactIds>org.jetbrains.intellij-ce</includeArtifactIds>
-                                    <outputDirectory>${project.build.directory}/dependency/IntelliJ-IDEA-CE</outputDirectory>
-                                    <includes>**/*.jar</includes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-dependency-plugin</artifactId>-->
+                        <!--<version>2.3</version>-->
+                        <!--<executions>-->
+                            <!--<execution>-->
+                                <!--<id>unzip-distribution</id>-->
+                                <!--<goals>-->
+                                    <!--<goal>unpack-dependencies</goal>-->
+                                <!--</goals>-->
+                                <!--<configuration>-->
+                                    <!--<includeArtifactIds>org.jetbrains.intellij-ce</includeArtifactIds>-->
+                                    <!--<outputDirectory>${project.build.directory}/dependency/IntelliJ-IDEA-CE</outputDirectory>-->
+                                    <!--<includes>**/*.jar</includes>-->
+                                <!--</configuration>-->
+                            <!--</execution>-->
+                        <!--</executions>-->
+                    <!--</plugin>-->
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.tomcat.maven</groupId>-->
+                        <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
+                        <!--<version>2.2</version>-->
+                        <!--<configuration>-->
+                            <!--<url>http://localhost:8080/manager/text</url>-->
+                            <!--<server>TomcatServer</server>-->
+                            <!--<path>/ChargePointClientManager/ChargePointClientManager</path>-->
+                        <!--</configuration>-->
+                    <!--</plugin>-->
                 </plugins>
                 <finalName>ChargePointClientManager</finalName>
             </build>
