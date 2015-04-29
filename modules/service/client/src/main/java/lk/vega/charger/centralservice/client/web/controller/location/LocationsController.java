@@ -6,21 +6,13 @@ import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.core.ChargeLocation;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
-import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
-import lk.vega.charger.util.connection.CHGConnectionPoolFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,10 +54,11 @@ public class LocationsController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/location/editLocation", method = RequestMethod.GET)
-    public ModelAndView editLocation(@RequestParam(value = "locationID", required = false ) Integer locationId )
+    @RequestMapping(value = "/editLocation", method = RequestMethod.POST)
+//    public ModelAndView editLocation(@RequestParam(value = "locationID", required = false ) Integer locationId )
+    public ModelAndView editLocation(@ModelAttribute("location" )  LocationBean modelLocationBean )
     {
-        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( locationId );
+        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( modelLocationBean.getLocationId() );
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {

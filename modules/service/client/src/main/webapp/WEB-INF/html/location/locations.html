@@ -25,9 +25,12 @@
             <td th:text="${location.latitude}">Test latitude</td>
             <td th:text="${location.gpsLocation}">Test gpsLocation</td>
             <td >
-                <a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">
-                    EDIT
-                </a>
+                <form th:action="@{/editLocation}" th:object="${location}" method="post">
+                    <button type="submit">EDIT</button>
+                </form>
+                <!--<a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">-->
+                    <!--EDIT-->
+                <!--</a>-->
             </td>
             <td >
                 <a href="../html/chargeStationDetail.html">
