@@ -29,6 +29,17 @@ public class ChargeStationBean extends DomainBeanImpl
     private int userId;
     private LocationBean chargeLocationBean;
     private String machineUniqueRef;
+    private String chargePointStatus;
+
+    public String getChargePointStatus()
+    {
+        return chargePointStatus;
+    }
+
+    public void setChargePointStatus( String chargePointStatus )
+    {
+        this.chargePointStatus = chargePointStatus;
+    }
 
     public LocationBean getChargeLocationBean() {
         return chargeLocationBean;
@@ -163,6 +174,7 @@ public class ChargeStationBean extends DomainBeanImpl
         setLastUpdateTimeStamp(chargePoint.getLastUpdateTimeStamp());
         setUserId(chargePoint.getUserId());
         setMachineUniqueRef(chargePoint.getMachineUniqueRef());
+        setChargePointStatus(chargePoint.getChargePointStatus());
 
         //Load Special Display Attributes.
         setChargeLocationBean(loadChargeLocation(getLocationId()));
@@ -198,6 +210,7 @@ public class ChargeStationBean extends DomainBeanImpl
         chargePoint.setLastUpdateTimeStamp(getLastUpdateTimeStamp());
         chargePoint.setUserId(getUserId());
         chargePoint.setMachineUniqueRef( getMachineUniqueRef() );
+        chargePoint.setChargePointStatus( getChargePointStatus() );
     }
 
 

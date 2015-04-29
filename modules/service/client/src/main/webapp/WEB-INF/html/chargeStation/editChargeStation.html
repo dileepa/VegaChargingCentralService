@@ -51,6 +51,19 @@
                 <th align="left"><input type="text" name="chargeVersion" value="Charge Version" th:value="${chargeStation.version}" th:field="*{version}"/></th>
             </tr>
             <tr height="30">
+                <th align="left">Charge Station Status: </th>
+                <th align="left" >
+                    <select th:field="*{chargePointStatus}">
+                        <option th:each="status : ${statusList}"
+                                th:value="${status.name}"
+                                th:text="${status.name}"
+                                th:selected="${status.selected}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
                 <th align="left"><input type="submit" value="Save Charge Station"/></th>
                 <th align="left"><input type="hidden" name="chargeStationID" value="StationID" th:value="${chargeStation.chargePointId}" th:field="*{chargePointId}"/></th>
             </tr>

@@ -20,6 +20,7 @@
             <th>Protocol</th>
             <th>Version</th>
             <th>Last Update Time</th>
+            <th>Status</th>
             <th colspan="2">Action</th>
         </tr>
         <tr th:each="chgStation : ${chgStations}">
@@ -31,6 +32,7 @@
             <td th:text="${chgStation.protocol}">Test Protocol</td>
             <td th:text="${chgStation.version}">Test Version</td>
             <td th:text="${chgStation.lastUpdateTimeStamp}">Test Date and Time</td>
+            <td th:text="${chgStation.chargePointStatus}">Test Status</td>
             <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
             <td >
                 <a th:href="@{/chargeStation/editChargeStation.html(chgStationID=${chgStation.chargePointId})}">

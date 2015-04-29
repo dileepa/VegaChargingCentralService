@@ -15,6 +15,10 @@ import java.sql.Types;
 
 public class ChargePoint extends Savable
 {
+    public static final String CHG_POINT_BLOCKED ="BLOCKED";
+    public static final String CHG_POINT_ACTIVE ="ACTIVE";
+
+
     private int chargePointId;
     private String reference;
     private int locationId;
@@ -26,6 +30,7 @@ public class ChargePoint extends Savable
     private ChgTimeStamp lastUpdateTimeStamp;
     private int userId;
     private String machineUniqueRef;
+    private String chargePointStatus;
     private int status;
 
     public String getMachineUniqueRef()
@@ -148,6 +153,16 @@ public class ChargePoint extends Savable
         this.status = status;
     }
 
+    public String getChargePointStatus()
+    {
+        return chargePointStatus;
+    }
+
+    public void setChargePointStatus( String chargePointStatus )
+    {
+        this.chargePointStatus = chargePointStatus;
+    }
+
     @Override
     public void save( Connection con ) throws SavingSQLException
     {
@@ -205,8 +220,9 @@ public class ChargePoint extends Savable
         sb.append( "LASTUPDATE, " );
         sb.append( "LASTUPDATETIMESTAMP, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS, " );
+        sb.append( "STATUS, " );
         sb.append( "USERID " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?)");
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -242,6 +258,7 @@ public class ChargePoint extends Savable
                 ps.setTimestamp( ++count, lastUpdateTimeStamp._getSQLTimestamp());
             }
             ps.setString( ++count, this.machineUniqueRef );
+            ps.setString( ++count, this.chargePointStatus );
             ps.setInt( ++count, this.userId );
 
             ps.execute();
@@ -269,6 +286,7 @@ public class ChargePoint extends Savable
         this.machineUniqueRef = rs.getString( "MACHINE_UNIQUE_ADDRESS" );
         this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
         this.userId = rs.getInt( "USERID" );
+        this.chargePointStatus = rs.getString( "STATUS" );
 //        if( level > 10 )
 //        {
 //            PreparedStatement psChargeLocation = null;
@@ -314,7 +332,8 @@ public class ChargePoint extends Savable
         sb.append( "LASTUPDATE = ?, " );
         sb.append( "LASTUPDATETIMESTAMP = ?, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS = ?, " );
-        sb.append( "USERID = ? " );
+        sb.append( "USERID = ?, " );
+        sb.append( "STATUS = ? " );
         sb.append( "WHERE " );
         sb.append( "CHG_POINT_ID = ? " );
         int count = 0;
@@ -353,6 +372,7 @@ public class ChargePoint extends Savable
             }
             ps.setString( ++count, this.machineUniqueRef );
             ps.setInt( ++count, this.userId );
+            ps.setString( ++count, this.chargePointStatus );
             ps.setInt( ++count, this.chargePointId );
 
             ps.execute();
@@ -398,6 +418,7 @@ public class ChargePoint extends Savable
         this.lastUpdateDate = null;
         this.machineUniqueRef = null;
         this.lastUpdateTimeStamp = null;
+        this.chargePointStatus = null;
         this.userId = -1;
         this.status = Savable.UNCHANGED;
     }
