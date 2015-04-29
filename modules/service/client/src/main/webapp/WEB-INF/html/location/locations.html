@@ -27,6 +27,7 @@
             <td >
                 <form th:action="@{/editLocation}" th:object="${location}" method="post">
                     <button type="submit">EDIT</button>
+                    <input type="hidden" name="locationId"  th:value="${location.locationId}" th:field="*{locationId}"/>
                 </form>
                 <!--<a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">-->
                     <!--EDIT-->

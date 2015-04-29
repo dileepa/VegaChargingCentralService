@@ -55,7 +55,7 @@ public class LocationsController
     }
 
     @RequestMapping(value = "/editLocation", method = RequestMethod.POST)
-//    public ModelAndView editLocation(@RequestParam(value = "locationID", required = false ) Integer locationId )
+//    public ModelAndView editLocation(@RequestParam(value = "locationId", required = false ) Integer locationId )
     public ModelAndView editLocation(@ModelAttribute("location" )  LocationBean modelLocationBean )
     {
         ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( modelLocationBean.getLocationId() );
