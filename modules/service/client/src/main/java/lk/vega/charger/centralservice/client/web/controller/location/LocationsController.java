@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -54,11 +55,10 @@ public class LocationsController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/editLocation", method = RequestMethod.POST)
-//    public ModelAndView editLocation(@RequestParam(value = "locationId", required = false ) Integer locationId )
-    public ModelAndView editLocation(@ModelAttribute("location" )  LocationBean modelLocationBean )
+    @RequestMapping(value = "/location/editLocation", method = RequestMethod.GET)
+    public ModelAndView editLocation(@RequestParam(value = "locationID", required = false ) int locationId )
     {
-        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( modelLocationBean.getLocationId() );
+        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( locationId );
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())
         {

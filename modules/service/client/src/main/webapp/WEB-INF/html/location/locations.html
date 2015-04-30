@@ -3,6 +3,7 @@
 <head>
     <meta charset="ISO-8859-1"/>
     <title></title>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 </head>
 <body>
 <div th:replace="fragments/base :: header">
@@ -25,13 +26,20 @@
             <td th:text="${location.latitude}">Test latitude</td>
             <td th:text="${location.gpsLocation}">Test gpsLocation</td>
             <td >
-                <form th:action="@{/editLocation}" th:object="${location}" method="post">
-                    <button type="submit">EDIT</button>
-                    <input type="hidden" name="locationId"  th:value="${location.locationId}" th:field="*{locationId}"/>
-                </form>
-                <!--<a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">-->
-                    <!--EDIT-->
-                <!--</a>-->
+                <!--<input type="hidden" id="locationId"  th:value="${location.locationId}"/>-->
+                <!--<button type="submit" onclick="myFunction(${location.locationId})">EDIT</button>-->
+                <!--<p id="test"></p>-->
+            <!--<div ng-app="locationsApp" ng-controller="locationsController" ng-init="locationID=${location.locationId}">-->
+                    <!--<p>ID = {{editLocation()}}</p>-->
+                    <!--&lt;!&ndash;<button ng-click="editLocation()">Toggle</button>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<form th:action="@{/editLocation}" th:object="${location}" method="post">-->
+                    <!--<button type="submit">EDIT</button>-->
+                    <!--<input type="hidden" name="locationId"  th:value="${location.locationId}" th:field="*{locationId}"/>-->
+                <!--</form>-->
+                <a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">
+                    EDIT
+                </a>
             </td>
             <td >
                 <a href="../html/chargeStationDetail.html">
@@ -54,4 +62,35 @@
     &copy; This is the footer for home
 </div>
 </body>
+
+
+<!--<script>-->
+<!--var app = angular.module('locationsApp', []);-->
+<!--app.controller('locationsController', function($scope)-->
+<!--{-->
+    <!--$scope.locationID = "-1",-->
+    <!--$scope.editLocation = function()-->
+    <!--{-->
+        <!--return $scope.locationID;-->
+    <!--}-->
+<!--});-->
+<!--</script>-->
+<!--<script>-->
+<!--var locationID = "-1";-->
+<!--function myFunction(locationId)-->
+<!--{-->
+    <!--console.log(locationId);-->
+    <!--//$.post('location/editLocation.html');-->
+
+    <!--$.ajax({-->
+      <!--type: "POST",-->
+      <!--url: 'editLocation.html?locationId=' + locationId,-->
+      <!--success: function(){-->
+            <!--console.log("SUCCESS");-->
+        <!--}-->
+      <!--}-->
+    <!--);-->
+<!--}-->
+<!--</script>-->
+
 </html>
