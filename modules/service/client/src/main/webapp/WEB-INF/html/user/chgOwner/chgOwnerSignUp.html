@@ -9,11 +9,34 @@
     <h1>This is the header for home</h1>
 </div>
 <p th:text="#{chg.owner.sign.up}"></p>
-
+<form action="#" th:action="@{/saveNewChargeOwner}"  th:object="${chgOwnerUser}" method="post">
 <div>
-    <h1 th:text="#{chg.owner.sign.up}">This is the header for home</h1>
+    <h4 th:text="#{chg.owner.username}">test user name</h4>
+    <input type="text" id="userName" name="userName" value="" th:field="*{userName}"/>
 </div>
-
+<div>
+    <h4 th:text="#{chg.owner.password}">test password</h4>
+    <input type="password" id="password" name="password" value="" th:field="*{password}"/>
+</div>
+<div>
+    <h4 th:text="#{chg.owner.email}">test email</h4>
+    <input type="text" id="email" name="email" value="" th:field="*{email}"/>
+</div>
+<div>
+    <h4 th:text="#{chg.owner.telephone}">test telephone</h4>
+    <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}"/>
+</div>
+<div>
+    <h4 th:text="#{chg.owner.mobilephone}">test mobile</h4>
+    <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}"/>
+</div>
+<div>
+    <input type="submit" value="Add test user" th:value="#{chg.owner.add.user}"/>
+</div>
+    <div>
+    <input type="hidden" name="chgOwnerId" value="" th:field="*{userId}"/>
+    </div>
+</form>
 <div th:replace="fragments/base :: footer">
     &copy; This is the footer for home
 </div>

@@ -11,10 +11,11 @@
     <url>http://maven.apache.org</url>
 
     <modules>
-        <module>core</module>
-        <module>manager</module>
         <module>libraries/dialogEasyCash</module>
         <module>libraries/mobitelMCash</module>
+        <module>libraries/wso2IS</module>
+        <module>core</module>
+        <module>manager</module>
         <module>client</module>
     </modules>
     <repositories>
@@ -22,6 +23,16 @@
             <id>java.net2</id>
             <name>Repository hosting the jee6 artifacts</name>
             <url>http://download.java.net/maven/2</url>
+        </repository>
+        <repository>
+            <id>wso2-nexus</id>
+            <name>WSO2 internal Repository</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
         </repository>
     </repositories>
     <dependencies>

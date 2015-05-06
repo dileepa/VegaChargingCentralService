@@ -18,6 +18,16 @@
             <name>Repository hosting the jee6 artifacts</name>
             <url>http://download.java.net/maven/2</url>
         </repository>
+        <repository>
+            <id>wso2-nexus</id>
+            <name>WSO2 internal Repository</name>
+            <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
@@ -55,7 +65,11 @@
             <artifactId>commons-dbcp</artifactId>
             <version>1.2.2</version>
         </dependency>
-
+        <dependency>
+            <groupId>service</groupId>
+            <artifactId>centralservice.libraries.wso2IS</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
