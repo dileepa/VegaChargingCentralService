@@ -43,6 +43,7 @@
                     <groupId>com.sun.istack</groupId>
                 </exclusion>
             </exclusions>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
