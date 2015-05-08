@@ -3,6 +3,8 @@ package lk.vega.charger.centralservice.client.web.domain;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
+import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
+import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,9 @@ public class DomainBeanImpl implements DomainBean
 
     public static final int LOCATION_BEAN_ID = 1;
     public static final int CHARGE_STATION_BEAN_ID = 2;
-    public static final int CHARGE_STATION__STATUS_BEAN_ID = 3;
+    public static final int CHARGE_STATION_STATUS_BEAN_ID = 3;
+    public static final int USER_GENDER_BEAN_ID = 4;
+    public static final int USER_TITLE_BEAN_ID = 5;
 
 
     @Override
@@ -53,6 +57,12 @@ public class DomainBeanImpl implements DomainBean
                 break;
             case 3:
                 beanObject = new ChargeStationStatusBean();
+                break;
+            case 4:
+                beanObject = new GenderBean();
+                break;
+            case 5:
+                beanObject = new TitleBean();
                 break;
             default:
                 break;

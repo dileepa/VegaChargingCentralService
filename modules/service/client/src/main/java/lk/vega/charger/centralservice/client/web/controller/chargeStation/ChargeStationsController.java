@@ -72,7 +72,7 @@ public class ChargeStationsController
             if( chgPointStatusRes.isSuccess() )
             {
                 List<String> chargePointStatus = (List) chgPointStatusRes.getReturnData();
-                List statusBeanList = ChargeStationStatusBean.getBeanList( chargePointStatus, DomainBeanImpl.CHARGE_STATION__STATUS_BEAN_ID );
+                List statusBeanList = ChargeStationStatusBean.getBeanList( chargePointStatus, DomainBeanImpl.CHARGE_STATION_STATUS_BEAN_ID );
                 for( ChargeStationStatusBean status : (List<ChargeStationStatusBean>)statusBeanList )
                 {
                     status.setSelected( status.getName().equals( chargeStationBean.getChargePointStatus() ) );
@@ -151,7 +151,7 @@ public class ChargeStationsController
         if( chgPointStatusRes.isSuccess() )
         {
             List<String> chargePointStatus = (List) chgPointStatusRes.getReturnData();
-            List statusBeanList = ChargeStationStatusBean.getBeanList( chargePointStatus, DomainBeanImpl.CHARGE_STATION__STATUS_BEAN_ID );
+            List statusBeanList = ChargeStationStatusBean.getBeanList( chargePointStatus, DomainBeanImpl.CHARGE_STATION_STATUS_BEAN_ID );
             for( ChargeStationStatusBean status : (List<ChargeStationStatusBean>)statusBeanList )
             {
                 status.setSelected( status.getName().equals( chargeStationBean.getChargePointStatus() ) );

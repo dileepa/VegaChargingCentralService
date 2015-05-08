@@ -1,0 +1,52 @@
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+    <S:Body>
+        <addUser xmlns="http://service.ws.um.carbon.wso2.org" xmlns:ns2="http://common.mgt.user.carbon.wso2.org/xsd" xmlns:ns3="http://api.user.carbon.wso2.org/xsd"
+                 xmlns:ns4="http://dao.service.ws.um.carbon.wso2.org/xsd">
+            <userName>saman</userName>
+            <credential>saman321</credential>
+            <roleList>CHG_OWNER</roleList>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/title</ns2:claimURI>
+                <ns2:value>Dr</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/gender</ns2:claimURI>
+                <ns2:value>MALE</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/givenname</ns2:claimURI>
+                <ns2:value>saman</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/lastname</ns2:claimURI>
+                <ns2:value>kumara</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/streetaddress</ns2:claimURI>
+                <ns2:value>matara</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/country</ns2:claimURI>
+                <ns2:value>sri lanka</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/emailaddress</ns2:claimURI>
+                <ns2:value>sama@codegen.ent</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/telephone</ns2:claimURI>
+                <ns2:value>0000</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/mobile</ns2:claimURI>
+                <ns2:value>00000</ns2:value>
+            </claims>
+            <claims>
+                <ns2:claimURI>http://wso2.org/claims/organization</ns2:claimURI>
+                <ns2:value/>
+            </claims>
+            <profileName>saman kumara</profileName>
+            <requirePasswordChange>false</requirePasswordChange>
+        </addUser>
+    </S:Body>
+</S:Envelope>
