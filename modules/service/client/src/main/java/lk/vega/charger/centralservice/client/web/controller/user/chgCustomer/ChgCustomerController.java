@@ -4,7 +4,7 @@ import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoad
 import lk.vega.charger.centralservice.client.web.dataLoader.user.GenderDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.TitelDataLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
-import lk.vega.charger.centralservice.client.web.domain.user.ChgUser;
+import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
@@ -36,8 +36,8 @@ public class ChgCustomerController
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUp" );
-        ChgUser chgUser = new ChgUser();
-        modelAndView.getModel().put( "chgCustomerUser", chgUser );
+        ChgUserBean chgUserBean = new ChgUserBean();
+        modelAndView.getModel().put( "chgCustomerUser", chgUserBean );
         ChgResponse titlesRes = TitelDataLoader.loadAllTitleProperties();
         if( titlesRes.isSuccess() )
         {
@@ -57,7 +57,7 @@ public class ChgCustomerController
     }
 
     @RequestMapping(value = "/saveNewChargeCustomer", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation( @ModelAttribute("chgCustomerUser") ChgUser chgUser )
+    public ModelAndView saveNewLocation( @ModelAttribute("chgCustomerUser") ChgUserBean chgUserBean )
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpError" );
@@ -77,12 +77,12 @@ public class ChgCustomerController
             try
             {
                 StringBuilder profileNameBuilder = new StringBuilder();
-                profileNameBuilder.append( chgUser.getFirstName() );
+                profileNameBuilder.append( chgUserBean.getFirstName() );
                 profileNameBuilder.append( " " );
-                profileNameBuilder.append( chgUser.getLastName() );
-                chgUser.setProfileName( profileNameBuilder.toString() );
-                chgUser.setUserRole( UserRoles.CHG_CUSTOMER );
-                AddUser newChgOwner = ChgUserDataLoader.createChargeUser( chgUser );
+                profileNameBuilder.append( chgUserBean.getLastName() );
+                chgUserBean.setProfileName( profileNameBuilder.toString() );
+                chgUserBean.setUserRole( UserRoles.CHG_CUSTOMER );
+                AddUser newChgOwner = ChgUserDataLoader.createChargeUser( chgUserBean );
                 remoteUserStoreManagerService.addUser( newChgOwner );
                 modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpSuccess" );
             }

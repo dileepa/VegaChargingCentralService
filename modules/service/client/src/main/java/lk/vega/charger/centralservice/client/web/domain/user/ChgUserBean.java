@@ -1,12 +1,13 @@
 package lk.vega.charger.centralservice.client.web.domain.user;
 
+
 /**
  * Intelij Idea IDE
  * Created by dileepa.
  * Date on 5/5/15.
  * Time on 12:06 PM
  */
-public class ChgUser
+public class ChgUserBean
 {
     private int userId;
     private String userName;

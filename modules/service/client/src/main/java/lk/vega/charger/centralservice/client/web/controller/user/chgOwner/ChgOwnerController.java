@@ -4,13 +4,14 @@ import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoad
 import lk.vega.charger.centralservice.client.web.dataLoader.user.GenderDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.TitelDataLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
-import lk.vega.charger.centralservice.client.web.domain.user.ChgUser;
+import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
 import lk.vega.charger.userManagement.UserHandler;
 import lk.vega.charger.util.ChgResponse;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,8 +37,8 @@ public class ChgOwnerController
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgOwner/chgOwnerSignUp" );
-        ChgUser chgUser = new ChgUser();
-        modelAndView.getModel().put( "chgOwnerUser", chgUser );
+        ChgUserBean chgUserBean = new ChgUserBean();
+        modelAndView.getModel().put( "chgOwnerUser", chgUserBean );
         ChgResponse titlesRes = TitelDataLoader.loadAllTitleProperties();
         if( titlesRes.isSuccess() )
         {
@@ -57,8 +58,12 @@ public class ChgOwnerController
     }
 
     @RequestMapping(value = "/saveNewChargeOwner", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation( @ModelAttribute("chgOwnerUser") ChgUser chgUser )
+    public ModelAndView saveNewLocation( @ModelAttribute("chgOwnerUser") ChgUserBean chgUserBean, BindingResult bindingResult )
     {
+        if (bindingResult.hasErrors()) {
+            System.out.println("ERRRRRRRRRRRRRRRRRRRRRRRRRR");
+            return new ModelAndView(  );
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpError" );
         ChgResponse chgResponse = null;
@@ -77,12 +82,12 @@ public class ChgOwnerController
             try
             {
                 StringBuilder profileNameBuilder = new StringBuilder();
-                profileNameBuilder.append( chgUser.getFirstName() );
+                profileNameBuilder.append( chgUserBean.getFirstName() );
                 profileNameBuilder.append( " " );
-                profileNameBuilder.append( chgUser.getLastName() );
-                chgUser.setProfileName( profileNameBuilder.toString() );
-                chgUser.setUserRole( UserRoles.CHG_OWNER );
-                AddUser newChgOwner = ChgUserDataLoader.createChargeUser( chgUser );
+                profileNameBuilder.append( chgUserBean.getLastName() );
+                chgUserBean.setProfileName( profileNameBuilder.toString() );
+                chgUserBean.setUserRole( UserRoles.CHG_OWNER );
+                AddUser newChgOwner = ChgUserDataLoader.createChargeUser( chgUserBean );
                 remoteUserStoreManagerService.addUser( newChgOwner );
                 modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpSuccess" );
             }

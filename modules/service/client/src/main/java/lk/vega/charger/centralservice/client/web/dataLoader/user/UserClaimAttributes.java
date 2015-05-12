@@ -1,6 +1,6 @@
 package lk.vega.charger.centralservice.client.web.dataLoader.user;
 
-import lk.vega.charger.centralservice.client.web.domain.user.ChgUser;
+import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import org.wso2.carbon.user.mgt.common.xsd.ClaimValue;
 
 import java.util.ArrayList;
@@ -28,49 +28,49 @@ public class UserClaimAttributes
     public static final String MOBILE_URL = "http://wso2.org/claims/mobile";
     public static final String ORGANIZATION_NAME_URL = "http://wso2.org/claims/organization";
 
-    public static List<ClaimValue> getClaimValuesForChgUser( ChgUser chgUser )
+    public static List<ClaimValue> getClaimValuesForChgUser( ChgUserBean chgUserBean )
     {
         List<ClaimValue> chgOwnerClaimsList = new ArrayList<ClaimValue>(  );
 
         ClaimValue titleClaim = new ClaimValue();
         titleClaim.setClaimURI( TITLE_URL );
-        titleClaim.setValue( chgUser.getTitle() );
+        titleClaim.setValue( chgUserBean.getTitle() );
 
         ClaimValue genderClaim = new ClaimValue();
         genderClaim.setClaimURI( GENDER_URL );
-        genderClaim.setValue( chgUser.getGender() );
+        genderClaim.setValue( chgUserBean.getGender() );
 
         ClaimValue firstNameClaim = new ClaimValue();
         firstNameClaim.setClaimURI( FIRST_NAME_URL );
-        firstNameClaim.setValue( chgUser.getFirstName() );
+        firstNameClaim.setValue( chgUserBean.getFirstName() );
 
         ClaimValue lastNameClaim = new ClaimValue();
         lastNameClaim.setClaimURI( LAST_NAME_URL );
-        lastNameClaim.setValue( chgUser.getLastName() );
+        lastNameClaim.setValue( chgUserBean.getLastName() );
 
         ClaimValue addressClaim = new ClaimValue();
         addressClaim.setClaimURI( ADDRESS_URL );
-        addressClaim.setValue( chgUser.getAddress() );
+        addressClaim.setValue( chgUserBean.getAddress() );
 
         ClaimValue countryClaim = new ClaimValue();
         countryClaim.setClaimURI( COUNTRY_URL );
-        countryClaim.setValue( chgUser.getCountry() );
+        countryClaim.setValue( chgUserBean.getCountry() );
 
         ClaimValue emailClaim = new ClaimValue();
         emailClaim.setClaimURI( EMAIL_URL );
-        emailClaim.setValue( chgUser.getEmail() );
+        emailClaim.setValue( chgUserBean.getEmail() );
 
         ClaimValue telephoneClaim = new ClaimValue();
         telephoneClaim.setClaimURI( TELEPHONE_URL );
-        telephoneClaim.setValue( chgUser.getTelephone() );
+        telephoneClaim.setValue( chgUserBean.getTelephone() );
 
         ClaimValue mobileClaim = new ClaimValue();
         mobileClaim.setClaimURI( MOBILE_URL );
-        mobileClaim.setValue( chgUser.getMobileNo() );
+        mobileClaim.setValue( chgUserBean.getMobileNo() );
 
         ClaimValue organizationClaim = new ClaimValue();
         organizationClaim.setClaimURI( ORGANIZATION_NAME_URL );
-        organizationClaim.setValue( chgUser.getOrganizationName() );
+        organizationClaim.setValue( chgUserBean.getOrganizationName() );
 
         chgOwnerClaimsList.add( titleClaim );
         chgOwnerClaimsList.add( genderClaim );

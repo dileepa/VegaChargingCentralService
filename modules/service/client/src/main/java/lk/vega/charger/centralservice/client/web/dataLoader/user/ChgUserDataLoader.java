@@ -1,6 +1,6 @@
 package lk.vega.charger.centralservice.client.web.dataLoader.user;
 
-import lk.vega.charger.centralservice.client.web.domain.user.ChgUser;
+import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import org.wso2.carbon.um.ws.service.AddUser;
 
 /**
@@ -13,15 +13,15 @@ public class ChgUserDataLoader
 {
 
 
-    public static AddUser createChargeUser( ChgUser chgUser )
+    public static AddUser createChargeUser( ChgUserBean chgUserBean )
     {
         AddUser newChargeOwner = new AddUser();
-        newChargeOwner.setUserName( chgUser.getUserName() );
+        newChargeOwner.setUserName( chgUserBean.getUserName() );
         newChargeOwner.setRequirePasswordChange( false );
-        newChargeOwner.setCredential( chgUser.getPassword() );
-        newChargeOwner.setProfileName( chgUser.getProfileName() );
-        newChargeOwner.getRoleLists().add( chgUser.getUserRole() );
-        newChargeOwner.getClaims().addAll( UserClaimAttributes.getClaimValuesForChgUser( chgUser ) );
+        newChargeOwner.setCredential( chgUserBean.getPassword() );
+        newChargeOwner.setProfileName( chgUserBean.getProfileName() );
+        newChargeOwner.getRoleLists().add( chgUserBean.getUserRole() );
+        newChargeOwner.getClaims().addAll( UserClaimAttributes.getClaimValuesForChgUser( chgUserBean ) );
         return newChargeOwner;
     }
 
