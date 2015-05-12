@@ -7,11 +7,14 @@ import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
+import lk.vega.charger.centralservice.client.web.domain.user.User;
 import lk.vega.charger.core.ChargeLocation;
 import lk.vega.charger.core.ChargePoint;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.Savable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,11 +86,13 @@ public class ChargeStationsController
     }
 
     @RequestMapping(value = "/saveExistingChargeStation", method = RequestMethod.POST)
-    public ModelAndView updateChargeStation(@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
+    public ModelAndView updateChargeStation(SecurityContextHolderAwareRequestWrapper request,@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
     {
+        User loggedUser = ( User)( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
         ChargePoint chargePoint = new ChargePoint();
         chargePoint.init();
         chargeStationBean.decodeBeanToReal( chargePoint );
+        chargePoint.setUserName( loggedUser.getUsername() );
         chargePoint.setStatus( Savable.MODIFIED );
         ChgResponse chgResponse = CoreController.save( chargePoint );
         ModelAndView modelAndView = new ModelAndView();
@@ -107,12 +112,14 @@ public class ChargeStationsController
     }
 
     @RequestMapping(value = "/saveNewChargeStation", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation(@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
+    public ModelAndView saveNewLocation(SecurityContextHolderAwareRequestWrapper request,@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
     {
-        chargeStationBean.setUserId( 1 ); //TODO remove user id logic after user login control
+//        chargeStationBean.setUserId( 1 ); //TODO remove user id logic after user login control
+        User loggedUser = ( User)( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
         ChargePoint chargePoint = new ChargePoint();
         chargeStationBean.decodeBeanToReal( chargePoint );
         chargePoint.setStatus( Savable.NEW );
+        chargePoint.setUserName( loggedUser.getUsername() );
         ChgResponse chgResponse = CoreController.save( chargePoint );
         ModelAndView modelAndView = new ModelAndView();
         if (chgResponse.isSuccess())

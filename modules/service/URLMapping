@@ -1,0 +1,20 @@
+By TheamLeaf
+
+1. Call by Html file ... with argument
+<a th:href="@{/chargeStation/editChargeStation.html(chgStationID=${chgStation.chargePointId})}">
+                    EDIT
+                    </a>
+
+
+                    2. Call by HTML only
+                     <a th:href="@{/chargeStation/addChargeStation.html}">
+                                    Add New Location
+                                </a>
+
+
+
+                                3.Hyper Link for Spring Controller
+
+                                 <a th:href="@{/AllChargeStations.html}">
+                                            See All Charge Stations
+                                        </a>

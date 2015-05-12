@@ -11,7 +11,7 @@
 <p th:text="#{add.charge.stations}"></p>
 <div>
     <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
-    <form action="#" th:action="@{/saveNewChargeStation}"  th:object="${chargeStation}" method="post">
+    <form action="#" th:action="@{/saveNewOwnerSpecificChargeStation}"  th:object="${chargeStation}" method="post">
         <table>
             <tr height="30">
                 <th align="left">Charge Station Reference: </th>
@@ -71,8 +71,8 @@
         </table>
     </form>
     <p>
-        <a th:href="@{/AllChargeStations.html}">
-            See All Charge Stations
+        <a th:href="@{/OwnerSpecificChargeStations.html}" th:text="#{owner.charge.stations}" >
+            View All Charging Stations
         </a>
     </p>
     <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->

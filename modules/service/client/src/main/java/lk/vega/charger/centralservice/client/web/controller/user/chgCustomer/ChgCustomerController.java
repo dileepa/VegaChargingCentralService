@@ -1,4 +1,4 @@
-package lk.vega.charger.centralservice.client.web.controller.user.chgOwner;
+package lk.vega.charger.centralservice.client.web.controller.user.chgCustomer;
 
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.GenderDataLoader;
@@ -28,16 +28,16 @@ import java.util.List;
  * Time on 5:49 PM
  */
 @Controller
-public class ChgOwnerController
+public class ChgCustomerController
 {
 
-    @RequestMapping(value = "/ChgOwnerSignUp", method = RequestMethod.GET)
+    @RequestMapping(value = "/ChgCustomerSignUp", method = RequestMethod.GET)
     public ModelAndView loadChgOwnerSignUpView()
     {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName( "user/chgOwner/chgOwnerSignUp" );
+        modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUp" );
         ChgUser chgUser = new ChgUser();
-        modelAndView.getModel().put( "chgOwnerUser", chgUser );
+        modelAndView.getModel().put( "chgCustomerUser", chgUser );
         ChgResponse titlesRes = TitelDataLoader.loadAllTitleProperties();
         if( titlesRes.isSuccess() )
         {
@@ -56,11 +56,11 @@ public class ChgOwnerController
 
     }
 
-    @RequestMapping(value = "/saveNewChargeOwner", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation( @ModelAttribute("chgOwnerUser") ChgUser chgUser )
+    @RequestMapping(value = "/saveNewChargeCustomer", method = RequestMethod.POST)
+    public ModelAndView saveNewLocation( @ModelAttribute("chgCustomerUser") ChgUser chgUser )
     {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpError" );
+        modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpError" );
         ChgResponse chgResponse = null;
         try
         {
@@ -81,14 +81,14 @@ public class ChgOwnerController
                 profileNameBuilder.append( " " );
                 profileNameBuilder.append( chgUser.getLastName() );
                 chgUser.setProfileName( profileNameBuilder.toString() );
-                chgUser.setUserRole( UserRoles.CHG_OWNER );
+                chgUser.setUserRole( UserRoles.CHG_CUSTOMER );
                 AddUser newChgOwner = ChgUserDataLoader.createChargeUser( chgUser );
                 remoteUserStoreManagerService.addUser( newChgOwner );
-                modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpSuccess" );
+                modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpSuccess" );
             }
             catch( SOAPFaultException e )
             {
-                modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpError" );
+                modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpError" );
                 modelAndView.getModel().put( "error",e.getMessage() );
                 e.printStackTrace();
             }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{chg.customer.sign.up}"></p>
+
+<form action="#" th:action="@{/saveNewChargeCustomer}" th:object="${chgCustomerUser}" method="post">
+    <div>
+        <h4 th:text="#{chg.customer.title}">test title</h4>
+        <select th:field="*{title}">
+            <option th:each="title : ${titleList}"
+                    th:value="${title.name}"
+                    th:text="${title.name}">
+                Test title
+            </option>
+        </select>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.gender}">test gender</h4>
+        <select th:field="*{gender}">
+            <option th:each="gender : ${genderList}"
+                    th:value="${gender.name}"
+                    th:text="${gender.name}">
+                Test gender
+            </option>
+        </select>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.first.name}">first name</h4>
+        <input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.last.name}">last name</h4>
+        <input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.address}">address</h4>
+        <input type="text" id="address" name="address" value="" th:field="*{address}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.country}">country</h4>
+        <input type="text" id="country" name="country" value="" th:field="*{country}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.email}">test email</h4>
+        <input type="text" id="email" name="email" value="" th:field="*{email}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.username}">test user name</h4>
+        <input type="text" id="userName" name="userName" value="" th:field="*{userName}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.password}">test password</h4>
+        <input type="password" id="password" name="password" value="" th:field="*{password}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.verify.password}">test verify password</h4>
+        <input type="password" id="verifyPassword" name="verifyPassword" value="" th:field="*{verifyPassword}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.telephone}">test telephone</h4>
+        <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.mobilephone}">test mobile</h4>
+        <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}"/>
+    </div>
+    <div>
+        <h4 th:text="#{chg.customer.organization.name}">test Organization Name</h4>
+        <input type="text" id="organizationName" name="organizationName" value="" th:field="*{organizationName}"/>
+    </div>
+    <div>
+        <input type="submit" value="Add test user" th:value="#{chg.customer.add.user}"/>
+    </div>
+    <div>
+        <input type="hidden" name="chgCustomerId" value="" th:field="*{userId}"/>
+    </div>
+</form>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

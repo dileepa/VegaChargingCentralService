@@ -13,11 +13,16 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.messageresolver.IMessageResolver;
-import org.thymeleaf.spring3.SpringTemplateEngine;
-import org.thymeleaf.spring3.messageresolver.SpringMessageResolver;
-import org.thymeleaf.spring3.view.ThymeleafViewResolver;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.messageresolver.SpringMessageResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Lasitha
@@ -44,11 +49,17 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter
 		templateResolver.setSuffix( ".html" );
 		templateResolver.setTemplateMode( "HTML5" );
 
+
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver( templateResolver );
         templateEngine.setMessageResolver( messageResolver() );
 
-		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        Set<IDialect> dialects = new HashSet<IDialect>();
+        dialects.add( new SpringSecurityDialect() );
+        templateEngine.setAdditionalDialects( dialects );
+
+
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
 		viewResolver.setCharacterEncoding( "UTF-8" );
 		viewResolver.setOrder( 1 );
 		viewResolver.setTemplateEngine( templateEngine );
@@ -78,6 +89,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter
         try
         {
             CoreController.init();
+            CoreController.loadServiceConfigurations();
         }
         catch( Exception e )
         {

@@ -15,12 +15,13 @@ public class CoreController
 {
     public static ConnectionPool pool = null;
     public static int AUTH_KEY_EXPIRE_TIMEOUT_VAL = 5; //value of seconds for expire transaction or not.
-    public static String AUTH_KEY_EXPIRE_TIMEOUT_KEY = "AUTH_KEY_EXPIRE_TIMEOUT";
+    public static final String AUTH_KEY_EXPIRE_TIMEOUT_KEY = "AUTH_KEY_EXPIRE_TIMEOUT";
     public static String CENTRAL_SERVICE_TRANSACTION_USERNAME_VAL = "";
-    public static String CENTRAL_SERVICE_TRANSACTION_USERNAME_KEY = "CENTRAL_SERVICE_TRANSACTION_USERNAME";
+    public static final String CENTRAL_SERVICE_TRANSACTION_USERNAME_KEY = "CENTRAL_SERVICE_TRANSACTION_USERNAME";
     public static String CENTRAL_SERVICE_TRANSACTION_PASSWORD_VAL = "";
-    public static String CENTRAL_SERVICE_TRANSACTION_PASSWORD_KEY = "CENTRAL_SERVICE_TRANSACTION_PASSWORD";
-
+    public static final String CENTRAL_SERVICE_TRANSACTION_PASSWORD_KEY = "CENTRAL_SERVICE_TRANSACTION_PASSWORD";
+    public static final String CHG_CLINET_WEB_URL_KEY = "CHG_CLINET_WEB_URL";
+    public static String CHG_CLINET_WEB_URL_VAL = "";
 
     public static void init()
     {
@@ -110,6 +111,7 @@ public class CoreController
                 AUTH_KEY_EXPIRE_TIMEOUT_VAL = Integer.parseInt( configurations.getProperty( AUTH_KEY_EXPIRE_TIMEOUT_KEY ) );
                 CENTRAL_SERVICE_TRANSACTION_USERNAME_VAL = configurations.getProperty( CENTRAL_SERVICE_TRANSACTION_USERNAME_KEY );
                 CENTRAL_SERVICE_TRANSACTION_PASSWORD_VAL = configurations.getProperty( CENTRAL_SERVICE_TRANSACTION_PASSWORD_KEY );
+                CHG_CLINET_WEB_URL_VAL = configurations.getProperty( CHG_CLINET_WEB_URL_KEY );
             }
             catch( Exception e)
             {

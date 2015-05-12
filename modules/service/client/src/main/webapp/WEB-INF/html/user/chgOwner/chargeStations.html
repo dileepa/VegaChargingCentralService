@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{all.charge.stations}"></p>
+<div>
+    <table border="1" >
+        <tr>
+            <th>Reference</th>
+            <th>Location</th>
+            <th>Power</th>
+            <th>Type</th>
+            <th>Machine Reference</th>
+            <th>Protocol</th>
+            <th>Version</th>
+            <th>Last Update Time</th>
+            <th>Status</th>
+            <th colspan="2">Action</th>
+        </tr>
+        <tr th:each="chgStation : ${chgStations}">
+            <td th:text="${chgStation.reference}">Test Charge Station</td>
+            <td th:text="${chgStation.chargeLocationBean.name}">Test Location</td>
+            <td th:text="${chgStation.power}">2.41</td>
+            <td th:text="${chgStation.type}">Test Type</td>
+            <td th:text="${chgStation.machineUniqueRef}">Test Machine Reference</td>
+            <td th:text="${chgStation.protocol}">Test Protocol</td>
+            <td th:text="${chgStation.version}">Test Version</td>
+            <td th:text="${chgStation.lastUpdateTimeStamp}">Test Date and Time</td>
+            <td th:text="${chgStation.chargePointStatus}">Test Status</td>
+            <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
+            <td >
+                <a th:href="@{/user/chgOwner/editChargeStation.html(chgStationID=${chgStation.chargePointId})}">
+                    EDIT
+                </a>
+            </td>
+            <td >
+                <a href="../html/chargeStationDetail.html">
+                    DELETE
+                </a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <p>
+            <a th:href="@{/user/chgOwner/addChargeStation.html}">
+                Add New Location
+            </a>
+        </p>
+    </div>
+</div>
+
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

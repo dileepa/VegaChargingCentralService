@@ -17,7 +17,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	@Override
 	protected Class<?>[] getRootConfigClasses()
 	{
-		return null;
+        return new Class<?>[] {lk.vega.charger.centralservice.client.web.config.SecurityConfig.class };
 	}
 
 	/*

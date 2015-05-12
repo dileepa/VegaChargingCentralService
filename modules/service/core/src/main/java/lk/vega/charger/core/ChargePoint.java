@@ -28,7 +28,7 @@ public class ChargePoint extends Savable
     private String version;
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
-    private int userId;
+    private String userName;
     private String machineUniqueRef;
     private String chargePointStatus;
     private int status;
@@ -123,14 +123,14 @@ public class ChargePoint extends Savable
         this.type = type;
     }
 
-    public int getUserId()
+    public String getUserName()
     {
-        return userId;
+        return userName;
     }
 
-    public void setUserId( int userId )
+    public void setUserName( String userName )
     {
-        this.userId = userId;
+        this.userName = userName;
     }
 
     public String getVersion()
@@ -221,7 +221,7 @@ public class ChargePoint extends Savable
         sb.append( "LASTUPDATETIMESTAMP, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS, " );
         sb.append( "STATUS, " );
-        sb.append( "USERID " );
+        sb.append( "USERNAME " );
         sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
@@ -259,7 +259,7 @@ public class ChargePoint extends Savable
             }
             ps.setString( ++count, this.machineUniqueRef );
             ps.setString( ++count, this.chargePointStatus );
-            ps.setInt( ++count, this.userId );
+            ps.setString( ++count, this.userName );
 
             ps.execute();
             ps.close();
@@ -285,7 +285,7 @@ public class ChargePoint extends Savable
         this.lastUpdateDate = new ChgDate( rs.getDate( "LASTUPDATE" ) );
         this.machineUniqueRef = rs.getString( "MACHINE_UNIQUE_ADDRESS" );
         this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
-        this.userId = rs.getInt( "USERID" );
+        this.userName = rs.getString( "USERNAME" );
         this.chargePointStatus = rs.getString( "STATUS" );
 //        if( level > 10 )
 //        {
@@ -332,7 +332,7 @@ public class ChargePoint extends Savable
         sb.append( "LASTUPDATE = ?, " );
         sb.append( "LASTUPDATETIMESTAMP = ?, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS = ?, " );
-        sb.append( "USERID = ?, " );
+        sb.append( "USERNAME = ?, " );
         sb.append( "STATUS = ? " );
         sb.append( "WHERE " );
         sb.append( "CHG_POINT_ID = ? " );
@@ -371,7 +371,7 @@ public class ChargePoint extends Savable
                 ps.setTimestamp( ++count, lastUpdateTimeStamp._getSQLTimestamp() );
             }
             ps.setString( ++count, this.machineUniqueRef );
-            ps.setInt( ++count, this.userId );
+            ps.setString( ++count, this.userName );
             ps.setString( ++count, this.chargePointStatus );
             ps.setInt( ++count, this.chargePointId );
 
@@ -419,7 +419,7 @@ public class ChargePoint extends Savable
         this.machineUniqueRef = null;
         this.lastUpdateTimeStamp = null;
         this.chargePointStatus = null;
-        this.userId = -1;
+        this.userName = null;
         this.status = Savable.UNCHANGED;
     }
 

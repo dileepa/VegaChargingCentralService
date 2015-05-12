@@ -26,7 +26,7 @@ public class ChargeStationBean extends DomainBeanImpl
     private String version;
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
-    private int userId;
+    private String userName;
     private LocationBean chargeLocationBean;
     private String machineUniqueRef;
     private String chargePointStatus;
@@ -139,14 +139,14 @@ public class ChargeStationBean extends DomainBeanImpl
         this.type = type;
     }
 
-    public int getUserId()
+    public String getUserName()
     {
-        return userId;
+        return userName;
     }
 
-    public void setUserId( int userId )
+    public void setUserName( String userId )
     {
-        this.userId = userId;
+        this.userName = userId;
     }
 
     public String getVersion()
@@ -172,7 +172,7 @@ public class ChargeStationBean extends DomainBeanImpl
         setVersion(chargePoint.getVersion());
         setLastUpdateDate(chargePoint.getLastUpdateDate());
         setLastUpdateTimeStamp(chargePoint.getLastUpdateTimeStamp());
-        setUserId(chargePoint.getUserId());
+        setUserName( chargePoint.getUserName() );
         setMachineUniqueRef(chargePoint.getMachineUniqueRef());
         setChargePointStatus(chargePoint.getChargePointStatus());
 
@@ -208,7 +208,7 @@ public class ChargeStationBean extends DomainBeanImpl
         chargePoint.setVersion(getVersion());
         chargePoint.setLastUpdateDate(getLastUpdateDate());
         chargePoint.setLastUpdateTimeStamp(getLastUpdateTimeStamp());
-        chargePoint.setUserId(getUserId());
+        chargePoint.setUserName(getUserName());
         chargePoint.setMachineUniqueRef( getMachineUniqueRef() );
         chargePoint.setChargePointStatus( getChargePointStatus() );
     }
