@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                        */
               .antMatchers( "/AllChargeStations" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/chargeStation**" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/chargeStation/addChargeStation.html" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/saveNewChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/saveExistingChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/ChgOwnerSignUp.html" ).hasAuthority( UserRoles.CHG_ADMIN )

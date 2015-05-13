@@ -1,7 +1,10 @@
 package lk.vega.charger.centralservice.client.web.domain;
 
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
-import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationStatusBean;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationPowerStatusBean;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationProtocolBean;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationTypeBean;
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
@@ -27,9 +30,12 @@ public class DomainBeanImpl implements DomainBean
 
     public static final int LOCATION_BEAN_ID = 1;
     public static final int CHARGE_STATION_BEAN_ID = 2;
-    public static final int CHARGE_STATION_STATUS_BEAN_ID = 3;
+    public static final int CHARGE_STATION_AVAILABILITY_STATUS_BEAN_ID = 3;
     public static final int USER_GENDER_BEAN_ID = 4;
     public static final int USER_TITLE_BEAN_ID = 5;
+    public static final int CHARGE_STATION_POWER_STATUS_BEAN_ID = 6;
+    public static final int CHARGE_STATION_PROTOCOL_BEAN_ID = 7;
+    public static final int CHARGE_STATION_TYPE_BEAN_ID = 8;
 
 
     @Override
@@ -56,13 +62,22 @@ public class DomainBeanImpl implements DomainBean
                 beanObject = new ChargeStationBean();
                 break;
             case 3:
-                beanObject = new ChargeStationStatusBean();
+                beanObject = new ChargeStationAvailabilityStatusBean();
                 break;
             case 4:
                 beanObject = new GenderBean();
                 break;
             case 5:
                 beanObject = new TitleBean();
+                break;
+            case 6:
+                beanObject = new ChargeStationPowerStatusBean();
+                break;
+            case 7:
+                beanObject = new ChargeStationProtocolBean();
+                break;
+            case 8:
+                beanObject = new ChargeStationTypeBean();
                 break;
             default:
                 break;

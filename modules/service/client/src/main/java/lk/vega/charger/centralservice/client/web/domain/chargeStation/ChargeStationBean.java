@@ -23,23 +23,16 @@ public class ChargeStationBean extends DomainBeanImpl
     private double power;
     private String type;
     private String protocol;
-    private String version;
+    private String firmwareVersion;
+    private String hardwareVersion;
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
     private String userName;
     private LocationBean chargeLocationBean;
     private String machineUniqueRef;
-    private String chargePointStatus;
+    private String chargePointAvailabilityStatus;
+    private String chargePointPowerStatus;
 
-    public String getChargePointStatus()
-    {
-        return chargePointStatus;
-    }
-
-    public void setChargePointStatus( String chargePointStatus )
-    {
-        this.chargePointStatus = chargePointStatus;
-    }
 
     public LocationBean getChargeLocationBean() {
         return chargeLocationBean;
@@ -149,14 +142,44 @@ public class ChargeStationBean extends DomainBeanImpl
         this.userName = userId;
     }
 
-    public String getVersion()
+    public String getFirmwareVersion()
     {
-        return version;
+        return firmwareVersion;
     }
 
-    public void setVersion( String version )
+    public void setFirmwareVersion( String firmwareVersion )
     {
-        this.version = version;
+        this.firmwareVersion = firmwareVersion;
+    }
+
+    public String getHardwareVersion()
+    {
+        return hardwareVersion;
+    }
+
+    public void setHardwareVersion( String hardwareVersion )
+    {
+        this.hardwareVersion = hardwareVersion;
+    }
+
+    public String getChargePointAvailabilityStatus()
+    {
+        return chargePointAvailabilityStatus;
+    }
+
+    public void setChargePointAvailabilityStatus( String chargePointAvailabilityStatus )
+    {
+        this.chargePointAvailabilityStatus = chargePointAvailabilityStatus;
+    }
+
+    public String getChargePointPowerStatus()
+    {
+        return chargePointPowerStatus;
+    }
+
+    public void setChargePointPowerStatus( String chargePointPowerStatus )
+    {
+        this.chargePointPowerStatus = chargePointPowerStatus;
     }
 
     @Override
@@ -169,12 +192,14 @@ public class ChargeStationBean extends DomainBeanImpl
         setPower(chargePoint.getPower());
         setType(chargePoint.getType());
         setProtocol(chargePoint.getProtocol());
-        setVersion(chargePoint.getVersion());
+        setFirmwareVersion(chargePoint.getFirmwareVersion());
+        setHardwareVersion(chargePoint.getHardwareVersion());
         setLastUpdateDate(chargePoint.getLastUpdateDate());
         setLastUpdateTimeStamp(chargePoint.getLastUpdateTimeStamp());
         setUserName( chargePoint.getUserName() );
         setMachineUniqueRef(chargePoint.getMachineUniqueRef());
-        setChargePointStatus(chargePoint.getChargePointStatus());
+        setChargePointAvailabilityStatus(chargePoint.getChargePointAvailabilityStatus());
+        setChargePointPowerStatus(chargePoint.getChargePointPowerStatus());
 
         //Load Special Display Attributes.
         setChargeLocationBean(loadChargeLocation(getLocationId()));
@@ -205,12 +230,14 @@ public class ChargeStationBean extends DomainBeanImpl
         chargePoint.setPower(getPower());
         chargePoint.setType(getType());
         chargePoint.setProtocol(getProtocol());
-        chargePoint.setVersion(getVersion());
+        chargePoint.setFirmwareVersion(getFirmwareVersion());
+        chargePoint.setHardwareVersion(getHardwareVersion());
         chargePoint.setLastUpdateDate(getLastUpdateDate());
         chargePoint.setLastUpdateTimeStamp(getLastUpdateTimeStamp());
         chargePoint.setUserName(getUserName());
-        chargePoint.setMachineUniqueRef( getMachineUniqueRef() );
-        chargePoint.setChargePointStatus( getChargePointStatus() );
+        chargePoint.setMachineUniqueRef( getMachineUniqueRef()== null ? getReference() : getMachineUniqueRef() );
+        chargePoint.setChargePointAvailabilityStatus( getChargePointAvailabilityStatus() );
+        chargePoint.setChargePointPowerStatus( getChargePointPowerStatus() );
     }
 
 

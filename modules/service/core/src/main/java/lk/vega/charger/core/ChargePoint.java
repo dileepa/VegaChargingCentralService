@@ -15,9 +15,6 @@ import java.sql.Types;
 
 public class ChargePoint extends Savable
 {
-    public static final String CHG_POINT_BLOCKED ="BLOCKED";
-    public static final String CHG_POINT_ACTIVE ="ACTIVE";
-
 
     private int chargePointId;
     private String reference;
@@ -25,13 +22,26 @@ public class ChargePoint extends Savable
     private double power;
     private String type;
     private String protocol;
-    private String version;
+    private String firmwareVersion;
+    private String hardwareVersion;
     private ChgDate lastUpdateDate;
     private ChgTimeStamp lastUpdateTimeStamp;
     private String userName;
     private String machineUniqueRef;
-    private String chargePointStatus;
+    private String chargePointAvailabilityStatus;
+    private String chargePointPowerStatus;
+    private String adminUserName;
     private int status;
+
+    public String getAdminUserName()
+    {
+        return adminUserName;
+    }
+
+    public void setAdminUserName( String adminUserName )
+    {
+        this.adminUserName = adminUserName;
+    }
 
     public String getMachineUniqueRef()
     {
@@ -133,16 +143,6 @@ public class ChargePoint extends Savable
         this.userName = userName;
     }
 
-    public String getVersion()
-    {
-        return version;
-    }
-
-    public void setVersion( String version )
-    {
-        this.version = version;
-    }
-
     public int getStatus()
     {
         return status;
@@ -153,14 +153,44 @@ public class ChargePoint extends Savable
         this.status = status;
     }
 
-    public String getChargePointStatus()
+    public String getFirmwareVersion()
     {
-        return chargePointStatus;
+        return firmwareVersion;
     }
 
-    public void setChargePointStatus( String chargePointStatus )
+    public void setFirmwareVersion( String firmwareVersion )
     {
-        this.chargePointStatus = chargePointStatus;
+        this.firmwareVersion = firmwareVersion;
+    }
+
+    public String getHardwareVersion()
+    {
+        return hardwareVersion;
+    }
+
+    public void setHardwareVersion( String hardwareVersion )
+    {
+        this.hardwareVersion = hardwareVersion;
+    }
+
+    public String getChargePointAvailabilityStatus()
+    {
+        return chargePointAvailabilityStatus;
+    }
+
+    public void setChargePointAvailabilityStatus( String chargePointAvailabilityStatus )
+    {
+        this.chargePointAvailabilityStatus = chargePointAvailabilityStatus;
+    }
+
+    public String getChargePointPowerStatus()
+    {
+        return chargePointPowerStatus;
+    }
+
+    public void setChargePointPowerStatus( String chargePointPowerStatus )
+    {
+        this.chargePointPowerStatus = chargePointPowerStatus;
     }
 
     @Override
@@ -216,13 +246,16 @@ public class ChargePoint extends Savable
         sb.append( "POWER, " );
         sb.append( "TYPE, " );
         sb.append( "PROTOCOL, " );
-        sb.append( "VERSION, " );
+        sb.append( "FIRMWARE_VERSION, " );
+        sb.append( "HARDWARE_VERSION, " );
         sb.append( "LASTUPDATE, " );
         sb.append( "LASTUPDATETIMESTAMP, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS, " );
-        sb.append( "STATUS, " );
-        sb.append( "USERNAME " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+        sb.append( "AVAILABILITY_STATUS, " );
+        sb.append( "POWER_STATUS, " );
+        sb.append( "ADMIN_USERNAME, " );
+        sb.append( "OWNER_USERNAME " );
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -240,7 +273,8 @@ public class ChargePoint extends Savable
             ps.setDouble( ++count, this.power );
             ps.setString( ++count, this.type );
             ps.setString( ++count, this.protocol );
-            ps.setString( ++count, this.version );
+            ps.setString( ++count, this.firmwareVersion );
+            ps.setString( ++count, this.hardwareVersion );
             if( this.lastUpdateDate == null )
             {
                 ps.setNull( ++count, java.sql.Types.DATE );
@@ -258,7 +292,9 @@ public class ChargePoint extends Savable
                 ps.setTimestamp( ++count, lastUpdateTimeStamp._getSQLTimestamp());
             }
             ps.setString( ++count, this.machineUniqueRef );
-            ps.setString( ++count, this.chargePointStatus );
+            ps.setString( ++count, this.chargePointAvailabilityStatus );
+            ps.setString( ++count, this.chargePointPowerStatus );
+            ps.setString( ++count, this.adminUserName );
             ps.setString( ++count, this.userName );
 
             ps.execute();
@@ -281,12 +317,15 @@ public class ChargePoint extends Savable
         this.power = rs.getDouble( "POWER" );
         this.type = rs.getString( "TYPE" );
         this.protocol = rs.getString( "PROTOCOL" );
-        this.version = rs.getString( "VERSION" );
+        this.firmwareVersion = rs.getString( "FIRMWARE_VERSION" );
+        this.hardwareVersion = rs.getString( "HARDWARE_VERSION" );
         this.lastUpdateDate = new ChgDate( rs.getDate( "LASTUPDATE" ) );
         this.machineUniqueRef = rs.getString( "MACHINE_UNIQUE_ADDRESS" );
         this.lastUpdateTimeStamp = new ChgTimeStamp( rs.getTimestamp( "LASTUPDATETIMESTAMP" ) );
-        this.userName = rs.getString( "USERNAME" );
-        this.chargePointStatus = rs.getString( "STATUS" );
+        this.userName = rs.getString( "OWNER_USERNAME" );
+        this.adminUserName = rs.getString( "ADMIN_USERNAME" );
+        this.chargePointAvailabilityStatus = rs.getString( "AVAILABILITY_STATUS" );
+        this.chargePointPowerStatus = rs.getString( "POWER_STATUS" );
 //        if( level > 10 )
 //        {
 //            PreparedStatement psChargeLocation = null;
@@ -328,12 +367,15 @@ public class ChargePoint extends Savable
         sb.append( "POWER = ?, " );
         sb.append( "TYPE = ?, " );
         sb.append( "PROTOCOL = ?, " );
-        sb.append( "VERSION = ?, " );
+        sb.append( "FIRMWARE_VERSION = ?, " );
+        sb.append( "HARDWARE_VERSION = ?, " );
         sb.append( "LASTUPDATE = ?, " );
         sb.append( "LASTUPDATETIMESTAMP = ?, " );
         sb.append( "MACHINE_UNIQUE_ADDRESS = ?, " );
-        sb.append( "USERNAME = ?, " );
-        sb.append( "STATUS = ? " );
+        sb.append( "OWNER_USERNAME = ?, " );
+        sb.append( "ADMIN_USERNAME = ?, " );
+        sb.append( "AVAILABILITY_STATUS = ?, " );
+        sb.append( "POWER_STATUS = ? " );
         sb.append( "WHERE " );
         sb.append( "CHG_POINT_ID = ? " );
         int count = 0;
@@ -353,7 +395,8 @@ public class ChargePoint extends Savable
             ps.setDouble( ++count, this.power );
             ps.setString( ++count, this.type );
             ps.setString( ++count, this.protocol );
-            ps.setString( ++count, this.version );
+            ps.setString( ++count, this.firmwareVersion );
+            ps.setString( ++count, this.hardwareVersion );
             if( this.lastUpdateDate == null )
             {
                 ps.setNull( ++count, java.sql.Types.DATE );
@@ -372,7 +415,9 @@ public class ChargePoint extends Savable
             }
             ps.setString( ++count, this.machineUniqueRef );
             ps.setString( ++count, this.userName );
-            ps.setString( ++count, this.chargePointStatus );
+            ps.setString( ++count, this.adminUserName );
+            ps.setString( ++count, this.chargePointAvailabilityStatus );
+            ps.setString( ++count, this.chargePointPowerStatus );
             ps.setInt( ++count, this.chargePointId );
 
             ps.execute();
@@ -414,12 +459,15 @@ public class ChargePoint extends Savable
         this.power = 0.0d;
         this.type = null;
         this.protocol = null;
-        this.version = null;
+        this.firmwareVersion = null;
+        this.hardwareVersion = null;
         this.lastUpdateDate = null;
         this.machineUniqueRef = null;
         this.lastUpdateTimeStamp = null;
-        this.chargePointStatus = null;
+        this.chargePointAvailabilityStatus = null;
+        this.chargePointPowerStatus = null;
         this.userName = null;
+        this.adminUserName = null;
         this.status = Savable.UNCHANGED;
     }
 

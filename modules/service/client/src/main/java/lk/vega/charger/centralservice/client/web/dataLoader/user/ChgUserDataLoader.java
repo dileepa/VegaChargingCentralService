@@ -1,7 +1,14 @@
 package lk.vega.charger.centralservice.client.web.dataLoader.user;
 
 import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
+import lk.vega.charger.userManagement.UserHandler;
+import lk.vega.charger.util.ChgResponse;
 import org.wso2.carbon.um.ws.service.AddUser;
+import org.wso2.carbon.um.ws.service.RemoteUserStoreManagerServicePortType;
+import org.wso2.carbon.um.ws.service.RemoteUserStoreManagerServiceUserStoreException_Exception;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Intelij Idea IDE
@@ -24,5 +31,44 @@ public class ChgUserDataLoader
         newChargeOwner.getClaims().addAll( UserClaimAttributes.getClaimValuesForChgUser( chgUserBean ) );
         return newChargeOwner;
     }
+
+    public static ChgResponse getUserListForSpecificRole (String roleName)
+    {
+        List<ChgUserBean> userBeans = new ArrayList<ChgUserBean>(  );
+        ChgResponse chgResponse = new ChgResponse(  );
+        chgResponse.setNo( ChgResponse.ERROR );
+        try
+        {
+
+            chgResponse = UserHandler.connectToRemoteUserStoreManagerService();
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+        if( chgResponse.isSuccess() )
+        {
+
+            RemoteUserStoreManagerServicePortType remoteUserStoreManagerService = (RemoteUserStoreManagerServicePortType) chgResponse.getReturnData();
+            try
+            {
+                List<String> userNames = remoteUserStoreManagerService.getUserListOfRole( roleName );
+                for( String userName : userNames )
+                {
+                    ChgUserBean chgUserBean = new ChgUserBean();
+                    chgUserBean.setUserName( userName );
+                    userBeans.add( chgUserBean );
+                }
+                chgResponse.setNo( ChgResponse.SUCCESS );
+                chgResponse.setReturnData( userBeans );
+            }
+            catch( RemoteUserStoreManagerServiceUserStoreException_Exception e )
+            {
+                e.printStackTrace();
+            }
+        }
+        return chgResponse;
+    }
+
 
 }
