@@ -16,11 +16,13 @@
             <th>Location</th>
             <th>Power</th>
             <th>Type</th>
-            <th>Machine Reference</th>
             <th>Protocol</th>
-            <th>Version</th>
+            <th>Firmware Version</th>
+            <th>Hardware Version</th>
             <th>Last Update Time</th>
-            <th>Status</th>
+            <th>Availability Status</th>
+            <th>Power Status</th>
+            <th>Owner Username</th>
             <th colspan="2">Action</th>
         </tr>
         <tr th:each="chgStation : ${chgStations}">
@@ -28,11 +30,13 @@
             <td th:text="${chgStation.chargeLocationBean.name}">Test Location</td>
             <td th:text="${chgStation.power}">2.41</td>
             <td th:text="${chgStation.type}">Test Type</td>
-            <td th:text="${chgStation.machineUniqueRef}">Test Machine Reference</td>
             <td th:text="${chgStation.protocol}">Test Protocol</td>
-            <td th:text="${chgStation.version}">Test Version</td>
+            <td th:text="${chgStation.firmwareVersion}">Test Version</td>
+            <td th:text="${chgStation.hardwareVersion}">Test Version</td>
             <td th:text="${chgStation.lastUpdateTimeStamp}">Test Date and Time</td>
-            <td th:text="${chgStation.chargePointStatus}">Test Status</td>
+            <td th:text="${chgStation.chargePointAvailabilityStatus}">Test Status</td>
+            <td th:text="${chgStation.chargePointPowerStatus}">Test Status</td>
+            <td th:text="${chgStation.userName}">Test Status</td>
             <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
             <td >
                 <a th:href="@{/chargeStation/editChargeStation.html(chgStationID=${chgStation.chargePointId})}">
