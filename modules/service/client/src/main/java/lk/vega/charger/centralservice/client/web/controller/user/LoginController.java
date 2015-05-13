@@ -30,36 +30,51 @@ public class LoginController
     }
 
     @RequestMapping(value = "/LoginError", method = RequestMethod.GET)
-    public ModelAndView loginErrorView(SecurityContextHolderAwareRequestWrapper request)
+    public ModelAndView loginErrorView( SecurityContextHolderAwareRequestWrapper request )
     {
-        Exception loginErrorException = (Exception)request.getSession().getAttribute( Security.SPRING_SECURITY_LAST_EXCEPTION_KEY );
+        Exception loginErrorException = (Exception) request.getSession().getAttribute( Security.SPRING_SECURITY_LAST_EXCEPTION_KEY );
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/loginError" );
-        modelAndView.getModel().put( "loginErrorMsg",loginErrorException.getMessage() );
+        modelAndView.getModel().put( "loginErrorMsg", loginErrorException.getMessage() );
         return modelAndView;
     }
 
     @RequestMapping(value = "/LoginSuccess", method = RequestMethod.GET)
-    public ModelAndView loginSuccessView(SecurityContextHolderAwareRequestWrapper request)
+    public ModelAndView loginSuccessView( SecurityContextHolderAwareRequestWrapper request )
     {
-        boolean isChargingOwner = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_OWNER );;
-        boolean isChargingCustomer = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_CUSTOMER );;
+        if( request.getUserPrincipal() == null )
+        {
+            ModelAndView errorView = new ModelAndView(  );
+            errorView.setViewName( "user/loginError" );
+            errorView.getModel().put( "loginErrorMsg", Security.LOGIN_USER_ERROR );
+            return errorView;
+        }
+        boolean isAdmin = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_ADMIN );
+        boolean isChargingOwner = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_OWNER );
+        boolean isChargingCustomer = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_CUSTOMER );
         ModelAndView modelAndView = new ModelAndView();
-        if( isChargingOwner && isChargingCustomer )
+        if( isAdmin )
         {
-            //TODO view for both owner and customer
-        }
-        else if( isChargingCustomer )
-        {
-            modelAndView.setViewName( "user/chgCustomer/customerLoginSuccess" );
-        }
-        else if( isChargingOwner )
-        {
-            modelAndView.setViewName( "user/chgOwner/ownerLoginSuccess" );
+            modelAndView.setViewName( "user/admin/adminLoginSuccess" );
         }
         else
         {
-            modelAndView.setViewName( "user/loginSuccess" );
+            if( isChargingOwner && isChargingCustomer )
+            {
+                //TODO view for both owner and customer
+            }
+            else if( isChargingCustomer )
+            {
+                modelAndView.setViewName( "user/chgCustomer/customerLoginSuccess" );
+            }
+            else if( isChargingOwner )
+            {
+                modelAndView.setViewName( "user/chgOwner/ownerLoginSuccess" );
+            }
+            else
+            {
+                modelAndView.setViewName( "user/loginSuccess" );
+            }
         }
         return modelAndView;
     }

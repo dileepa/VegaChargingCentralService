@@ -10,7 +10,7 @@
 </div>
 <p th:text="#{chg.owner.sign.up}"></p>
 
-<form action="#" th:action="@{/saveNewChargeOwner}" th:object="${chgOwnerUser}" method="post">
+<form action="#" th:action="@{/saveNewChargeOwner}" th:object="${chgOwnerUser}" method="post" onsubmit="return checkForm(this);">
     <div>
         <h4 th:text="#{chg.owner.title}">test title</h4>
         <select th:field="*{title}">
@@ -34,34 +34,42 @@
     <div>
         <h4 th:text="#{chg.owner.first.name}">first name</h4>
         <input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}"/>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:text="#{chg.owner.first.name.not.empty}">Test First Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.last.name}">last name</h4>
         <input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}"/>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:text="#{chg.owner.last.name.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.address}">address</h4>
         <input type="text" id="address" name="address" value="" th:field="*{address}"/>
+        <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:text="#{chg.owner.address.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.country}">country</h4>
         <input type="text" id="country" name="country" value="" th:field="*{country}"/>
+        <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="#{chg.owner.country.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.email}">test email</h4>
         <input type="text" id="email" name="email" value="" th:field="*{email}"/>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.username}">test user name</h4>
         <input type="text" id="userName" name="userName" value="" th:field="*{userName}"/>
+        <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:text="#{chg.owner.userName.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.password}">test password</h4>
         <input type="password" id="password" name="password" value="" th:field="*{password}"/>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:text="#{chg.owner.password.not.empty}">Test First Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.verify.password}">test verify password</h4>
         <input type="password" id="verifyPassword" name="verifyPassword" value="" th:field="*{verifyPassword}"/>
+        <span th:if="${#fields.hasErrors('verifyPassword')}" th:errors="*{verifyPassword}" th:text="#{chg.owner.verify.password.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.telephone}">test telephone</h4>
@@ -86,4 +94,77 @@
     &copy; This is the footer for home
 </div>
 </body>
+
+<!--<script type="text/javascript">-->
+
+  <!--function checkForm(form)-->
+  <!--{-->
+    <!--if(form.username.value == "") {-->
+      <!--alert("Error: Username cannot be blank!");-->
+      <!--form.username.focus();-->
+      <!--return false;-->
+    <!--}-->
+    <!--re = /^\w+$/;-->
+    <!--if(!re.test(form.username.value)) {-->
+      <!--alert("Error: Username must contain only letters, numbers and underscores!");-->
+      <!--form.username.focus();-->
+      <!--return false;-->
+    <!--}-->
+
+    <!--if(form.pwd1.value != "" && form.pwd1.value == form.pwd2.value) {-->
+      <!--if(form.pwd1.value.length < 6) {-->
+        <!--alert("Error: Password must contain at least six characters!");-->
+        <!--form.pwd1.focus();-->
+        <!--return false;-->
+      <!--}-->
+      <!--if(form.pwd1.value == form.username.value) {-->
+        <!--alert("Error: Password must be different from Username!");-->
+        <!--form.pwd1.focus();-->
+        <!--return false;-->
+      <!--}-->
+      <!--re = /[0-9]/;-->
+      <!--if(!re.test(form.pwd1.value)) {-->
+        <!--alert("Error: password must contain at least one number (0-9)!");-->
+        <!--form.pwd1.focus();-->
+        <!--return false;-->
+      <!--}-->
+      <!--re = /[a-z]/;-->
+      <!--if(!re.test(form.pwd1.value)) {-->
+        <!--alert("Error: password must contain at least one lowercase letter (a-z)!");-->
+        <!--form.pwd1.focus();-->
+        <!--return false;-->
+      <!--}-->
+      <!--re = /[A-Z]/;-->
+      <!--if(!re.test(form.pwd1.value)) {-->
+        <!--alert("Error: password must contain at least one uppercase letter (A-Z)!");-->
+        <!--form.pwd1.focus();-->
+        <!--return false;-->
+      <!--}-->
+    <!--} else {-->
+      <!--alert("Error: Please check that you've entered and confirmed your password!");-->
+      <!--form.pwd1.focus();-->
+      <!--return false;-->
+    <!--}-->
+
+    <!--alert("You entered a valid password: " + form.pwd1.value);-->
+    <!--return true;-->
+  <!--}-->
+
+<!--</script>-->
+
+<script type="text/javascript">
+
+  function checkForm(form)
+  {
+    if(form.password.value != form.verifyPassword.value)
+    {
+      alert("Error: Please check that you've entered and confirmed your password!");
+      form.pwd1.focus();
+      return false;
+    }
+  }
+
+</script>
+
+
 </html>

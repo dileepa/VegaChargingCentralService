@@ -9,4 +9,6 @@ package lk.vega.charger.centralservice.client.web.permission;
 public class Security
 {
     public static final String SPRING_SECURITY_LAST_EXCEPTION_KEY = "SPRING_SECURITY_LAST_EXCEPTION";
+
+    public static final String LOGIN_USER_ERROR = "Please, Login User.";
 }

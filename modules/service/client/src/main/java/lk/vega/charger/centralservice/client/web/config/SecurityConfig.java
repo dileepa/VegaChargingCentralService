@@ -2,6 +2,7 @@ package lk.vega.charger.centralservice.client.web.config;
 
 import lk.vega.charger.centralservice.client.web.provider.UserAuthenticationProvider;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
+import lk.vega.charger.util.CoreController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
               .antMatchers( "/chargeStation**" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/saveNewChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/saveExistingChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/ChgOwnerSignUp.html" ).hasAuthority( UserRoles.CHG_ADMIN )
 
               /**
                * Define Here All Charging Admin Permissions.
@@ -65,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
               .and()
               .formLogin().loginPage( "/Login" ).loginProcessingUrl( "/AuthenticateUser" ).defaultSuccessUrl( "/LoginSuccess" ).failureUrl( "/LoginError" ).usernameParameter( "username" ).passwordParameter( "password" )
               .and()
-              .logout().logoutRequestMatcher( new AntPathRequestMatcher( "/logout" ) ).logoutSuccessUrl( "/login?logout=1" ).deleteCookies( "JSESSIONID" ).invalidateHttpSession( true )
+              .logout().logoutRequestMatcher( new AntPathRequestMatcher( "/logout" ) ).logoutSuccessUrl( "/" ).deleteCookies( "JSESSIONID" ).invalidateHttpSession( true )
               .and()
               .sessionManagement().invalidSessionUrl( "/" ).maximumSessions( 2 );
     }

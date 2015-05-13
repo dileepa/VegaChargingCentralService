@@ -6,11 +6,13 @@
 </head>
 <body>
 <header th:fragment="header">
-	<h1>Central System Client Web Application Testing Header</h1>
+    <h1>Central System Client Web Application Testing Header</h1>
+    <span sec:authentication="principal.username"></span>
+    <a th:href="@{/logout}">Logout</a>
 </header>
 <footer th:fragment="footer">
 &copy; Central System Client Web Application Testing Footer
-    <a href="http://203.115.26.141:8080/CentralSystemClientManager">
+    <a href="http://203.115.26.141:8080/CentralSystemClientManager/LoginSuccess">
         Go To Home
     </a>
 </footer>

@@ -1,6 +1,9 @@
 package lk.vega.charger.centralservice.client.web.domain.user;
 
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Intelij Idea IDE
  * Created by dileepa.
@@ -10,18 +13,28 @@ package lk.vega.charger.centralservice.client.web.domain.user;
 public class ChgUserBean
 {
     private int userId;
+    @NotEmpty
     private String userName;
+    @NotEmpty
     private String password;
+    @NotEmpty
     private String verifyPassword;
     private String profileName;
     private String title;
     private String gender;
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String country;
+    @NotEmpty @Email
     private String email;
+    @NotEmpty
     private String telephone;
+    @NotEmpty
     private String mobileNo;
     private String organizationName;
     private String userRole;

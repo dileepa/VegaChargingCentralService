@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<span sec:authentication="principal.username"></span>
+<p th:text="#{admin.login.success.msg}"></p>
+<div>
+    <a th:href="@{/ChgOwnerSignUp.html}" th:text="#{create.charge.owner}" >
+        Test Create Owner
+    </a>
+</div>
+<div>
+    <a th:href="@{/chargeStation/addChargeStation.html}" th:text="#{create.charge.station}">
+        Test Add Charge Station
+    </a>
+</div>
+<!--<div>-->
+    <!--<a th:href="@{/OwnerSpecificChargeStations.html}" th:text="#{owner.charge.stations}" >-->
+        <!--View All Charging Stations-->
+    <!--</a>-->
+<!--</div>-->
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

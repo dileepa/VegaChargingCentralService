@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.wso2.carbon.um.ws.service.AddUser;
 import org.wso2.carbon.um.ws.service.RemoteUserStoreManagerServicePortType;
 
+import javax.validation.Valid;
 import javax.xml.ws.soap.SOAPFaultException;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class ChgOwnerController
         {
             List<String> titlesList = (List) titlesRes.getReturnData();
             List titleBeanList = TitleBean.getBeanList( titlesList, DomainBeanImpl.USER_TITLE_BEAN_ID );
-            modelAndView.getModel().put( "titleList",titleBeanList );
+            modelAndView.getModel().put( "titleList", titleBeanList );
         }
         ChgResponse genderRes = GenderDataLoader.loadAllGenderProperties();
         if( genderRes.isSuccess() )
@@ -58,11 +59,14 @@ public class ChgOwnerController
     }
 
     @RequestMapping(value = "/saveNewChargeOwner", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation( @ModelAttribute("chgOwnerUser") ChgUserBean chgUserBean, BindingResult bindingResult )
+    public ModelAndView saveNewLocation( @Valid @ModelAttribute("chgOwnerUser") ChgUserBean chgUserBean, BindingResult bindingResult )
     {
-        if (bindingResult.hasErrors()) {
-            System.out.println("ERRRRRRRRRRRRRRRRRRRRRRRRRR");
-            return new ModelAndView(  );
+        if( bindingResult.hasErrors() )
+        {
+            ModelAndView loadSignUpView = loadChgOwnerSignUpView();
+            loadSignUpView.getModel().remove( "chgOwnerUser" );
+            loadSignUpView.addObject( bindingResult );
+            return loadSignUpView;
         }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpError" );
@@ -94,7 +98,7 @@ public class ChgOwnerController
             catch( SOAPFaultException e )
             {
                 modelAndView.setViewName( "user/chgOwner/chgOwnerSignUpError" );
-                modelAndView.getModel().put( "error",e.getMessage() );
+                modelAndView.getModel().put( "error", e.getMessage() );
                 e.printStackTrace();
             }
             catch( Exception e )
