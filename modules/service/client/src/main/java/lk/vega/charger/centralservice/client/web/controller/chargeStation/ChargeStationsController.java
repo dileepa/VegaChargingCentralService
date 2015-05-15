@@ -42,6 +42,7 @@ import java.util.List;
 @Controller
 public class ChargeStationsController
 {
+
     @RequestMapping(value = "/AllChargeStations", method = RequestMethod.GET)
     public ModelAndView index()
     {

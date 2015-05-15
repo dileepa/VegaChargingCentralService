@@ -57,7 +57,7 @@ public class LocationsController
         return modelAndView;
     }
 
-    @RequestMapping(value = "deleteLocation", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteLocation", method = RequestMethod.POST)
     public ModelAndView deleteLocation(@ModelAttribute("location" ) LocationBean location )
     {
         ChargeLocation chargeLocation = new ChargeLocation();

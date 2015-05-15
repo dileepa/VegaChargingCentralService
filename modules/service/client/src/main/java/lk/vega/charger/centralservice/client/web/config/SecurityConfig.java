@@ -52,11 +52,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                       /**
                        * Define Here All Charging Admin Permissions.
                        */
+              .antMatchers( "/AllLocations" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/location/deleteConfirmationLocation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/deleteLocation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/location/addLocation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/location/editLocation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/saveExistingLocation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/saveNewLocation" ).hasAuthority( UserRoles.CHG_ADMIN )
+
               .antMatchers( "/AllChargeStations" ).hasAuthority( UserRoles.CHG_ADMIN )
-              .antMatchers( "/chargeStation**" ).hasAuthority( UserRoles.CHG_ADMIN )
-              .antMatchers( "/chargeStation/addChargeStation.html" ).hasAuthority( UserRoles.CHG_ADMIN )
-              .antMatchers( "/saveNewChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/chargeStation/deleteConfirmationChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/chargeStation/editChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/deleteChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
               .antMatchers( "/saveExistingChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/saveNewChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/chargeStation/addChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+              .antMatchers( "/chargeStation/addChargeStation" ).hasAuthority( UserRoles.CHG_ADMIN )
+
               .antMatchers( "/ChgOwnerSignUp.html" ).hasAuthority( UserRoles.CHG_ADMIN )
 
               /**
