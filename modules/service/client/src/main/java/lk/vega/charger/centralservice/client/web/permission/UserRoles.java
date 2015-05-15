@@ -22,6 +22,8 @@ public class UserRoles
 
     public static final String CHG_ADMIN = "CHG_ADMIN";
 
+    public static final String CHG_NETWORK = "CHG_NETWORK";
+
     public static boolean isRoleExist(List<GrantedAuthority> grantedAuthorityList, String roleName )
     {
         for( GrantedAuthority grantedAuthority : grantedAuthorityList )
