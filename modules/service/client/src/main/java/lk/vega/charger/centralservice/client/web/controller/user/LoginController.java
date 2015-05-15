@@ -2,6 +2,7 @@ package lk.vega.charger.centralservice.client.web.controller.user;
 
 import lk.vega.charger.centralservice.client.web.permission.Security;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
+import lk.vega.charger.util.CoreController;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -49,6 +50,12 @@ public class LoginController
             errorView.getModel().put( "loginErrorMsg", Security.LOGIN_USER_ERROR );
             return errorView;
         }
+        ModelAndView modelAndView = getLoginSuccesView( request );
+        return modelAndView;
+    }
+
+    private ModelAndView getLoginSuccesView( SecurityContextHolderAwareRequestWrapper request )
+    {
         boolean isAdmin = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_ADMIN );
         boolean isChargingOwner = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_OWNER );
         boolean isChargingCustomer = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_CUSTOMER );
@@ -76,6 +83,17 @@ public class LoginController
                 modelAndView.setViewName( "user/loginSuccess" );
             }
         }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/Index", method = RequestMethod.GET)
+    public ModelAndView initial( SecurityContextHolderAwareRequestWrapper request )
+    {
+        if( request.getUserPrincipal() == null )
+        {
+            return new ModelAndView("redirect:" + CoreController.CHG_CLINET_WEB_URL_VAL);
+        }
+        ModelAndView modelAndView = getLoginSuccesView( request );
         return modelAndView;
     }
 

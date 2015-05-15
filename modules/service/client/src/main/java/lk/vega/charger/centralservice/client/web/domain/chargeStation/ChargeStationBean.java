@@ -32,7 +32,17 @@ public class ChargeStationBean extends DomainBeanImpl
     private String machineUniqueRef;
     private String chargePointAvailabilityStatus;
     private String chargePointPowerStatus;
+    private double maxChargeTime;
 
+    public double getMaxChargeTime()
+    {
+        return maxChargeTime;
+    }
+
+    public void setMaxChargeTime( double maxChargeTime )
+    {
+        this.maxChargeTime = maxChargeTime;
+    }
 
     public LocationBean getChargeLocationBean() {
         return chargeLocationBean;
@@ -190,6 +200,7 @@ public class ChargeStationBean extends DomainBeanImpl
         setReference(chargePoint.getReference());
         setLocationId(chargePoint.getLocationId());
         setPower(chargePoint.getPower());
+        setMaxChargeTime( chargePoint.getMaxChargeTime() );
         setType(chargePoint.getType());
         setProtocol(chargePoint.getProtocol());
         setFirmwareVersion(chargePoint.getFirmwareVersion());
@@ -228,6 +239,7 @@ public class ChargeStationBean extends DomainBeanImpl
         chargePoint.setReference(getReference());
         chargePoint.setLocationId(getLocationId());
         chargePoint.setPower(getPower());
+        chargePoint.setMaxChargeTime( getMaxChargeTime() );
         chargePoint.setType(getType());
         chargePoint.setProtocol(getProtocol());
         chargePoint.setFirmwareVersion(getFirmwareVersion());

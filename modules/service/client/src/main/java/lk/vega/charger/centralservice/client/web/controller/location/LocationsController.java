@@ -41,6 +41,43 @@ public class LocationsController
 
     }
 
+    @RequestMapping(value = "/location/deleteConfirmationLocation", method = RequestMethod.GET)
+    public ModelAndView deleteConfirmLocation(@RequestParam(value = "locationID", required = false ) int locationId )
+    {
+        ChgResponse chgResponse = LocationLoader.loadSpecificLocationByLocationID( locationId );
+        ModelAndView modelAndView = new ModelAndView();
+        if (chgResponse.isSuccess())
+        {
+            ChargeLocation chargeLocation = (ChargeLocation)chgResponse.getReturnData();
+            LocationBean locationBean = new LocationBean();
+            locationBean.createBean( chargeLocation );
+            modelAndView.setViewName( "location/deleteConfirmationLocation" );
+            modelAndView.getModel().put( "location", locationBean );
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "deleteLocation", method = RequestMethod.POST)
+    public ModelAndView deleteLocation(@ModelAttribute("location" ) LocationBean location )
+    {
+        ChargeLocation chargeLocation = new ChargeLocation();
+        chargeLocation.init();
+        location.decodeBeanToReal( chargeLocation );
+        chargeLocation.setStatus( Savable.DELETED );
+        ChgResponse chgResponse = CoreController.save( chargeLocation );
+        ModelAndView modelAndView = null;
+        if (chgResponse.isSuccess())
+        {
+            modelAndView = index();
+        }
+        else
+        {
+            modelAndView = new ModelAndView(  );
+            modelAndView.setViewName( "location/errorLocation" );
+            modelAndView.getModel().put( "locationErrorMsg", "Error in Deleting Charging Point - "+chargeLocation.getName() );
+        }
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/location/addLocation", method = RequestMethod.GET)
     public ModelAndView addLocation()
