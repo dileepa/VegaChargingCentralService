@@ -119,7 +119,6 @@ public class ChargeNetworkBean extends DomainBeanImpl
         setNetworkId( chargeNetwork.getNetworkId() );
         setReference( chargeNetwork.getReference() );
         setNetworkOwnerUserName( chargeNetwork.getNetworkOwnerUserName() );
-        setChargingStationIds( chargeNetwork.getChargingStationIds() );
         setChargeAmount( chargeNetwork.getChargeAmount() );
         setChargeAmountForOtherNetwork( chargeNetwork.getChargeAmountForOtherNetwork() );
         setMembershipFee( chargeNetwork.getMembershipFee() );
@@ -135,7 +134,6 @@ public class ChargeNetworkBean extends DomainBeanImpl
         chargeNetwork.setNetworkId( getNetworkId() );
         chargeNetwork.setReference( getReference() );
         chargeNetwork.setNetworkOwnerUserName( getNetworkOwnerUserName() );
-        chargeNetwork.setChargingStationIds( getChargingStationIds() );
         chargeNetwork.setChargeAmount( getChargeAmount() );
         chargeNetwork.setChargeAmountForOtherNetwork( getChargeAmountForOtherNetwork() );
         chargeNetwork.setMembershipFee( getMembershipFee() );

@@ -23,7 +23,6 @@ public class ChargeNetwork extends Savable
     private int networkId;
     private String reference;
     private String networkOwnerUserName;
-    private String chargingStationIds;
     private double chargeAmount;
     private double chargeAmountForOtherNetwork;
     private double membershipFee;
@@ -62,16 +61,6 @@ public class ChargeNetwork extends Savable
     public void setNetworkOwnerUserName( String networkOwnerUserName )
     {
         this.networkOwnerUserName = networkOwnerUserName;
-    }
-
-    public String getChargingStationIds()
-    {
-        return chargingStationIds;
-    }
-
-    public void setChargingStationIds( String chargingStationIds )
-    {
-        this.chargingStationIds = chargingStationIds;
     }
 
     public double getChargeAmount()
@@ -185,7 +174,6 @@ public class ChargeNetwork extends Savable
         StringBuilder sb = new StringBuilder( "INSERT INTO CHG_NETWORK ( " );
         sb.append( "NETWORK_REFERENCE, " );
         sb.append( "OWNER_USER_NAME, " );
-        sb.append( "CHG_STATION_IDS, " );
         sb.append( "CHARGE_AMOUNT, " );
         sb.append( "CHARGE_AMOUNT_OUT_OF_NETWORK, " );
         sb.append( "MAX_CHG_TIME, " );
@@ -193,7 +181,7 @@ public class ChargeNetwork extends Savable
         sb.append( "ANNUAL_FEE, " );
         sb.append( "CREATED_TIME, " );
         sb.append( "LAST_UPDATED_TIME, " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?)");
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -208,7 +196,6 @@ public class ChargeNetwork extends Savable
                 ps.setNull( ++count, Types.VARCHAR );
             }
             ps.setString( ++count, this.networkOwnerUserName );
-            ps.setString( ++count, this.chargingStationIds );
             ps.setDouble( ++count, this.chargeAmount );
             ps.setDouble( ++count, this.chargeAmountForOtherNetwork );
             ps.setDouble( ++count, this.maxChargeTime );
@@ -248,7 +235,6 @@ public class ChargeNetwork extends Savable
         this.networkId = rs.getInt( "NETWORK_ID" );
         this.reference = rs.getString( "NETWORK_REFERENCE" );
         this.networkOwnerUserName = rs.getString( "OWNER_USER_NAME" );
-        this.chargingStationIds = rs.getString( "CHG_STATION_IDS" );
         this.chargeAmount = rs.getDouble( "CHARGE_AMOUNT" );
         this.chargeAmountForOtherNetwork = rs.getDouble( "CHARGE_AMOUNT_OUT_OF_NETWORK" );
         this.maxChargeTime = rs.getDouble( "MAX_CHG_TIME" );
@@ -263,7 +249,6 @@ public class ChargeNetwork extends Savable
         this.networkId = -1;
         this.reference = null;
         this.networkOwnerUserName = null;
-        this.chargingStationIds = null;
         this.chargeAmount = 0.0d;
         this.chargeAmountForOtherNetwork = 0.0d;
         this.maxChargeTime = 0.0d;
@@ -281,7 +266,6 @@ public class ChargeNetwork extends Savable
         StringBuilder sb = new StringBuilder( "UPDATE CHG_NETWORK SET " );
         sb.append( "NETWORK_REFERENCE = ?, " );
         sb.append( "OWNER_USER_NAME = ?, " );
-        sb.append( "CHG_STATION_IDS = ?, " );
         sb.append( "CHARGE_AMOUNT = ?, " );
         sb.append( "CHARGE_AMOUNT_OUT_OF_NETWORK = ?, " );
         sb.append( "MAX_CHG_TIME = ?, " );
@@ -305,7 +289,6 @@ public class ChargeNetwork extends Savable
                 ps.setNull( ++count, Types.VARCHAR );
             }
             ps.setString( ++count, this.networkOwnerUserName );
-            ps.setString( ++count, this.chargingStationIds );
             ps.setDouble( ++count, this.chargeAmount );
             ps.setDouble( ++count, this.chargeAmountForOtherNetwork );
             ps.setDouble( ++count, this.maxChargeTime );
