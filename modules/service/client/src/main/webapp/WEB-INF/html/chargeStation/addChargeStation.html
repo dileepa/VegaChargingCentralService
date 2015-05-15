@@ -23,7 +23,7 @@
                     <select th:field="*{locationId}">
                         <option th:each="location : ${locations}"
                                 th:value="${location.locationId}"
-                                th:text="${location.name}">
+                                th:text="${location}">
                             Test Location Option
                         </option>
                     </select>

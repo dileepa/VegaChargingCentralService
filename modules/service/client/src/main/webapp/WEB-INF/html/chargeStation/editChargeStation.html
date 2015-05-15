@@ -15,7 +15,8 @@
         <table>
             <tr height="30">
                 <th align="left">Charge Station Reference: </th>
-                <th align="left"><input type="text" name="chargeStationReference" value="Charge Station Reference" th:value="${chargeStation.reference}" th:field="*{reference}"  readonly="readonly"/></th>
+                <!--<th align="left"><input type="text" name="chargeStationReference" value="Charge Station Reference" th:value="${chargeStation.reference}" th:field="*{reference}"  readonly="readonly"/></th>-->
+                <th align="left"><input type="text" name="chargeStationReference" value="Charge Station Reference" th:value="${chargeStation.reference}" th:field="*{reference}"  /></th>
             </tr>
             <tr height="30">
                 <th align="left">Charge Station Location: </th>
@@ -23,7 +24,7 @@
                     <select th:field="*{locationId}">
                         <option th:each="location : ${locations}"
                                 th:value="${location.locationId}"
-                                th:text="${location.name}"
+                                th:text="${location}"
                                 th:selected="${location.selected}">
                             Test Location Option
                         </option>
@@ -32,32 +33,82 @@
             </tr>
             <tr height="30">
                 <th align="left">Charge Station Type: </th>
-                <th align="left"><input type="text" name="chargeStationType" value="Charge Station Power" th:value="${chargeStation.type}" th:field="*{type}"/></th>
+                <!--<th align="left"><input type="text" name="chargeStationType" value="Charge Station Power" th:value="${chargeStation.type}" th:field="*{type}"/></th>-->
+                <th align="left" >
+                    <select th:field="*{type}">
+                        <option th:each="tp : ${typeList}"
+                                th:value="${tp.name}"
+                                th:text="${tp.name}"
+                                th:selected="${tp.selected}">
+                            Test Type Option
+                        </option>
+                    </select>
+                </th>
             </tr>
             <tr height="30">
                 <th align="left">Charge Station Power: </th>
                 <th align="left"><input type="text" name="chargeStationPower" value="Charge Station Power" th:value="${chargeStation.power}" th:field="*{power}"/></th>
             </tr>
+            <!--<tr height="30">-->
+                <!--<th align="left">Charge Machine Reference: </th>-->
+                <!--<th align="left"><input type="text" name="chargeMachineReference" value="Charge Machine Reference" th:value="${chargeStation.machineUniqueRef}" th:field="*{machineUniqueRef}"/></th>-->
+            <!--</tr>-->
             <tr height="30">
-                <th align="left">Charge Machine Reference: </th>
-                <th align="left"><input type="text" name="chargeMachineReference" value="Charge Machine Reference" th:value="${chargeStation.machineUniqueRef}" th:field="*{machineUniqueRef}"/></th>
-            </tr>
-            <tr height="30">
-                <th align="left">Charge Protocol: </th>
-                <th align="left"><input type="text" name="chargeProtocol" value="Charge Protocol" th:value="${chargeStation.protocol}" th:field="*{protocol}"/></th>
-            </tr>
-            <tr height="30">
-                <th align="left">Charge Version: </th>
-                <th align="left"><input type="text" name="chargeVersion" value="Charge Version" th:value="${chargeStation.version}" th:field="*{version}"/></th>
-            </tr>
-            <tr height="30">
-                <th align="left">Charge Station Status: </th>
+                <th align="left">Charge Station Protocol: </th>
+                <!--<th align="left"><input type="text" name="chargeProtocol" value="Charge Protocol" th:value="${chargeStation.protocol}" th:field="*{protocol}"/></th>-->
                 <th align="left" >
-                    <select th:field="*{chargePointStatus}">
-                        <option th:each="status : ${statusList}"
-                                th:value="${status.name}"
-                                th:text="${status.name}"
-                                th:selected="${status.selected}">
+                    <select th:field="*{protocol}">
+                        <option th:each="pro : ${protocolList}"
+                                th:value="${pro.name}"
+                                th:text="${pro.name}"
+                                th:selected="${pro.selected}">
+                            Test Type Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Firmware Version: </th>
+                <th align="left"><input type="text" name="chargeFirmwareVersion" value="Charge Firmware Version" th:value="${chargeStation.firmwareVersion}" th:field="*{firmwareVersion}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Hardware Version: </th>
+                <th align="left"><input type="text" name="chargeHardwareVersion" value="Charge Hardware Version" th:value="${chargeStation.hardwareVersion}" th:field="*{hardwareVersion}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Availability Status: </th>
+                <th align="left" >
+                    <select th:field="*{chargePointAvailabilityStatus}">
+                        <option th:each="ava : ${availabilityStatusList}"
+                                th:value="${ava.name}"
+                                th:text="${ava.name}"
+                                th:selected="${ava.selected}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Power Status: </th>
+                <th align="left" >
+                    <select th:field="*{chargePointPowerStatus}">
+                        <option th:each="pow : ${powerStatusList}"
+                                th:value="${pow.name}"
+                                th:text="${pow.name}"
+                                th:selected="${pow.selected}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Station Owner: </th>
+                <th align="left" >
+                    <select th:field="*{userName}">
+                        <option th:each="owner : ${owners}"
+                                th:value="${owner.userName}"
+                                th:text="${owner.userName}"
+                                th:selected="${owner.selected}">
                             Test Location Option
                         </option>
                     </select>

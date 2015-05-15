@@ -56,6 +56,7 @@ public class ChgUserDataLoader
                 for( String userName : userNames )
                 {
                     ChgUserBean chgUserBean = new ChgUserBean();
+                    chgUserBean.setSelected( false );
                     chgUserBean.setUserName( userName );
                     userBeans.add( chgUserBean );
                 }

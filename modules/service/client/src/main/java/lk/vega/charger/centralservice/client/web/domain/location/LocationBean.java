@@ -104,4 +104,10 @@ public class LocationBean extends DomainBeanImpl
         setSelected( false );
     }
 
+    @Override
+    public String toString()
+    {
+        return name + " - {" + gpsLocation + "}";
+
+    }
 }
