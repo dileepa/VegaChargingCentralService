@@ -33,12 +33,12 @@ import java.util.List;
 public class ChgNetworkUserController
 {
     @RequestMapping(value = "/ChgNetworkUserSignUp", method = RequestMethod.GET)
-    public ModelAndView loadChgOwnerSignUpView()
+    public ModelAndView loadChgNetworkSignUpView()
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgNetwork/chgNetworkSignUp" );
         ChgUserBean chgUserBean = new ChgUserBean();
-        modelAndView.getModel().put( "chgOwnerUser", chgUserBean );
+        modelAndView.getModel().put( "chgNetworkUser", chgUserBean );
         ChgResponse titlesRes = TitelDataLoader.loadAllTitleProperties();
         if( titlesRes.isSuccess() )
         {
@@ -62,7 +62,7 @@ public class ChgNetworkUserController
     {
         if( bindingResult.hasErrors() )
         {
-            ModelAndView loadSignUpView = loadChgOwnerSignUpView();
+            ModelAndView loadSignUpView = loadChgNetworkSignUpView();
             loadSignUpView.getModel().remove( "chgNetworkUser" );
             loadSignUpView.addObject( bindingResult );
             return loadSignUpView;

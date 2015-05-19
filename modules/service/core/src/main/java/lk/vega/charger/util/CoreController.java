@@ -6,6 +6,7 @@ import lk.vega.charger.util.connection.ConnectionPool;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -53,6 +54,37 @@ public class CoreController
                     int status = savObj.getStatus();
                     savObj.save( con );
 
+                }
+                else if( obj instanceof List )
+                {
+                    //Save deleted objects from the vector 1st
+                    List<Savable> vec = (List<Savable>) obj;
+
+                    //save modified elements
+                    for( int i = 0; i < vec.size(); i++ )
+                    {
+                        savObj = vec.get( i );
+
+                        if( savObj.getStatus() == Savable.MODIFIED )
+                        {
+                            savObj.save( con );
+                            vec.remove( savObj );
+                            i--;
+                        }
+                    }
+
+                    //save inserted elements
+                    for( int i = 0; i < vec.size(); i++ )
+                    {
+                        savObj = vec.get( i );
+
+                        if( savObj.getStatus() == Savable.NEW )
+                        {
+                            savObj.save( con );
+                            vec.remove( savObj );
+                            i--;
+                        }
+                    }
                 }
                 else
                 {

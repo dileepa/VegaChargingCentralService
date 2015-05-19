@@ -38,6 +38,16 @@ public class ChargeNetwork extends Savable
         return networkId;
     }
 
+    public int getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus( int status )
+    {
+        this.status = status;
+    }
+
     public void setNetworkId( int networkId )
     {
         this.networkId = networkId;
@@ -180,7 +190,7 @@ public class ChargeNetwork extends Savable
         sb.append( "MEMBERSHIP_FEE, " );
         sb.append( "ANNUAL_FEE, " );
         sb.append( "CREATED_TIME, " );
-        sb.append( "LAST_UPDATED_TIME, " );
+        sb.append( "LAST_UPDATED_TIME " );
         sb.append( ") VALUES(?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
@@ -272,7 +282,7 @@ public class ChargeNetwork extends Savable
         sb.append( "MEMBERSHIP_FEE = ?, " );
         sb.append( "ANNUAL_FEE = ?, " );
         sb.append( "CREATED_TIME = ?, " );
-        sb.append( "LAST_UPDATED_TIME = ?, " );
+        sb.append( "LAST_UPDATED_TIME = ? " );
         sb.append( "WHERE " );
         sb.append( "NETWORK_ID = ? " );
         int count = 0;

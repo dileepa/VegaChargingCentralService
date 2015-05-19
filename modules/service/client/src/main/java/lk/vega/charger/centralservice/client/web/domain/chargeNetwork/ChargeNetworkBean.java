@@ -3,6 +3,8 @@ package lk.vega.charger.centralservice.client.web.domain.chargeNetwork;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.core.ChargeNetwork;
 
+import java.util.List;
+
 /**
  * Intelij Idea IDE
  * Created by dileepa.
@@ -20,6 +22,17 @@ public class ChargeNetworkBean extends DomainBeanImpl
     private double membershipFee;
     private double annualFee;
     private double maxChargeTime;
+    private List<String> chargeStationIds;
+
+    public List<String> getChargeStationIds()
+    {
+        return chargeStationIds;
+    }
+
+    public void setChargeStationIds( List<String> chargeStationIds )
+    {
+        this.chargeStationIds = chargeStationIds;
+    }
 
     public int getNetworkId()
     {
