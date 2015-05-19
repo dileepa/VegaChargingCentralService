@@ -63,6 +63,88 @@ public class ChargeNetworkLoader
         return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
     }
 
+    public static ChgResponse loadAllChargeNetworks(  )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        List chargeNetworkList = new ArrayList<ChargeNetwork>(  );
+        sb.append( "SELECT * FROM CHG_NETWORK " );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            rs = ps.executeQuery();
+            while( rs.next() )
+            {
+                ChargeNetwork chargeNetwork = new ChargeNetwork();
+                chargeNetwork.init();
+                chargeNetwork.load( rs, con, 0 );
+                chargeNetworkList.add( chargeNetwork );
+            }
+            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeNetworkList);
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+    }
+
+    public static ChgResponse loadSpecificChargeNetworkById( int networkId )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "SELECT * FROM CHG_NETWORK WHERE NETWORK_ID = ?" );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setInt( 1, networkId );
+            rs = ps.executeQuery();
+            if (rs.next())
+            {
+                ChargeNetwork chargeNetwork = new ChargeNetwork();
+                chargeNetwork.init();
+                chargeNetwork.load( rs, con, 0 );
+                return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeNetwork);
+            }
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+        return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
+    }
+
 
     public static ChgResponse loadNetworkSpecificStationIds( int networkId )
     {

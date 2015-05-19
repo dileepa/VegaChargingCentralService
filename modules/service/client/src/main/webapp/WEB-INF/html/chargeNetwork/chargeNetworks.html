@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{all.charge.network}"></p>
+<div>
+    <table border="1" >
+        <tr>
+            <th>Network Reference</th>
+            <th>Owner User Name</th>
+            <th>Charge Amount</th>
+            <th>Charge Amount from Outsiders</th>
+            <th>Membership Fee</th>
+            <th>Annual Fee</th>
+            <th>Maximum Charging Time</th>
+            <th colspan="3">Action</th>
+        </tr>
+        <tr th:each="network : ${networks}">
+            <td th:text="${network.reference}">Test Charge Location Name</td>
+            <td th:text="${network.networkOwnerUserName}">Test Charge Location Name</td>
+            <td th:text="${network.chargeAmount}">Test Charge Location Name</td>
+            <td th:text="${network.chargeAmountForOtherNetwork}">Test Charge Location Name</td>
+            <td th:text="${network.membershipFee}">Test Charge Location Name</td>
+            <td th:text="${network.annualFee}">Test longitude</td>
+            <td th:text="${network.maxChargeTime}">Test latitude</td>
+            <td >
+                <a th:href="@{/chargeNetwork/loadChargeNetwork.html(networkID=${network.networkId})}">
+                    VIEW
+                </a>
+            </td>
+            <td >
+                <!--<a th:href="@{/chargeNetwork/editLocation.html(locationID=${location.locationId})}">-->
+                    <!--EDIT-->
+                <!--</a>-->
+            </td>
+            <td >
+                <!--<a th:href="@{/chargeNetwork/deleteConfirmationLocation.html(locationID=${location.locationId})}">-->
+                    <!--DELETE-->
+                <!--</a>-->
+            </td>
+            <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
+        </tr>
+    </table>
+    <div>
+        <p>
+            <a th:href="@{/chargeNetwork/addChargeNetwork.html}">
+                Add New Charge Network
+            </a>
+        </p>
+    </div>
+</div>
+
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

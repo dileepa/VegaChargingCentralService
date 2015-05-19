@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.domain;
 
+import lk.vega.charger.centralservice.client.web.domain.chargeNetwork.ChargeNetworkBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationPowerStatusBean;
@@ -36,6 +37,7 @@ public class DomainBeanImpl implements DomainBean
     public static final int CHARGE_STATION_POWER_STATUS_BEAN_ID = 6;
     public static final int CHARGE_STATION_PROTOCOL_BEAN_ID = 7;
     public static final int CHARGE_STATION_TYPE_BEAN_ID = 8;
+    public static final int CHARGE_NETWORK_BEAN_ID = 9;
 
 
     @Override
@@ -78,6 +80,9 @@ public class DomainBeanImpl implements DomainBean
                 break;
             case 8:
                 beanObject = new ChargeStationTypeBean();
+                break;
+            case 9:
+                beanObject = new ChargeNetworkBean();
                 break;
             default:
                 break;

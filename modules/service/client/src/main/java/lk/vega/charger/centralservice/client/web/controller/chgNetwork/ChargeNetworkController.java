@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -34,6 +35,22 @@ import java.util.List;
 @Controller
 public class ChargeNetworkController
 {
+    @RequestMapping(value = "/AllChargeNetworks", method = RequestMethod.GET)
+    public ModelAndView viewAllNetworks()
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        ChgResponse allNetworkRes = ChargeNetworkLoader.loadAllChargeNetworks();
+        if( allNetworkRes.isSuccess() )
+        {
+            List chargeNetworks = (List<ChargeNetwork>) allNetworkRes.getReturnData();
+            List chargeNetworkBeanList = ChargeNetworkBean.getBeanList( chargeNetworks, DomainBeanImpl.CHARGE_NETWORK_BEAN_ID);
+            modelAndView.getModel().put( "networks",chargeNetworkBeanList );
+            modelAndView.setViewName( "chargeNetwork/chargeNetworks" );
+        }
+
+        return modelAndView;
+    }
+
 
     @RequestMapping(value = "/chargeNetwork/addChargeNetwork", method = RequestMethod.GET)
     public ModelAndView addChargeNetwork()
@@ -57,6 +74,41 @@ public class ChargeNetworkController
             modelAndView.getModel().put( "chgStations", allChargePointBeanList );
         }
 
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/chargeNetwork/loadChargeNetwork", method = RequestMethod.GET)
+    public ModelAndView loadChargeNetwork( SecurityContextHolderAwareRequestWrapper request, @RequestParam(value = "networkID", required = false) int networkID )
+    {
+        ChgResponse loadSavedNetworkRes = ChargeNetworkLoader.loadSpecificChargeNetworkById( networkID );
+        ModelAndView modelAndView = new ModelAndView();
+        if( loadSavedNetworkRes.isSuccess() )
+        {
+            ChargeNetwork savedChargeNetwork = (ChargeNetwork) loadSavedNetworkRes.getReturnData();
+            ChargeNetworkBean chargeNetworkBeanSaved = new ChargeNetworkBean();
+            chargeNetworkBeanSaved.createBean( savedChargeNetwork );
+            modelAndView.getModel().put( "network", chargeNetworkBeanSaved );
+            ChgResponse loadSavedNetworkStationsRes = ChargeNetworkLoader.loadNetworkSpecificStationIds( savedChargeNetwork.getNetworkId() );
+            if( loadSavedNetworkStationsRes.isSuccess() )
+            {
+                List<ChargeNetworkAndStationMapping> savedChargeNetworkAndStationMappingList = (List) loadSavedNetworkStationsRes.getReturnData();
+                List<String> chargeStationIds = new ArrayList<String>();
+                for( ChargeNetworkAndStationMapping chargeNetworkAndStationMapping : savedChargeNetworkAndStationMappingList )
+                {
+                    chargeStationIds.add( String.valueOf( chargeNetworkAndStationMapping.getStationId() ) );
+                }
+                String commaSeparatedIds = StringUtil.getCommaSeparatedStringFromStringList( chargeStationIds );
+                ChgResponse chargeStationDaResponse = ChargeStationLoader.loadSpecificStationsByIds( commaSeparatedIds );
+                if( chargeStationDaResponse.isSuccess() )
+                {
+                    List<ChargePoint> loadChargePoints = (List) chargeStationDaResponse.getReturnData();
+                    List allChargePointBeanList = ChargeStationBean.getBeanList( loadChargePoints, DomainBeanImpl.CHARGE_STATION_BEAN_ID );
+                    modelAndView.getModel().put( "networkChargePoints", allChargePointBeanList );
+                    modelAndView.getModel().put("loadMsg","Charger Network Load Successfully.");
+                    modelAndView.setViewName( "chargeNetwork/loadChargeNetwork" );
+                }
+            }
+        }
         return modelAndView;
     }
 
@@ -107,6 +159,7 @@ public class ChargeNetworkController
                             List<ChargePoint> loadChargePoints = (List) chargeStationDaResponse.getReturnData();
                             List allChargePointBeanList = ChargeStationBean.getBeanList( loadChargePoints, DomainBeanImpl.CHARGE_STATION_BEAN_ID );
                             modelAndView.getModel().put( "networkChargePoints", allChargePointBeanList );
+                            modelAndView.getModel().put("loadMsg","Charger Network is saved Successfully.");
                             modelAndView.setViewName( "chargeNetwork/loadChargeNetwork" );
                         }
                     }
