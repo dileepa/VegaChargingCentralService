@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Intelij Idea IDE
@@ -30,8 +32,22 @@ public class ChargeNetwork extends Savable
     private double maxChargeTime;
     private ChgTimeStamp lastUpdateTimeStamp;
     private ChgTimeStamp createdTimeStamp;
+    private List<ChargeNetworkAndStationMapping> chargeNetworkAndStationMappingList;
     private int status;
 
+    public List<ChargeNetworkAndStationMapping> getChargeNetworkAndStationMappingList()
+    {
+        if( chargeNetworkAndStationMappingList == null )
+        {
+            this.chargeNetworkAndStationMappingList = new ArrayList<ChargeNetworkAndStationMapping>();
+        }
+        return chargeNetworkAndStationMappingList;
+    }
+
+    public void setChargeNetworkAndStationMappingList( List<ChargeNetworkAndStationMapping> chargeNetworkAndStationMappingList )
+    {
+        this.chargeNetworkAndStationMappingList = chargeNetworkAndStationMappingList;
+    }
 
     public int getNetworkId()
     {
@@ -266,6 +282,7 @@ public class ChargeNetwork extends Savable
         this.annualFee = 0.0d;
         this.createdTimeStamp = null;
         this.lastUpdateTimeStamp = null;
+        this.chargeNetworkAndStationMappingList = new ArrayList<ChargeNetworkAndStationMapping>(  );
         this.status = Savable.UNCHANGED;
     }
 

@@ -8,7 +8,7 @@
 <div th:replace="fragments/base :: header">
     <h1>This is the header for home</h1>
 </div>
-<p th:text="loadMsg"></p>
+<p th:text="${loadMsg}"></p>
 <div>
         <table>
             <tr height="30">
@@ -43,7 +43,7 @@
         <div>
             <h4>Assigned Network Chargers</h4>
         </div>
-        <div th:each="chargePoint : ${networkChargePoints}">
+        <div th:each="chargePoint : ${network.chargeStationBeanList}">
             <label th:text="|${chargePoint.reference}-${chargePoint.chargeLocationBean}|">test</label>
         </div>
     <p>

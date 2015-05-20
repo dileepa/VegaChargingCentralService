@@ -60,6 +60,18 @@ public class CoreController
                     //Save deleted objects from the vector 1st
                     List<Savable> vec = (List<Savable>) obj;
 
+                    //Save deleted objects from the vector 1st
+                    for( int i = 0; i < vec.size(); i++ )
+                    {
+                        savObj = vec.get( i );
+
+                        if( savObj.getStatus() == Savable.DELETED )
+                        {
+                            savObj.save( con );
+                            vec.remove( savObj );
+                            i--;
+                        }
+                    }
                     //save modified elements
                     for( int i = 0; i < vec.size(); i++ )
                     {

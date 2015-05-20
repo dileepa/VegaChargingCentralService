@@ -33,6 +33,17 @@ public class ChargeStationBean extends DomainBeanImpl
     private String chargePointAvailabilityStatus;
     private String chargePointPowerStatus;
     private double maxChargeTime;
+    private boolean selected;
+
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    public void setSelected( boolean selected )
+    {
+        this.selected = selected;
+    }
 
     public double getMaxChargeTime()
     {

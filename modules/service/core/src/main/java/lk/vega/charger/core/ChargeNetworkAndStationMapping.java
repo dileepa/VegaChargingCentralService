@@ -80,7 +80,6 @@ public class ChargeNetworkAndStationMapping extends Savable
             {
                 action = "Updating";
                 checkValidity();
-                update( con );
             }
             else if( this.status == Savable.DELETED )
             {
@@ -124,32 +123,6 @@ public class ChargeNetworkAndStationMapping extends Savable
         this.status = Savable.UNCHANGED;
     }
 
-    private void update( Connection con ) throws SQLException
-    {
-
-        StringBuilder sb = new StringBuilder( "UPDATE TRS_AUTH_KEY_STORE SET " );
-        sb.append( "CHG_NETWORK_ID = ?, " );
-        sb.append( "CHG_STATION_ID = ? " );
-        sb.append( "WHERE " );
-        sb.append( "MAPPING_ID = ? " );
-        int count = 0;
-        PreparedStatement ps = null;
-        try
-        {
-            ps = con.prepareStatement( sb.toString() );
-            ps.setInt( ++count, this.networkId );
-            ps.setInt( ++count, this.stationId );
-            ps.setInt( ++count, this.chgNetworkAndStationMappingId );
-
-            ps.execute();
-            ps.close();
-        }
-        finally
-        {
-
-            DBUtility.close( ps );
-        }
-    }
 
     private void delete( Connection con ) throws SQLException
     {

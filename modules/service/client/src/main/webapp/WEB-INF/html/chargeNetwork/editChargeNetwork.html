@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{edit.charge.network}"></p>
+<div>
+    <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
+    <form action="#" th:action="@{/saveExistingChargeNetwork}"  th:object="${chargeNetwork}" method="post">
+        <table>
+            <tr height="30">
+                <th align="left">Charge Network Reference: </th>
+                <th align="left"><input type="text" name="chargeNetworkReference" value="Charge Network Reference" th:value="${chargeNetwork.reference}" th:field="*{reference}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Network Owner: </th>
+                <th align="left" >
+                    <select th:field="*{networkOwnerUserName}">
+                        <option th:each="networkOwner : ${networkOwners}"
+                                th:value="${networkOwner.userName}"
+                                th:text="${networkOwner.userName}"
+                                th:selected="${networkOwner.selected}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
+                <th align="left">Amount of Charge: </th>
+                <th align="left"><input type="text" name="chargeNetworkAmount" value="Charge Amount" th:value="${chargeNetwork.chargeAmount}" th:field="*{chargeAmount}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Amount of Charge from Others: </th>
+                <th align="left"><input type="text" name="amountOfChargeFromOthers" value="Charge Amount" th:value="${chargeNetwork.chargeAmountForOtherNetwork}" th:field="*{chargeAmountForOtherNetwork}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Membership Fee: </th>
+                <th align="left"><input type="text" name="membershipFee" value="Charge Amount" th:value="${chargeNetwork.membershipFee}" th:field="*{membershipFee}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Annual Fee: </th>
+                <th align="left"><input type="text" name="annualFee" value="Charge Amount" th:value="${chargeNetwork.annualFee}" th:field="*{annualFee}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Maximum for Time for Charging: </th>
+                <th align="left"><input type="text" name="maxChargeTime" value="Charge Amount" th:value="${chargeNetwork.maxChargeTime}" th:field="*{maxChargeTime}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left"><input type="hidden" name="chargeNetworkId" value="networkId" th:value="${chargeNetwork.networkId}" th:field="*{networkId}"/></th>
+            </tr>
+        </table>
+        <div>
+            <h4>Already Assigned Network Chargers</h4>
+        </div>
+        <div th:each="chargePoint : ${chargeNetwork.chargeStationBeanList}">
+            <label th:text="|${chargePoint.reference}-${chargePoint.chargeLocationBean}|">test</label>
+        </div>
+        <div>
+            <h4>Select Network Chargers</h4>
+        </div>
+        <div th:each="chgStation : ${chgStations}">
+
+            <input type="checkbox" th:if="${chgStation.selected}" checked="checked"  th:field="*{chargeStationIds}" th:value="${chgStation.chargePointId}"/>
+            <input type="checkbox" th:if="${!chgStation.selected}"  th:field="*{chargeStationIds}" th:value="${chgStation.chargePointId}"/>
+            <label th:text="${chgStation.reference}">test</label>
+        </div>
+        <div>
+            <input type="submit" value="Save Charge Network"/>
+        </div>
+    </form>
+    <p>
+        <a th:href="@{/AllChargeNetworks.html}">
+            See All Charge Networks
+        </a>
+    </p>
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>
