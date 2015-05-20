@@ -1,10 +1,19 @@
 package lk.vega.charger.centralservice.client.web.controller.miniChargeStation;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargeStationLoader;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
+import lk.vega.charger.centralservice.client.web.domain.miniChargeStation.MobileChargeLocationBean;
+import lk.vega.charger.core.ChargePoint;
+import lk.vega.charger.util.ChgResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Intelij Idea IDE
@@ -52,6 +61,29 @@ public class MiniChargeStationController
         return "3600:158138: vega123 start";
 
 
+    }
+
+    @RequestMapping(value = "/getActiveChargingPointLocations", method = RequestMethod.GET)
+    public @ResponseBody List<MobileChargeLocationBean> getActiveChargingPointLocations()
+    {
+        ChgResponse chgResponse = ChargeStationLoader.loadAllChargePoints();
+        List<MobileChargeLocationBean> mobileChargeLocationBeans = new ArrayList<MobileChargeLocationBean>(  );
+        if (chgResponse.isSuccess())
+        {
+            List<ChargePoint> chargePointList = (List<ChargePoint>)chgResponse.getReturnData();
+            for ( ChargePoint chargePoint : chargePointList)
+            {
+                if ( ChargeStationAvailabilityStatusBean.ACTIVE.equals( chargePoint.getChargePointAvailabilityStatus() ))
+                {
+                    ChargeStationBean chargeStationBean = new ChargeStationBean();
+                    chargeStationBean.createBean( chargePoint );
+                    MobileChargeLocationBean mobileChargeLocationBean = new MobileChargeLocationBean();
+                    mobileChargeLocationBean.createBean( chargeStationBean );
+                    mobileChargeLocationBeans.add( mobileChargeLocationBean );
+                }
+            }
+        }
+        return mobileChargeLocationBeans;
     }
 
 }
