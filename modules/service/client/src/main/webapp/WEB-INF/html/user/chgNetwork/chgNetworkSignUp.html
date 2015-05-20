@@ -10,7 +10,7 @@
 </div>
 <p th:text="#{chg.network.sign.up}"></p>
 
-<form action="#" th:action="@{/saveNewChargeNetworkUser}" th:object="${chgNetworkUser}" method="post" onsubmit="return checkForm(this);>
+<form action="#" th:action="@{/saveNewChargeNetworkUser}" th:object="${chgNetworkUser}" method="post" onsubmit="return checkForm(this);">
     <div>
         <h4 th:text="#{chg.network.title}">test title</h4>
         <select th:field="*{title}">
