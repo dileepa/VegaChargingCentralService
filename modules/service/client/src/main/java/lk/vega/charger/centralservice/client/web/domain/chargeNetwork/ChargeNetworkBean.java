@@ -30,8 +30,19 @@ public class ChargeNetworkBean extends DomainBeanImpl
     private double membershipFee;
     private double annualFee;
     private double maxChargeTime;
+    private boolean allowToOthers;
     private List<ChargeStationBean> chargeStationBeanList;
     private List<String> chargeStationIds;
+
+    public boolean getAllowToOthers()
+    {
+        return allowToOthers;
+    }
+
+    public void setAllowToOthers( boolean allowToOthers )
+    {
+        this.allowToOthers = allowToOthers;
+    }
 
     public List<ChargeStationBean> getChargeStationBeanList()
     {
@@ -45,6 +56,10 @@ public class ChargeNetworkBean extends DomainBeanImpl
 
     public List<String> getChargeStationIds()
     {
+        if( chargeStationIds == null )
+        {
+            chargeStationIds = new ArrayList<String>();
+        }
         return chargeStationIds;
     }
 
@@ -142,6 +157,7 @@ public class ChargeNetworkBean extends DomainBeanImpl
         setNetworkId( chargeNetwork.getNetworkId() );
         setReference( chargeNetwork.getReference() );
         setNetworkOwnerUserName( chargeNetwork.getNetworkOwnerUserName() );
+        setAllowToOthers( chargeNetwork.getAllowToOthers() );
         setChargeAmount( chargeNetwork.getChargeAmount() );
         setChargeAmountForOtherNetwork( chargeNetwork.getChargeAmountForOtherNetwork() );
         setMembershipFee( chargeNetwork.getMembershipFee() );
@@ -199,6 +215,7 @@ public class ChargeNetworkBean extends DomainBeanImpl
         chargeNetwork.setNetworkId( getNetworkId() );
         chargeNetwork.setReference( getReference() );
         chargeNetwork.setNetworkOwnerUserName( getNetworkOwnerUserName() );
+        chargeNetwork.setAllowToOthers( getAllowToOthers() );
         chargeNetwork.setChargeAmount( getChargeAmount() );
         chargeNetwork.setChargeAmountForOtherNetwork( getChargeAmountForOtherNetwork() );
         chargeNetwork.setMembershipFee( getMembershipFee() );

@@ -60,12 +60,21 @@
                 <th align="left"><input type="text" name="maxChargeTime" value="" th:field="*{maxChargeTime}"/></th>
             </tr>
             <tr height="30">
+                <th align="left">Allow Other Network</th>
+                <th>
+                    <input type="checkbox" th:if="${chargeNetwork.allowToOthers}" checked="checked" th:field="*{allowToOthers}" th:value="${chargeNetwork.allowToOthers}"/>
+                </th>
+                <th>
+                    <input type="checkbox" th:if="${!chargeNetwork.allowToOthers}" th:field="*{allowToOthers}" th:value="${chargeNetwork.allowToOthers}"/>
+                </th>
+            </tr>
+            <tr height="30">
                 <!--<th align="left"><input type="submit" value="Save Charge Network"/></th>-->
                 <th align="left"><input type="hidden" name="chargeNetworkId" value="networkId" th:field="*{networkId}"/></th>
             </tr>
         </table>
         <div>
-            <h4>Select Network Chargers</h4>
+            <h4>Select Charge Station for Network</h4>
         </div>
         <div th:each="chgStation : ${chgStations}">
             <input type="checkbox" th:field="*{chargeStationIds}" th:value="${chgStation.chargePointId}" />

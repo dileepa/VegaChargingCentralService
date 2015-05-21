@@ -21,6 +21,7 @@ public class ChargePoint extends Savable
     private int locationId;
     private double power;
     private double maxChargeTime;
+    private double chargeAmount;
     private String type;
     private String protocol;
     private String firmwareVersion;
@@ -33,6 +34,16 @@ public class ChargePoint extends Savable
     private String chargePointPowerStatus;
     private String adminUserName;
     private int status;
+
+    public double getChargeAmount()
+    {
+        return chargeAmount;
+    }
+
+    public void setChargeAmount( double chargeAmount )
+    {
+        this.chargeAmount = chargeAmount;
+    }
 
     public double getMaxChargeTime()
     {
@@ -256,6 +267,7 @@ public class ChargePoint extends Savable
         sb.append( "LOCATIONID, " );
         sb.append( "POWER, " );
         sb.append( "MAX_CHARGE_TIME, " );
+        sb.append( "CHG_POINT_AMOUNT, " );
         sb.append( "TYPE, " );
         sb.append( "PROTOCOL, " );
         sb.append( "FIRMWARE_VERSION, " );
@@ -267,7 +279,7 @@ public class ChargePoint extends Savable
         sb.append( "POWER_STATUS, " );
         sb.append( "ADMIN_USERNAME, " );
         sb.append( "OWNER_USERNAME " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -284,6 +296,7 @@ public class ChargePoint extends Savable
             ps.setInt( ++count, this.locationId );
             ps.setDouble( ++count, this.power );
             ps.setDouble( ++count, this.maxChargeTime );
+            ps.setDouble( ++count, this.chargeAmount );
             ps.setString( ++count, this.type );
             ps.setString( ++count, this.protocol );
             ps.setString( ++count, this.firmwareVersion );
@@ -329,6 +342,7 @@ public class ChargePoint extends Savable
         this.locationId = rs.getInt( "LOCATIONID" );
         this.power = rs.getDouble( "POWER" );
         this.maxChargeTime = rs.getDouble( "MAX_CHARGE_TIME" );
+        this.chargeAmount = rs.getDouble( "CHG_POINT_AMOUNT" );
         this.type = rs.getString( "TYPE" );
         this.protocol = rs.getString( "PROTOCOL" );
         this.firmwareVersion = rs.getString( "FIRMWARE_VERSION" );
@@ -380,6 +394,7 @@ public class ChargePoint extends Savable
         sb.append( "LOCATIONID = ?, " );
         sb.append( "POWER = ?, " );
         sb.append( "MAX_CHARGE_TIME = ?, " );
+        sb.append( "CHG_POINT_AMOUNT = ?, " );
         sb.append( "TYPE = ?, " );
         sb.append( "PROTOCOL = ?, " );
         sb.append( "FIRMWARE_VERSION = ?, " );
@@ -409,6 +424,7 @@ public class ChargePoint extends Savable
             ps.setInt( ++count, this.locationId );
             ps.setDouble( ++count, this.power );
             ps.setDouble( ++count, this.maxChargeTime );
+            ps.setDouble( ++count, this.chargeAmount );
             ps.setString( ++count, this.type );
             ps.setString( ++count, this.protocol );
             ps.setString( ++count, this.firmwareVersion );
@@ -474,6 +490,7 @@ public class ChargePoint extends Savable
         this.locationId = -1;
         this.power = 0.0d;
         this.maxChargeTime = 0.0d;
+        this.chargeAmount = 0.0d;
         this.type = null;
         this.protocol = null;
         this.firmwareVersion = null;

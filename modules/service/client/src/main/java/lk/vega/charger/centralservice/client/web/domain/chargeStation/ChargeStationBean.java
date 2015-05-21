@@ -33,7 +33,19 @@ public class ChargeStationBean extends DomainBeanImpl
     private String chargePointAvailabilityStatus;
     private String chargePointPowerStatus;
     private double maxChargeTime;
+    private double chargeAmount;
     private boolean selected;
+
+
+    public double getChargeAmount()
+    {
+        return chargeAmount;
+    }
+
+    public void setChargeAmount( double chargeAmount )
+    {
+        this.chargeAmount = chargeAmount;
+    }
 
     public boolean isSelected()
     {
@@ -212,6 +224,7 @@ public class ChargeStationBean extends DomainBeanImpl
         setLocationId(chargePoint.getLocationId());
         setPower(chargePoint.getPower());
         setMaxChargeTime( chargePoint.getMaxChargeTime() );
+        setChargeAmount( chargePoint.getChargeAmount() );
         setType(chargePoint.getType());
         setProtocol(chargePoint.getProtocol());
         setFirmwareVersion(chargePoint.getFirmwareVersion());
@@ -251,6 +264,7 @@ public class ChargeStationBean extends DomainBeanImpl
         chargePoint.setLocationId(getLocationId());
         chargePoint.setPower(getPower());
         chargePoint.setMaxChargeTime( getMaxChargeTime() );
+        chargePoint.setChargeAmount( getChargeAmount() );
         chargePoint.setType(getType());
         chargePoint.setProtocol(getProtocol());
         chargePoint.setFirmwareVersion(getFirmwareVersion());

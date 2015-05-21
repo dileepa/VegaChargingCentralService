@@ -60,7 +60,10 @@ public class ChargeNetworkController
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "chargeNetwork/addChargeNetwork" );
+        ChargeNetwork chargeNetwork = new ChargeNetwork();
+        chargeNetwork.init();
         ChargeNetworkBean chargeNetworkBean = new ChargeNetworkBean();
+        chargeNetworkBean.createBean( chargeNetwork );
         modelAndView.getModel().put( "chargeNetwork", chargeNetworkBean );
         ChgResponse chgPointOwnersRes = ChgUserDataLoader.getUserListForSpecificRole( UserRoles.CHG_NETWORK );
         if( chgPointOwnersRes.isSuccess() )
@@ -216,7 +219,7 @@ public class ChargeNetworkController
                             existingChargeStationIDMap.put( newCreatedChargeNetworkAndStationMapping.getStationId(), newCreatedChargeNetworkAndStationMapping );
                         }
                     }
-                    ChgResponse saveChargeNetworkAndStationMappingRes = CoreController.save( new ArrayList<ChargeNetworkAndStationMapping>(existingChargeStationIDMap.values()) );
+                    ChgResponse saveChargeNetworkAndStationMappingRes = CoreController.save( new ArrayList<ChargeNetworkAndStationMapping>( existingChargeStationIDMap.values() ) );
                     if( saveChargeNetworkAndStationMappingRes.isSuccess() )
                     {
                         chargeNetworkBeanSaved.createBean( savedChargeNetwork );
@@ -231,13 +234,13 @@ public class ChargeNetworkController
     }
 
     @RequestMapping(value = "/chargeNetwork/deleteConfirmationChargeNetwork", method = RequestMethod.GET)
-    public ModelAndView deleteConfirmNetwork(@RequestParam(value = "networkID", required = false ) Integer networkID )
+    public ModelAndView deleteConfirmNetwork( @RequestParam(value = "networkID", required = false) Integer networkID )
     {
-        ModelAndView modelAndView = new ModelAndView(  );
+        ModelAndView modelAndView = new ModelAndView();
         ChgResponse loadedChargeNetworkResponse = ChargeNetworkLoader.loadSpecificChargeNetworkById( networkID );
-        if (loadedChargeNetworkResponse.isSuccess())
+        if( loadedChargeNetworkResponse.isSuccess() )
         {
-            ChargeNetwork chargeNetwork = (ChargeNetwork)loadedChargeNetworkResponse.getReturnData();
+            ChargeNetwork chargeNetwork = (ChargeNetwork) loadedChargeNetworkResponse.getReturnData();
             ChargeNetworkBean updateChargeNetworkBean = new ChargeNetworkBean();
             updateChargeNetworkBean.createBean( chargeNetwork );
             modelAndView.setViewName( "chargeNetwork/deleteConfirmationChargeNetwork" );
@@ -247,7 +250,7 @@ public class ChargeNetworkController
     }
 
     @RequestMapping(value = "/deleteChargeNetwork", method = RequestMethod.POST)
-    public ModelAndView deleteChargeStation(@ModelAttribute("network" ) ChargeNetworkBean chargeNetworkBean )
+    public ModelAndView deleteChargeStation( @ModelAttribute("network") ChargeNetworkBean chargeNetworkBean )
     {
         ChargeNetwork chargeNetwork = new ChargeNetwork();
         chargeNetwork.init();
@@ -255,15 +258,15 @@ public class ChargeNetworkController
         chargeNetwork.setStatus( Savable.DELETED );
         ChgResponse chgResponse = CoreController.save( chargeNetwork );
         ModelAndView modelAndView = null;
-        if (chgResponse.isSuccess())
+        if( chgResponse.isSuccess() )
         {
             modelAndView = viewAllNetworks();
         }
         else
         {
-            modelAndView = new ModelAndView(  );
+            modelAndView = new ModelAndView();
             modelAndView.setViewName( "chargeStation/errorChargeStation" );
-            modelAndView.getModel().put( "chargeStationErrorMsg", "Error in Deleting Charging Point - "+chargeNetworkBean.getReference() );
+            modelAndView.getModel().put( "chargeStationErrorMsg", "Error in Deleting Charging Point - " + chargeNetworkBean.getReference() );
         }
         return modelAndView;
 

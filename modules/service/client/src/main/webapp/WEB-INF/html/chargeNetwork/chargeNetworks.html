@@ -20,6 +20,7 @@
             <th>Membership Fee</th>
             <th>Annual Fee</th>
             <th>Maximum Charging Time</th>
+            <th>Allow Other Networks</th>
             <th colspan="3">Action</th>
         </tr>
         <tr th:each="network : ${networks}">
@@ -30,6 +31,10 @@
             <td th:text="${network.membershipFee}">Test Charge Location Name</td>
             <td th:text="${network.annualFee}">Test longitude</td>
             <td th:text="${network.maxChargeTime}">Test latitude</td>
+            <td align="center">
+                <input type="checkbox" th:if="${network.allowToOthers}" checked="checked" disabled="disabled"/>
+                <input type="checkbox" th:if="${!network.allowToOthers}" disabled="disabled"/>
+            </td>
             <td >
                 <a th:href="@{/chargeNetwork/loadChargeNetwork.html(networkID=${network.networkId})}">
                     VIEW

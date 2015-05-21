@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.dataLoader.chargeStation;
 
+import lk.vega.charger.core.ChargeNetworkAndStationMapping;
 import lk.vega.charger.core.ChargePoint;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.DBUtility;
@@ -184,6 +185,48 @@ public class ChargeStationLoader
             DBUtility.close( con );
         }
 
+    }
+
+    public static ChgResponse loadChargeStationSpecificNetworkIds( int chargePointId )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        List chargeNetworkAndStationMappingList  = new ArrayList<ChargeNetworkAndStationMapping>(  );
+        sb.append( "SELECT * FROM CHG_NETWORK_STATION_MAP WHERE CHG_STATION_ID = ?" );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setInt( 1, chargePointId );
+            rs = ps.executeQuery();
+            while( rs.next() )
+            {
+                ChargeNetworkAndStationMapping chargeNetworkAndStationMapping = new ChargeNetworkAndStationMapping();
+                chargeNetworkAndStationMapping.init();
+                chargeNetworkAndStationMapping.load( rs, con, 0 );
+                chargeNetworkAndStationMappingList.add( chargeNetworkAndStationMapping );
+            }
+            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeNetworkAndStationMappingList);
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
     }
 
 

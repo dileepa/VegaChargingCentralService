@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.controller.chargeStation;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.chargeNetwork.ChargeNetworkLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargeStationAvailabilityStatusLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargeStationLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargeStationPowerStatusLoader;
@@ -8,6 +9,7 @@ import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.Charge
 import lk.vega.charger.centralservice.client.web.dataLoader.loacation.LocationLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
+import lk.vega.charger.centralservice.client.web.domain.chargeNetwork.ChargeNetworkBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationPowerStatusBean;
@@ -18,10 +20,13 @@ import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.domain.user.User;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
 import lk.vega.charger.core.ChargeLocation;
+import lk.vega.charger.core.ChargeNetwork;
+import lk.vega.charger.core.ChargeNetworkAndStationMapping;
 import lk.vega.charger.core.ChargePoint;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.Savable;
+import lk.vega.charger.util.StringUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
@@ -31,6 +36,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,6 +76,44 @@ public class ChargeStationsController
             updateChargeStationBean.createBean( updatedChargePoint );
             modelAndView.setViewName( "chargeStation/deleteConfirmationChargeStation" );
             modelAndView.getModel().put( "chargeStation", updateChargeStationBean );
+        }
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/chargeStation/loadChargeStation", method = RequestMethod.GET)
+    public ModelAndView viewStationDetails(@RequestParam(value = "chgStationID", required = false ) Integer chgStationID )
+    {
+        ModelAndView modelAndView = new ModelAndView(  );
+        ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByPointID( chgStationID );
+        if (loadedChargePointResponse.isSuccess())
+        {
+            ChargePoint updatedChargePoint = (ChargePoint)loadedChargePointResponse.getReturnData();
+            ChargeStationBean updateChargeStationBean = new ChargeStationBean();
+            updateChargeStationBean.createBean( updatedChargePoint );
+            modelAndView.setViewName( "chargeStation/deleteConfirmationChargeStation" );
+            modelAndView.getModel().put( "chargeStation", updateChargeStationBean );
+
+            List allChargeNetworkBeanListUnderStation = new ArrayList<ChargeNetworkBean>();
+            ChgResponse assignedNetworkRes = ChargeStationLoader.loadChargeStationSpecificNetworkIds( updateChargeStationBean.getChargePointId() );
+            if (assignedNetworkRes.isSuccess())
+            {
+                List<ChargeNetworkAndStationMapping> savedChargeNetworkAndStationMappingList = (List) assignedNetworkRes.getReturnData();
+                List<String> networkIDs = new ArrayList<String>();
+                for( ChargeNetworkAndStationMapping chargeNetworkAndStationMapping : savedChargeNetworkAndStationMappingList )
+                {
+                    networkIDs.add( String.valueOf( chargeNetworkAndStationMapping.getNetworkId() ) );
+                }
+                if( !networkIDs.isEmpty() )
+                {
+                    String commaSeparatedIds = StringUtil.getCommaSeparatedStringFromStringList( networkIDs );
+                    ChgResponse chargeNetworkResponse = ChargeNetworkLoader.loadSpecificNetworksByIds( commaSeparatedIds );
+                    if( chargeNetworkResponse.isSuccess() )
+                    {
+                        List<ChargeNetwork> loadChargeNetworks = (List) chargeNetworkResponse.getReturnData();
+                        allChargeNetworkBeanListUnderStation = ChargeStationBean.getBeanList( loadChargeNetworks, DomainBeanImpl.CHARGE_NETWORK_BEAN_ID );
+                    }
+                }
+            }
         }
         return modelAndView;
     }

@@ -188,7 +188,48 @@ public class ChargeNetworkLoader
         }
     }
 
+    public static ChgResponse loadSpecificNetworksByIds( String commaSeparatedNetworkIds )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        List chargeNetworks  = new ArrayList<ChargeNetwork>(  );
+        sb.append( "SELECT * FROM CHG_NETWORK WHERE NETWORK_ID IN (" );
+        sb.append( commaSeparatedNetworkIds );
+        sb.append( ")" );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            rs = ps.executeQuery();
+            while( rs.next() )
+            {
+                ChargeNetwork chargeNetwork = new ChargeNetwork();
+                chargeNetwork.init();
+                chargeNetwork.load( rs, con, 0 );
+                chargeNetworks.add( chargeNetwork );
+            }
+            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chargeNetworks);
 
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+    }
 
 
 }

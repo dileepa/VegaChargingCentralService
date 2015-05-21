@@ -39,9 +39,18 @@
                 <th align="left">Maximum for Time for Charging: </th>
                 <th align="left" th:text="${network.maxChargeTime}"></th>
             </tr>
+            <tr height="30">
+                <th align="left">Allow Other Network</th>
+                <th>
+                    <input type="checkbox" th:if="${network.allowToOthers}" checked="checked" disabled="disabled"/>
+                </th>
+                <th>
+                    <input type="checkbox" th:if="${!network.allowToOthers}" disabled="disabled"/>
+                </th>
+            </tr>
         </table>
-        <div>
-            <h4>Assigned Network Chargers</h4>
+    <div>
+            <h4>Already Assigned Charge Stations</h4>
         </div>
         <div th:each="chargePoint : ${network.chargeStationBeanList}">
             <label th:text="|${chargePoint.reference}-${chargePoint.chargeLocationBean}|">test</label>

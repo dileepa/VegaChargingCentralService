@@ -51,17 +51,26 @@
                 <th align="left"><input type="text" name="maxChargeTime" value="Charge Amount" th:value="${chargeNetwork.maxChargeTime}" th:field="*{maxChargeTime}"/></th>
             </tr>
             <tr height="30">
+                <th align="left">Allow Other Network</th>
+                <th>
+                    <input type="checkbox" th:if="${chargeNetwork.allowToOthers}" checked="checked" th:field="*{allowToOthers}" th:value="${chargeNetwork.allowToOthers}"/>
+                </th>
+                <th>
+                    <input type="checkbox" th:if="${!chargeNetwork.allowToOthers}" th:field="*{allowToOthers}" th:value="${chargeNetwork.allowToOthers}"/>
+                </th>
+            </tr>
+            <tr height="30">
                 <th align="left"><input type="hidden" name="chargeNetworkId" value="networkId" th:value="${chargeNetwork.networkId}" th:field="*{networkId}"/></th>
             </tr>
         </table>
         <div>
-            <h4>Already Assigned Network Chargers</h4>
+            <h4>Already Assigned Charge Stations</h4>
         </div>
         <div th:each="chargePoint : ${chargeNetwork.chargeStationBeanList}">
             <label th:text="|${chargePoint.reference}-${chargePoint.chargeLocationBean}|">test</label>
         </div>
         <div>
-            <h4>Select Network Chargers</h4>
+            <h4>Select Charger Stations</h4>
         </div>
         <div th:each="chgStation : ${chgStations}">
 
