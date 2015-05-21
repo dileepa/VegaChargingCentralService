@@ -74,6 +74,7 @@
     <div>
         <h4 th:text="#{chg.owner.telephone}">test telephone</h4>
         <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}"/>
+        <span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.owner.mobilephone}">test mobile</h4>

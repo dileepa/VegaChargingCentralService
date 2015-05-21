@@ -8,9 +8,15 @@ import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
+import lk.vega.charger.core.ChgCustomerUser;
+import lk.vega.charger.core.ChgUser;
+import lk.vega.charger.core.NFCReference;
 import lk.vega.charger.userManagement.UserHandler;
 import lk.vega.charger.util.ChgResponse;
+import lk.vega.charger.util.CoreController;
+import lk.vega.charger.util.Savable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.wso2.carbon.um.ws.service.AddUser;
 import org.wso2.carbon.um.ws.service.RemoteUserStoreManagerServicePortType;
 
+import javax.validation.Valid;
 import javax.xml.ws.soap.SOAPFaultException;
 import java.util.List;
 
@@ -32,7 +39,7 @@ public class ChgCustomerController
 {
 
     @RequestMapping(value = "/ChgCustomerSignUp", method = RequestMethod.GET)
-    public ModelAndView loadChgOwnerSignUpView()
+    public ModelAndView loadChgCustomerSignUpView()
     {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUp" );
@@ -57,14 +64,21 @@ public class ChgCustomerController
     }
 
     @RequestMapping(value = "/saveNewChargeCustomer", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation( @ModelAttribute("chgCustomerUser") ChgUserBean chgUserBean )
+    public ModelAndView saveNewLocation( @Valid @ModelAttribute("chgCustomerUser") ChgUserBean chgUserBean, BindingResult bindingResult )
     {
+        if( bindingResult.hasErrors() )
+        {
+            ModelAndView loadSignUpView = loadChgCustomerSignUpView();
+            loadSignUpView.getModel().remove( "chgCustomerUser" );
+            loadSignUpView.addObject( bindingResult );
+            return loadSignUpView;
+        }
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpError" );
         ChgResponse chgResponse = null;
         try
         {
-
             chgResponse = UserHandler.connectToRemoteUserStoreManagerService();
         }
         catch( Exception e )
@@ -82,9 +96,25 @@ public class ChgCustomerController
                 profileNameBuilder.append( chgUserBean.getLastName() );
                 chgUserBean.setProfileName( profileNameBuilder.toString() );
                 chgUserBean.setUserRole( UserRoles.CHG_CUSTOMER );
-                AddUser newChgOwner = ChgUserDataLoader.createChargeUser( chgUserBean );
-                remoteUserStoreManagerService.addUser( newChgOwner );
-                modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpSuccess" );
+                AddUser newChgCustomer = ChgUserDataLoader.createChargeUser( chgUserBean );
+                remoteUserStoreManagerService.addUser( newChgCustomer );
+                ChgCustomerUser chgCustomerUser = new ChgCustomerUser();
+                chgCustomerUser.init();
+                chgCustomerUser.setUserName( newChgCustomer.getUserName() );
+                chgCustomerUser.setStatus( Savable.NEW );
+                chgCustomerUser.setNfcRef( NFCReference.DUMMY_NFC_REF );
+                chgCustomerUser.setUserType( ChgUser.USER_WEB_CUSTOMER );
+                chgCustomerUser.setUserStatus( ChgUser.INACTIVE_USER );
+                ChgResponse customerSaveRes = CoreController.save( chgCustomerUser );
+                if (customerSaveRes.isSuccess())
+                {
+                    modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpSuccess" );
+                }
+                else
+                {
+                    modelAndView.setViewName( "user/chgCustomer/chgCustomerSignUpError" );
+                    modelAndView.getModel().put( "error",customerSaveRes.getMsg() );
+                }
             }
             catch( SOAPFaultException e )
             {

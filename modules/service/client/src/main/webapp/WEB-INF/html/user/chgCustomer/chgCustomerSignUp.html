@@ -10,7 +10,7 @@
 </div>
 <p th:text="#{chg.customer.sign.up}"></p>
 
-<form action="#" th:action="@{/saveNewChargeCustomer}" th:object="${chgCustomerUser}" method="post">
+<form action="#" th:action="@{/saveNewChargeCustomer}" th:object="${chgCustomerUser}" method="post" onsubmit="return checkForm(this);">
     <div>
         <h4 th:text="#{chg.customer.title}">test title</h4>
         <select th:field="*{title}">
@@ -34,30 +34,37 @@
     <div>
         <h4 th:text="#{chg.customer.first.name}">first name</h4>
         <input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}"/>
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:text="#{chg.owner.first.name.not.empty}">Test First Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.last.name}">last name</h4>
         <input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}"/>
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:text="#{chg.owner.last.name.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.address}">address</h4>
         <input type="text" id="address" name="address" value="" th:field="*{address}"/>
+        <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:text="#{chg.owner.address.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.country}">country</h4>
         <input type="text" id="country" name="country" value="" th:field="*{country}"/>
+        <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="#{chg.owner.country.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.email}">test email</h4>
         <input type="text" id="email" name="email" value="" th:field="*{email}"/>
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.username}">test user name</h4>
         <input type="text" id="userName" name="userName" value="" th:field="*{userName}"/>
+        <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:text="#{chg.owner.userName.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.password}">test password</h4>
         <input type="password" id="password" name="password" value="" th:field="*{password}"/>
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:text="#{chg.owner.password.not.empty}">Test First Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.verify.password}">test verify password</h4>
@@ -66,10 +73,12 @@
     <div>
         <h4 th:text="#{chg.customer.telephone}">test telephone</h4>
         <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}"/>
+        <span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.mobilephone}">test mobile</h4>
         <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}"/>
+        <span th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
     </div>
     <div>
         <h4 th:text="#{chg.customer.organization.name}">test Organization Name</h4>
@@ -86,4 +95,18 @@
     &copy; This is the footer for home
 </div>
 </body>
+
+<script type="text/javascript">
+
+  function checkForm(form)
+  {
+    if(form.password.value != form.verifyPassword.value)
+    {
+      alert("Error: Please check that you've entered and confirmed your password!");
+      form.pwd1.focus();
+      return false;
+    }
+  }
+
+</script>
 </html>

@@ -1,10 +1,11 @@
 package lk.vega.charger.core;
 
-import lk.vega.charger.util.ChgDate;
+import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
 import lk.vega.charger.util.SavingSQLException;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -16,23 +17,26 @@ import java.sql.SQLException;
  */
 public class ChgUser extends Savable
 {
+    public static final String INACTIVE_USER = "INACTIVE_USER";
+    public static final String ACTIVE_USER = "ACTIVE_USER";
+    public static final String BLOCKED_USER = "BLOCKED_USER";
 
+    public static final String USER_WEB_CUSTOMER = "ONLINE_CUSTOMER";
+
+    protected String userName;
+    protected int status;
     private int userId;
-    private String userName;
-    private String email;
-    private ChgDate dob;
-    private String telephone;
-    private String mobileNo;
-    private int status;
+    private String userType;
+    private String userStatus;
 
-    public int getStatus()
+    public String getUserType()
     {
-        return status;
+        return userType;
     }
 
-    public void setStatus( int status )
+    public void setUserType( String userType )
     {
-        this.status = status;
+        this.userType = userType;
     }
 
     public int getUserId()
@@ -45,6 +49,26 @@ public class ChgUser extends Savable
         this.userId = userId;
     }
 
+    public String getUserStatus()
+    {
+        return userStatus;
+    }
+
+    public void setUserStatus( String userStatus )
+    {
+        this.userStatus = userStatus;
+    }
+
+    public int getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus( int status )
+    {
+        this.status = status;
+    }
+
     public String getUserName()
     {
         return userName;
@@ -55,45 +79,6 @@ public class ChgUser extends Savable
         this.userName = userName;
     }
 
-    public String getEmail()
-    {
-        return email;
-    }
-
-    public void setEmail( String email )
-    {
-        this.email = email;
-    }
-
-    public ChgDate getDob()
-    {
-        return dob;
-    }
-
-    public void setDob( ChgDate dob )
-    {
-        this.dob = dob;
-    }
-
-    public String getTelephone()
-    {
-        return telephone;
-    }
-
-    public void setTelephone( String telephone )
-    {
-        this.telephone = telephone;
-    }
-
-    public String getMobileNo()
-    {
-        return mobileNo;
-    }
-
-    public void setMobileNo( String mobileNo )
-    {
-        this.mobileNo = mobileNo;
-    }
 
     @Override
     public void save( Connection con ) throws SavingSQLException
@@ -136,35 +121,91 @@ public class ChgUser extends Savable
 
     }
 
-    private void insert( Connection con ) throws SQLException
+    protected void insert( Connection con ) throws SQLException
     {
-
+        StringBuilder sb = new StringBuilder( "INSERT INTO CHG_USER ( " );
+        sb.append( "USERNAME, " );
+        sb.append( "TYPE, " );
+        sb.append( "USER_STATUS " );
+        sb.append( ") VALUES(?,?,?)" );
+        int count = 0;
+        PreparedStatement ps = null;
+        try
+        {
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( ++count, this.userName );
+            ps.setString( ++count, this.userType );
+            ps.setString( ++count, this.userStatus );
+            ps.execute();
+            ps.close();
+        }
+        finally
+        {
+            DBUtility.close( ps );
+        }
     }
 
-    private void update(Connection con) throws SQLException
+    protected void update( Connection con ) throws SQLException
     {
-
+        StringBuilder sb = new StringBuilder( "UPDATE CHG_USER SET " );
+        sb.append( "USERNAME = ?, " );
+        sb.append( "TYPE = ?, " );
+        sb.append( "USER_STATUS = ? " );
+        sb.append( "WHERE " );
+        sb.append( "USER_ID = ? " );
+        int count = 0;
+        PreparedStatement ps = null;
+        try
+        {
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( ++count, this.userName );
+            ps.setString( ++count, this.userType );
+            ps.setString( ++count, this.userStatus );
+            ps.setInt( ++count, this.userId );
+            ps.execute();
+            ps.close();
+        }
+        finally
+        {
+            DBUtility.close( ps );
+        }
     }
 
-    private void delete(Connection con) throws SQLException
+    protected void delete( Connection con ) throws SQLException
     {
-
+        StringBuilder sb = new StringBuilder( "DELETE FROM CHG_USER WHERE " );
+        sb.append( "USER_ID = ? " );
+        int count = 0;
+        PreparedStatement ps = null;
+        try
+        {
+            ps = con.prepareStatement( sb.toString() );
+            ps.setInt( ++count, this.userId );
+            ps.execute();
+            ps.close();
+        }
+        finally
+        {
+            DBUtility.close( ps );
+        }
     }
 
     @Override
     public void load( ResultSet rs, Connection con, int level ) throws SQLException
     {
-
+        this.status = Savable.UNCHANGED;
+        this.userId = rs.getInt( "USER_ID" );
+        this.userName = rs.getString( "USERNAME" );
+        this.userType = rs.getString( "TYPE" );
+        this.userStatus = rs.getString( "USER_STATUS" );
     }
 
     public void init()
     {
-        userId = -1;
         userName = null;
-        email = null;
-        dob = null;
-        telephone = null;
-        mobileNo = null;
-        status = Savable.MODIFIED;
+        userType = null;
+        userId = -1;
+        userStatus = null;
+        status = Savable.UNCHANGED;
     }
 }
