@@ -1,6 +1,8 @@
 package lk.vega.charger.centralservice.client.web.domain.user;
 
 
+import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
+import lk.vega.charger.util.ChgTimeStamp;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -10,7 +12,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * Date on 5/5/15.
  * Time on 12:06 PM
  */
-public class ChgUserBean
+public class ChgUserBean extends DomainBeanImpl
 {
     private int userId;
     @NotEmpty
@@ -39,6 +41,50 @@ public class ChgUserBean
     private String organizationName;
     private String userRole;
     private boolean selected;
+    private ChgTimeStamp lastUpdateTimeStamp;
+    private ChgTimeStamp createdTimeStamp;
+    private String userType;
+    private String userStatus;
+
+    public String getUserType()
+    {
+        return userType;
+    }
+
+    public void setUserType( String userType )
+    {
+        this.userType = userType;
+    }
+
+    public String getUserStatus()
+    {
+        return userStatus;
+    }
+
+    public void setUserStatus( String userStatus )
+    {
+        this.userStatus = userStatus;
+    }
+
+    public ChgTimeStamp getLastUpdateTimeStamp()
+    {
+        return lastUpdateTimeStamp;
+    }
+
+    public void setLastUpdateTimeStamp( ChgTimeStamp lastUpdateTimeStamp )
+    {
+        this.lastUpdateTimeStamp = lastUpdateTimeStamp;
+    }
+
+    public ChgTimeStamp getCreatedTimeStamp()
+    {
+        return createdTimeStamp;
+    }
+
+    public void setCreatedTimeStamp( ChgTimeStamp createdTimeStamp )
+    {
+        this.createdTimeStamp = createdTimeStamp;
+    }
 
     public boolean isSelected()
     {

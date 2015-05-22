@@ -17,12 +17,25 @@ import java.sql.SQLException;
  */
 public class NFCReference extends Savable
 {
+    public static final String DUMMY_NFC_REF = "DUMMY_NFC_REF";
+
+
     private int nfcNetworkMapID;
     private String reference;
     private int networkId;
     private int status;
 
-    public static final String DUMMY_NFC_REF = "DUMMY_NFC_REF";
+    private String userName;
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName( String userName )
+    {
+        this.userName = userName;
+    }
 
     public int getNfcNetworkMapID()
     {
@@ -109,15 +122,17 @@ public class NFCReference extends Savable
     protected void insert( Connection con ) throws SQLException
     {
         StringBuilder sb = new StringBuilder( "INSERT INTO NFC_NETWORK_MAP ( " );
-        sb.append( "NFC_ID, " );
+        sb.append( "NFC_REF, " );
+        sb.append( "NFC_CUS_USERNAME, " );
         sb.append( "CHG_NETWORK_ID " );
-        sb.append( ") VALUES(?,?)" );
+        sb.append( ") VALUES(?,?,?)" );
         int count = 0;
         PreparedStatement ps = null;
         try
         {
             ps = con.prepareStatement( sb.toString() );
             ps.setString( ++count, this.reference );
+            ps.setString( ++count, this.userName );
             ps.setInt( ++count, this.networkId );
             ps.execute();
             ps.close();
@@ -157,13 +172,15 @@ public class NFCReference extends Savable
     {
         this.status = Savable.UNCHANGED;
         this.nfcNetworkMapID = rs.getInt( "NFC_NETWORK_MAP_ID" );
-        this.reference = rs.getString( "NFC_ID" );
+        this.reference = rs.getString( "NFC_REF" );
+        this.userName = rs.getString( "NFC_CUS_USERNAME" );
         this.networkId = rs.getInt( "CHG_NETWORK_ID" );
     }
 
     public void init()
     {
         reference = null;
+        userName = null;
         nfcNetworkMapID = -1;
         networkId = -1;
         status = Savable.UNCHANGED;

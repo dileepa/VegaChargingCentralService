@@ -33,6 +33,17 @@ public class ChargeNetworkBean extends DomainBeanImpl
     private boolean allowToOthers;
     private List<ChargeStationBean> chargeStationBeanList;
     private List<String> chargeStationIds;
+    private boolean selected;
+
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    public void setSelected( boolean selected )
+    {
+        this.selected = selected;
+    }
 
     public boolean getAllowToOthers()
     {
@@ -163,6 +174,7 @@ public class ChargeNetworkBean extends DomainBeanImpl
         setMembershipFee( chargeNetwork.getMembershipFee() );
         setAnnualFee( chargeNetwork.getAnnualFee() );
         setMaxChargeTime( chargeNetwork.getMaxChargeTime() );
+        setSelected( false );
 
         //Load Special Display Attributes.
         setChargeStationBeanList( loadChargeStationsBeanList(chargeNetwork.getNetworkId()) );

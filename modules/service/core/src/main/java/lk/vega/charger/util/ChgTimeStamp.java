@@ -297,13 +297,13 @@ public class ChgTimeStamp implements Comparable, Cloneable, java.io.Serializable
     }
 
 
-    public String toString()
+    public String toStringYYYYMMDDHHmmss()
     {
         SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss:SSS" );
         return sdf.format( cal.getTime() );
     }
 
-    public String toStringYYYYMMDDHHmmss()
+    public String toString()
     {
         SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd: HH:mm:ss" );
         return sdf.format( cal.getTime() );

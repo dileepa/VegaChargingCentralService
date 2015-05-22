@@ -9,6 +9,9 @@ import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStat
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
+import lk.vega.charger.centralservice.client.web.domain.user.UserStatusBean;
+import lk.vega.charger.centralservice.client.web.domain.user.chgCustomer.ChgCustomerBean;
+import lk.vega.charger.centralservice.client.web.domain.user.chgCustomer.NFCReferenceBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,9 @@ public class DomainBeanImpl implements DomainBean
     public static final int CHARGE_STATION_PROTOCOL_BEAN_ID = 7;
     public static final int CHARGE_STATION_TYPE_BEAN_ID = 8;
     public static final int CHARGE_NETWORK_BEAN_ID = 9;
+    public static final int USER_CUSTOMER_BEAN_ID = 10;
+    public static final int NFC_REFERENCE_BEAN_ID = 11;
+    public static final int USER_STATUS_BEAN_ID = 12;
 
 
     @Override
@@ -83,6 +89,15 @@ public class DomainBeanImpl implements DomainBean
                 break;
             case 9:
                 beanObject = new ChargeNetworkBean();
+                break;
+            case 10:
+                beanObject = new ChgCustomerBean();
+                break;
+            case 11:
+                beanObject = new NFCReferenceBean();
+                break;
+            case 12:
+                beanObject = new UserStatusBean();
                 break;
             default:
                 break;

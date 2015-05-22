@@ -314,7 +314,6 @@ public class ChargeNetwork extends Savable
         sb.append( "MAX_CHG_TIME = ?, " );
         sb.append( "MEMBERSHIP_FEE = ?, " );
         sb.append( "ANNUAL_FEE = ?, " );
-        sb.append( "CREATED_TIME = ?, " );
         sb.append( "LAST_UPDATED_TIME = ? " );
         sb.append( "WHERE " );
         sb.append( "NETWORK_ID = ? " );
@@ -338,14 +337,6 @@ public class ChargeNetwork extends Savable
             ps.setDouble( ++count, this.maxChargeTime );
             ps.setDouble( ++count, this.membershipFee );
             ps.setDouble( ++count, this.annualFee );
-            if( this.createdTimeStamp == null )
-            {
-                ps.setNull( ++count, Types.TIMESTAMP );
-            }
-            else
-            {
-                ps.setTimestamp( ++count, createdTimeStamp._getSQLTimestamp() );
-            }
             if( this.lastUpdateTimeStamp == null )
             {
                 ps.setNull( ++count, Types.TIMESTAMP );

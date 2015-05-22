@@ -108,6 +108,7 @@ public class ChgCustomerUser extends ChgUser
 
     protected void update( Connection con ) throws SQLException
     {
+        super.update( con );
         StringBuilder sb = new StringBuilder( "UPDATE CHG_USER_CUSTOMER SET " );
         sb.append( "CUS_USERNAME = ?, " );
         sb.append( "NFC_REF = ? " );
@@ -118,8 +119,8 @@ public class ChgCustomerUser extends ChgUser
         try
         {
             ps = con.prepareStatement( sb.toString() );
-            ps.setString( ++count, this.nfcRef );
             ps.setString( ++count, this.userName );
+            ps.setString( ++count, this.nfcRef );
             ps.setInt( ++count, this.userCusMappingID );
             ps.execute();
             ps.close();
@@ -138,13 +139,15 @@ public class ChgCustomerUser extends ChgUser
     @Override
     public void load( ResultSet rs, Connection con, int level ) throws SQLException
     {
+        super.load( rs, con, level );
+
         this.status = Savable.UNCHANGED;
         this.userName = rs.getString( "CUS_USERNAME" );
         this.nfcRef = rs.getString( "NFC_REF" );
         this.userCusMappingID = rs.getInt( "CHG_CUS_USER_MAPPING_ID" );
 
         StringBuilder sb = new StringBuilder(  );
-        sb.append( "SELECT * FROM NFC_NETWORK_MAP WHERE NFC_ID = ?" );
+        sb.append( "SELECT * FROM NFC_NETWORK_MAP WHERE NFC_REF = ?" );
 
         PreparedStatement psNFCReferenceDetails = con.prepareStatement( sb.toString() );
         psNFCReferenceDetails.setString( 1, this.nfcRef );
