@@ -23,6 +23,17 @@ public class ChgCustomerUser extends ChgUser
     private String nfcRef;
     private int userCusMappingID;
     private List<NFCReference> nfcReferenceList;
+    private double customerPoints;
+
+    public double getCustomerPoints()
+    {
+        return customerPoints;
+    }
+
+    public void setCustomerPoints( double customerPoints )
+    {
+        this.customerPoints = customerPoints;
+    }
 
     public int getUserCusMappingID()
     {
@@ -88,14 +99,16 @@ public class ChgCustomerUser extends ChgUser
         super.insert( con );
         StringBuilder sb = new StringBuilder( "INSERT INTO CHG_USER_CUSTOMER ( " );
         sb.append( "CUS_USERNAME, " );
+        sb.append( "CUSTOMER_POINTS, " );
         sb.append( "NFC_REF " );
-        sb.append( ") VALUES(?,?)" );
+        sb.append( ") VALUES(?,?,?)" );
         int count = 0;
         PreparedStatement ps = null;
         try
         {
             ps = con.prepareStatement( sb.toString() );
             ps.setString( ++count, this.userName );
+            ps.setDouble( ++count, this.customerPoints );
             ps.setString( ++count, this.nfcRef );
             ps.execute();
             ps.close();
@@ -111,6 +124,7 @@ public class ChgCustomerUser extends ChgUser
         super.update( con );
         StringBuilder sb = new StringBuilder( "UPDATE CHG_USER_CUSTOMER SET " );
         sb.append( "CUS_USERNAME = ?, " );
+        sb.append( "CUSTOMER_POINTS = ?, " );
         sb.append( "NFC_REF = ? " );
         sb.append( "WHERE " );
         sb.append( "CHG_CUS_USER_MAPPING_ID = ? " );
@@ -120,6 +134,7 @@ public class ChgCustomerUser extends ChgUser
         {
             ps = con.prepareStatement( sb.toString() );
             ps.setString( ++count, this.userName );
+            ps.setDouble( ++count, this.customerPoints );
             ps.setString( ++count, this.nfcRef );
             ps.setInt( ++count, this.userCusMappingID );
             ps.execute();
@@ -143,6 +158,7 @@ public class ChgCustomerUser extends ChgUser
 
         this.status = Savable.UNCHANGED;
         this.userName = rs.getString( "CUS_USERNAME" );
+        this.customerPoints = rs.getDouble( "CUSTOMER_POINTS" );
         this.nfcRef = rs.getString( "NFC_REF" );
         this.userCusMappingID = rs.getInt( "CHG_CUS_USER_MAPPING_ID" );
 
@@ -165,6 +181,7 @@ public class ChgCustomerUser extends ChgUser
     {
         nfcRef = null;
         userName = null;
+        customerPoints = 0.0d;
         nfcReferenceList = new ArrayList<NFCReference>(  );
         status = Savable.UNCHANGED;
     }

@@ -39,6 +39,7 @@
             <th>Created Date</th>
             <th>Modified Date</th>
             <th>NFC Reference</th>
+            <th>Available Points</th>
             <th>Created By</th>
             <th colspan="2">Action</th>
             <!--<th>Action</th>-->
@@ -49,6 +50,7 @@
             <td th:text="${Customer.createdTimeStamp}">Test latitude</td>
             <td th:text="${Customer.lastUpdateTimeStamp}">Test gpsLocation</td>
             <td th:text="${Customer.nfcRef}">Test gpsLocation</td>
+            <td th:text="${Customer.customerPoints}">Test gpsLocation</td>
             <td th:text="${Customer.createdBy}">Test gpsLocation</td>
             <td >
                 <a th:href="@{/user/chgCustomer/loadChgCustomer.html(userID=${Customer.userId})}">

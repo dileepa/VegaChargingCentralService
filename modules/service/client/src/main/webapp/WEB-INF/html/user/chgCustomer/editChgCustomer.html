@@ -35,6 +35,10 @@
                 <th align="left">RF (NFC) Reference: </th>
                 <th align="left"><input type="text" id="nfcRef" name="nfcRef" value="Charge Amount" th:value="${chgCustomer.nfcRef}" th:field="*{nfcRef}"/></th>
             </tr>
+            <tr height="30">
+                <th align="left">Customer Points: </th>
+                <th align="left"><input type="text" id="customerPoints" name="customerPoints" value="Charge Amount" th:value="${chgCustomer.customerPoints}" th:field="*{customerPoints}"/></th>
+            </tr>
             <tr>
                 <th align="left"><input type="hidden" name="userId" value="userId" th:value="${chgCustomer.userId}" th:field="*{userId}"/></th>
             </tr>
