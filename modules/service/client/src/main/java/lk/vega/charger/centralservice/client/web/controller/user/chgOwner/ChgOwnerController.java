@@ -1,5 +1,6 @@
 package lk.vega.charger.centralservice.client.web.controller.user.chgOwner;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.level2Charger.LevelTwoChargerDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.GenderDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.TitelDataLoader;
@@ -7,9 +8,13 @@ import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
+import lk.vega.charger.centralservice.client.web.domain.user.User;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
+import lk.vega.charger.core.ChgLevelTwoTransaction;
 import lk.vega.charger.userManagement.UserHandler;
 import lk.vega.charger.util.ChgResponse;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -56,6 +61,22 @@ public class ChgOwnerController
         }
         return modelAndView;
 
+    }
+
+    @RequestMapping(value = "/AllChgPointOwnerSpecificTransaction", method = RequestMethod.GET)
+    public ModelAndView viewAllChgPointOwnerSpecificTransaction(SecurityContextHolderAwareRequestWrapper request)
+    {
+        User loggedUser = ( User)( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
+        ModelAndView modelAndView = new ModelAndView();
+        ChgResponse transactionsRes = LevelTwoChargerDataLoader.loadChgPointOwnerSpecificTransactions(loggedUser.getUsername());
+        if( transactionsRes.isSuccess() )
+        {
+            List transactions = (List<ChgLevelTwoTransaction>) transactionsRes.getReturnData();
+            modelAndView.getModel().put( "transactions", transactions );
+            modelAndView.setViewName( "user/chgOwner/allTransactions" );
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/saveNewChargeOwner", method = RequestMethod.POST)

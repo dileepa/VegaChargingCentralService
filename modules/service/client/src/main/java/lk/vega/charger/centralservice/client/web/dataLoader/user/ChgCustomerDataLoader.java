@@ -171,5 +171,55 @@ public class ChgCustomerDataLoader
         return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
     }
 
+    public static ChgResponse loadCustomerByRFID(String ref)
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( "SELECT * FROM CHG_USER_CUSTOMER " );
+        sb.append( "INNER JOIN " );
+        sb.append( "CHG_USER " );
+        sb.append( "ON " );
+        sb.append( "CHG_USER_CUSTOMER.CUS_USERNAME = CHG_USER.USERNAME " );
+        sb.append( "AND " );
+        sb.append( "CHG_USER.TYPE = 'CHG_CUSTOMER' " );
+        sb.append( "AND " );
+        sb.append( "CHG_USER_CUSTOMER.NFC_REF = ? " );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1,ref );
+            rs = ps.executeQuery();
+            if ( rs.next() )
+            {
+                ChgCustomerUser chgCustomerUser = new ChgCustomerUser();
+                chgCustomerUser.init();
+                chgCustomerUser.load( rs, con, 0 );
+                return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", chgCustomerUser);
+            }
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+        return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
+    }
+
+
 
 }
