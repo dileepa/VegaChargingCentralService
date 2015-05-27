@@ -25,7 +25,7 @@
             <th>Availability Status</th>
             <th>Power Status</th>
             <th>Owner Username</th>
-            <th colspan="2">Action</th>
+            <th colspan="3">Action</th>
         </tr>
         <tr th:each="chgStation : ${chgStations}">
             <td th:text="${chgStation.reference}">Test Charge Station</td>
@@ -42,6 +42,11 @@
             <td th:text="${chgStation.chargePointPowerStatus}">Test Status</td>
             <td th:text="${chgStation.userName}">Test Status</td>
             <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
+            <td >
+                <a th:href="@{/chargeStation/viewChargeStation.html(chgStationID=${chgStation.chargePointId})}">
+                    VIEW
+                </a>
+            </td>
             <td >
                 <a th:href="@{/chargeStation/editChargeStation.html(chgStationID=${chgStation.chargePointId})}">
                     EDIT

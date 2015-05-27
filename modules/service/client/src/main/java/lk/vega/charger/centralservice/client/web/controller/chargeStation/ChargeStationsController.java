@@ -9,7 +9,6 @@ import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.Charge
 import lk.vega.charger.centralservice.client.web.dataLoader.loacation.LocationLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
-import lk.vega.charger.centralservice.client.web.domain.chargeNetwork.ChargeNetworkBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationPowerStatusBean;
@@ -54,9 +53,9 @@ public class ChargeStationsController
     {
         ChgResponse chgResponse = ChargeStationLoader.loadAllChargePoints();
         ModelAndView modelAndView = new ModelAndView();
-        if (chgResponse.isSuccess())
+        if( chgResponse.isSuccess() )
         {
-            List<ChargePoint> allChargePointList = (List)chgResponse.getReturnData();
+            List<ChargePoint> allChargePointList = (List) chgResponse.getReturnData();
             List allChargePointBeanList = ChargeStationBean.getBeanList( allChargePointList, DomainBeanImpl.CHARGE_STATION_BEAN_ID );
             modelAndView.setViewName( "chargeStation/chargeStations" );
             modelAndView.getModel().put( "chgStations", allChargePointBeanList );
@@ -65,13 +64,13 @@ public class ChargeStationsController
     }
 
     @RequestMapping(value = "/chargeStation/deleteConfirmationChargeStation", method = RequestMethod.GET)
-    public ModelAndView deleteConfirm(@RequestParam(value = "chgStationID", required = false ) Integer chgStationID )
+    public ModelAndView deleteConfirm( @RequestParam(value = "chgStationID", required = false) Integer chgStationID )
     {
-        ModelAndView modelAndView = new ModelAndView(  );
+        ModelAndView modelAndView = new ModelAndView();
         ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByPointID( chgStationID );
-        if (loadedChargePointResponse.isSuccess())
+        if( loadedChargePointResponse.isSuccess() )
         {
-            ChargePoint updatedChargePoint = (ChargePoint)loadedChargePointResponse.getReturnData();
+            ChargePoint updatedChargePoint = (ChargePoint) loadedChargePointResponse.getReturnData();
             ChargeStationBean updateChargeStationBean = new ChargeStationBean();
             updateChargeStationBean.createBean( updatedChargePoint );
             modelAndView.setViewName( "chargeStation/deleteConfirmationChargeStation" );
@@ -80,22 +79,29 @@ public class ChargeStationsController
         return modelAndView;
     }
 
-    @RequestMapping(value = "/chargeStation/loadChargeStation", method = RequestMethod.GET)
-    public ModelAndView viewStationDetails(@RequestParam(value = "chgStationID", required = false ) Integer chgStationID )
+    @RequestMapping(value = "/chargeStation/viewChargeStation", method = RequestMethod.GET)
+    public ModelAndView viewStationDetailsForView( @RequestParam(value = "chgStationID", required = false) Integer chgStationID )
     {
-        ModelAndView modelAndView = new ModelAndView(  );
+        ModelAndView modelAndView = viewStationDetails( chgStationID );
+        modelAndView.setViewName( "chargeStation/loadChargeStation" );
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/chargeStation/loadChargeStation", method = RequestMethod.GET)
+    public ModelAndView viewStationDetails( @RequestParam(value = "chgStationID", required = false) Integer chgStationID )
+    {
+        ModelAndView modelAndView = new ModelAndView();
         ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByPointID( chgStationID );
-        if (loadedChargePointResponse.isSuccess())
+        if( loadedChargePointResponse.isSuccess() )
         {
-            ChargePoint updatedChargePoint = (ChargePoint)loadedChargePointResponse.getReturnData();
+            ChargePoint updatedChargePoint = (ChargePoint) loadedChargePointResponse.getReturnData();
             ChargeStationBean updateChargeStationBean = new ChargeStationBean();
             updateChargeStationBean.createBean( updatedChargePoint );
             modelAndView.setViewName( "chargeStation/deleteConfirmationChargeStation" );
             modelAndView.getModel().put( "chargeStation", updateChargeStationBean );
 
-            List allChargeNetworkBeanListUnderStation = new ArrayList<ChargeNetworkBean>();
             ChgResponse assignedNetworkRes = ChargeStationLoader.loadChargeStationSpecificNetworkIds( updateChargeStationBean.getChargePointId() );
-            if (assignedNetworkRes.isSuccess())
+            if( assignedNetworkRes.isSuccess() )
             {
                 List<ChargeNetworkAndStationMapping> savedChargeNetworkAndStationMappingList = (List) assignedNetworkRes.getReturnData();
                 List<String> networkIDs = new ArrayList<String>();
@@ -110,7 +116,11 @@ public class ChargeStationsController
                     if( chargeNetworkResponse.isSuccess() )
                     {
                         List<ChargeNetwork> loadChargeNetworks = (List) chargeNetworkResponse.getReturnData();
-                        allChargeNetworkBeanListUnderStation = ChargeStationBean.getBeanList( loadChargeNetworks, DomainBeanImpl.CHARGE_NETWORK_BEAN_ID );
+                        List allChargeNetworkBeanListUnderStation = ChargeStationBean.getBeanList( loadChargeNetworks, DomainBeanImpl.CHARGE_NETWORK_BEAN_ID );
+                        if( !allChargeNetworkBeanListUnderStation.isEmpty() )
+                        {
+                            modelAndView.getModel().put( "networkBeanList", allChargeNetworkBeanListUnderStation );
+                        }
                     }
                 }
             }
@@ -119,23 +129,22 @@ public class ChargeStationsController
     }
 
 
-
     @RequestMapping(value = "/chargeStation/editChargeStation", method = RequestMethod.GET)
-    public ModelAndView editLocation(@RequestParam(value = "chgStationID", required = false ) Integer chgStationID )
+    public ModelAndView editLocation( @RequestParam(value = "chgStationID", required = false) Integer chgStationID )
     {
-        ChgResponse chgResponse = ChargeStationLoader.loadSpecificChargePointByPointID(chgStationID);
+        ChgResponse chgResponse = ChargeStationLoader.loadSpecificChargePointByPointID( chgStationID );
         ModelAndView modelAndView = new ModelAndView();
-        if (chgResponse.isSuccess())
+        if( chgResponse.isSuccess() )
         {
-            ChargePoint chargePoint = (ChargePoint)chgResponse.getReturnData();
+            ChargePoint chargePoint = (ChargePoint) chgResponse.getReturnData();
             ChargeStationBean chargeStationBean = new ChargeStationBean();
             chargeStationBean.createBean( chargePoint );
             modelAndView.setViewName( "chargeStation/editChargeStation" );
             modelAndView.getModel().put( "chargeStation", chargeStationBean );
             ChgResponse chgLocationsResponse = LocationLoader.loadAllChargeLocations();
-            if (chgLocationsResponse.isSuccess())
+            if( chgLocationsResponse.isSuccess() )
             {
-                List<ChargeLocation> chargeLocations = (List)chgLocationsResponse.getReturnData();
+                List<ChargeLocation> chargeLocations = (List) chgLocationsResponse.getReturnData();
                 List locationBeanList = LocationBean.getBeanList( chargeLocations, DomainBeanImpl.LOCATION_BEAN_ID );
                 for( LocationBean locationBean : (List<LocationBean>) locationBeanList )
                 {
@@ -148,43 +157,43 @@ public class ChargeStationsController
             {
                 List<String> chargePointPowerStatus = (List) chgPointPowerStatusRes.getReturnData();
                 List powerStatusBeanList = ChargeStationPowerStatusBean.getBeanList( chargePointPowerStatus, DomainBeanImpl.CHARGE_STATION_POWER_STATUS_BEAN_ID );
-                for( ChargeStationPowerStatusBean chargeStationPowerStatusBean : (List<ChargeStationPowerStatusBean>)powerStatusBeanList)
+                for( ChargeStationPowerStatusBean chargeStationPowerStatusBean : (List<ChargeStationPowerStatusBean>) powerStatusBeanList )
                 {
                     chargeStationPowerStatusBean.setSelected( chargeStationPowerStatusBean.getName().equals( chargeStationBean.getChargePointPowerStatus() ) );
                 }
-                modelAndView.getModel().put( "powerStatusList",powerStatusBeanList );
+                modelAndView.getModel().put( "powerStatusList", powerStatusBeanList );
             }
             ChgResponse chgPointProtocolsRes = ChargeStationProtocolLoader.loadAllChargePointProtocols();
             if( chgPointProtocolsRes.isSuccess() )
             {
                 List<String> chargePointProtocols = (List) chgPointProtocolsRes.getReturnData();
                 List protocolsBeanList = ChargeStationProtocolBean.getBeanList( chargePointProtocols, DomainBeanImpl.CHARGE_STATION_PROTOCOL_BEAN_ID );
-                for( ChargeStationProtocolBean chargeStationProtocolBean : (List<ChargeStationProtocolBean>)protocolsBeanList)
+                for( ChargeStationProtocolBean chargeStationProtocolBean : (List<ChargeStationProtocolBean>) protocolsBeanList )
                 {
                     chargeStationProtocolBean.setSelected( chargeStationProtocolBean.getName().equals( chargeStationBean.getProtocol() ) );
                 }
-                modelAndView.getModel().put( "protocolList",protocolsBeanList );
+                modelAndView.getModel().put( "protocolList", protocolsBeanList );
             }
             ChgResponse chgPointTypesRes = ChargeStationTypeLoader.loadAllChargePointTypes();
             if( chgPointTypesRes.isSuccess() )
             {
                 List<String> chargePointTypes = (List) chgPointTypesRes.getReturnData();
                 List typesBeanList = ChargeStationTypeBean.getBeanList( chargePointTypes, DomainBeanImpl.CHARGE_STATION_TYPE_BEAN_ID );
-                for( ChargeStationTypeBean chargeStationTypeBean : (List<ChargeStationTypeBean>)typesBeanList)
+                for( ChargeStationTypeBean chargeStationTypeBean : (List<ChargeStationTypeBean>) typesBeanList )
                 {
                     chargeStationTypeBean.setSelected( chargeStationTypeBean.getName().equals( chargeStationBean.getType() ) );
                 }
-                modelAndView.getModel().put( "typeList",typesBeanList );
+                modelAndView.getModel().put( "typeList", typesBeanList );
             }
-            ChgResponse chgPointOwnersRes = ChgUserDataLoader.getUserListForSpecificRole( UserRoles.CHG_OWNER);
+            ChgResponse chgPointOwnersRes = ChgUserDataLoader.getUserListForSpecificRole( UserRoles.CHG_OWNER );
             if( chgPointOwnersRes.isSuccess() )
             {
                 List<ChgUserBean> chargeOwnerBeans = (List) chgPointOwnersRes.getReturnData();
-                for( ChgUserBean chgUserBean : chargeOwnerBeans)
+                for( ChgUserBean chgUserBean : chargeOwnerBeans )
                 {
                     chgUserBean.setSelected( chgUserBean.getUserName().equals( chargeStationBean.getUserName() ) );
                 }
-                modelAndView.getModel().put( "owners",chargeOwnerBeans );
+                modelAndView.getModel().put( "owners", chargeOwnerBeans );
             }
             ChgResponse chgPointStatusAvailabilityRes = ChargeStationAvailabilityStatusLoader.loadAllChargePointStatus();
             if( chgPointStatusAvailabilityRes.isSuccess() )
@@ -195,13 +204,14 @@ public class ChargeStationsController
                 {
                     status.setSelected( status.getName().equals( chargeStationBean.getChargePointAvailabilityStatus() ) );
                 }
-                modelAndView.getModel().put( "availabilityStatusList",availabilityStatusBeanList );
+                modelAndView.getModel().put( "availabilityStatusList", availabilityStatusBeanList );
             }
-        } return modelAndView;
+        }
+        return modelAndView;
     }
 
     @RequestMapping(value = "/deleteChargeStation", method = RequestMethod.POST)
-    public ModelAndView deleteChargeStation(@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
+    public ModelAndView deleteChargeStation( @ModelAttribute("chargeStation") ChargeStationBean chargeStationBean )
     {
         ChargePoint chargePoint = new ChargePoint();
         chargePoint.init();
@@ -209,24 +219,24 @@ public class ChargeStationsController
         chargePoint.setStatus( Savable.DELETED );
         ChgResponse chgResponse = CoreController.save( chargePoint );
         ModelAndView modelAndView = null;
-        if (chgResponse.isSuccess())
+        if( chgResponse.isSuccess() )
         {
             modelAndView = index();
         }
         else
         {
-            modelAndView = new ModelAndView(  );
+            modelAndView = new ModelAndView();
             modelAndView.setViewName( "chargeStation/errorChargeStation" );
-            modelAndView.getModel().put( "chargeStationErrorMsg", "Error in Deleting Charging Point - "+chargePoint.getReference() );
+            modelAndView.getModel().put( "chargeStationErrorMsg", "Error in Deleting Charging Point - " + chargePoint.getReference() );
         }
         return modelAndView;
 
     }
 
     @RequestMapping(value = "/saveExistingChargeStation", method = RequestMethod.POST)
-    public ModelAndView updateChargeStation(SecurityContextHolderAwareRequestWrapper request,@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
+    public ModelAndView updateChargeStation( SecurityContextHolderAwareRequestWrapper request, @ModelAttribute("chargeStation") ChargeStationBean chargeStationBean )
     {
-        User loggedUser = ( User)( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
+        User loggedUser = (User) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
         ChargePoint chargePoint = new ChargePoint();
         chargePoint.init();
         chargeStationBean.decodeBeanToReal( chargePoint );
@@ -234,12 +244,12 @@ public class ChargeStationsController
         chargePoint.setStatus( Savable.MODIFIED );
         ChgResponse chgResponse = CoreController.save( chargePoint );
         ModelAndView modelAndView = new ModelAndView();
-        if (chgResponse.isSuccess())
+        if( chgResponse.isSuccess() )
         {
             ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByPointID( chargePoint.getChargePointId() );
-            if (loadedChargePointResponse.isSuccess())
+            if( loadedChargePointResponse.isSuccess() )
             {
-                ChargePoint updatedChargePoint = (ChargePoint)loadedChargePointResponse.getReturnData();
+                ChargePoint updatedChargePoint = (ChargePoint) loadedChargePointResponse.getReturnData();
                 ChargeStationBean updateChargeStationBean = new ChargeStationBean();
                 updateChargeStationBean.createBean( updatedChargePoint );
                 modelAndView.setViewName( "chargeStation/loadChargeStation" );
@@ -250,21 +260,21 @@ public class ChargeStationsController
     }
 
     @RequestMapping(value = "/saveNewChargeStation", method = RequestMethod.POST)
-    public ModelAndView saveNewLocation(SecurityContextHolderAwareRequestWrapper request,@ModelAttribute("chargeStation" ) ChargeStationBean chargeStationBean )
+    public ModelAndView saveNewLocation( SecurityContextHolderAwareRequestWrapper request, @ModelAttribute("chargeStation") ChargeStationBean chargeStationBean )
     {
-        User loggedUser = ( User)( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
+        User loggedUser = (User) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
         ChargePoint chargePoint = new ChargePoint();
         chargeStationBean.decodeBeanToReal( chargePoint );
         chargePoint.setStatus( Savable.NEW );
         chargePoint.setAdminUserName( loggedUser.getUsername() );
         ChgResponse chgResponse = CoreController.save( chargePoint );
         ModelAndView modelAndView = new ModelAndView();
-        if (chgResponse.isSuccess())
+        if( chgResponse.isSuccess() )
         {
             ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByReference( chargePoint.getReference() );
-            if (loadedChargePointResponse.isSuccess())
+            if( loadedChargePointResponse.isSuccess() )
             {
-                ChargePoint updatedChargePoint = (ChargePoint)loadedChargePointResponse.getReturnData();
+                ChargePoint updatedChargePoint = (ChargePoint) loadedChargePointResponse.getReturnData();
                 ChargeStationBean updateChargeStationBean = new ChargeStationBean();
                 updateChargeStationBean.createBean( updatedChargePoint );
                 modelAndView.setViewName( "chargeStation/loadChargeStation" );
@@ -285,9 +295,9 @@ public class ChargeStationsController
         modelAndView.setViewName( "chargeStation/addChargeStation" );
         modelAndView.getModel().put( "chargeStation", chargeStationBean );
         ChgResponse chgLocationsResponse = LocationLoader.loadAllChargeLocations();
-        if (chgLocationsResponse.isSuccess())
+        if( chgLocationsResponse.isSuccess() )
         {
-            List<ChargeLocation> chargeLocations = (List)chgLocationsResponse.getReturnData();
+            List<ChargeLocation> chargeLocations = (List) chgLocationsResponse.getReturnData();
             List locationBeanList = LocationBean.getBeanList( chargeLocations, DomainBeanImpl.LOCATION_BEAN_ID );
             modelAndView.getModel().put( "locations", locationBeanList );
         }
@@ -296,38 +306,38 @@ public class ChargeStationsController
         {
             List<String> chargePointAvailabilityStatus = (List) chgPointStatusAvailabilityRes.getReturnData();
             List availabilityStatusBeanList = ChargeStationAvailabilityStatusBean.getBeanList( chargePointAvailabilityStatus, DomainBeanImpl.CHARGE_STATION_AVAILABILITY_STATUS_BEAN_ID );
-//            for( ChargeStationAvailabilityStatusBean status : (List<ChargeStationAvailabilityStatusBean>)statusBeanList )
-//            {
-//                status.setSelected( status.getName().equals( chargeStationBean.getChargePointStatus() ) );
-//            }
-            modelAndView.getModel().put( "availabilityStatusList",availabilityStatusBeanList );
+            //            for( ChargeStationAvailabilityStatusBean status : (List<ChargeStationAvailabilityStatusBean>)statusBeanList )
+            //            {
+            //                status.setSelected( status.getName().equals( chargeStationBean.getChargePointStatus() ) );
+            //            }
+            modelAndView.getModel().put( "availabilityStatusList", availabilityStatusBeanList );
         }
         ChgResponse chgPointPowerStatusRes = ChargeStationPowerStatusLoader.loadAllChargePointPowerStatus();
         if( chgPointPowerStatusRes.isSuccess() )
         {
             List<String> chargePointPowerStatus = (List) chgPointPowerStatusRes.getReturnData();
             List powerStatusBeanList = ChargeStationPowerStatusBean.getBeanList( chargePointPowerStatus, DomainBeanImpl.CHARGE_STATION_POWER_STATUS_BEAN_ID );
-            modelAndView.getModel().put( "powerStatusList",powerStatusBeanList );
+            modelAndView.getModel().put( "powerStatusList", powerStatusBeanList );
         }
         ChgResponse chgPointProtocolsRes = ChargeStationProtocolLoader.loadAllChargePointProtocols();
         if( chgPointProtocolsRes.isSuccess() )
         {
             List<String> chargePointProtocols = (List) chgPointProtocolsRes.getReturnData();
             List protocolsBeanList = ChargeStationProtocolBean.getBeanList( chargePointProtocols, DomainBeanImpl.CHARGE_STATION_PROTOCOL_BEAN_ID );
-            modelAndView.getModel().put( "protocolList",protocolsBeanList );
+            modelAndView.getModel().put( "protocolList", protocolsBeanList );
         }
         ChgResponse chgPointTypesRes = ChargeStationTypeLoader.loadAllChargePointTypes();
         if( chgPointTypesRes.isSuccess() )
         {
             List<String> chargePointTypes = (List) chgPointTypesRes.getReturnData();
             List typesBeanList = ChargeStationTypeBean.getBeanList( chargePointTypes, DomainBeanImpl.CHARGE_STATION_TYPE_BEAN_ID );
-            modelAndView.getModel().put( "typeList",typesBeanList );
+            modelAndView.getModel().put( "typeList", typesBeanList );
         }
-        ChgResponse chgPointOwnersRes = ChgUserDataLoader.getUserListForSpecificRole( UserRoles.CHG_OWNER);
+        ChgResponse chgPointOwnersRes = ChgUserDataLoader.getUserListForSpecificRole( UserRoles.CHG_OWNER );
         if( chgPointOwnersRes.isSuccess() )
         {
             List<ChgUserBean> chargeOwnerBeans = (List) chgPointOwnersRes.getReturnData();
-            modelAndView.getModel().put( "owners",chargeOwnerBeans );
+            modelAndView.getModel().put( "owners", chargeOwnerBeans );
         }
         return modelAndView;
     }

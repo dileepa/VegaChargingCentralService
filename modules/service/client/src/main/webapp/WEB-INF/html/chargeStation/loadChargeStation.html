@@ -64,6 +64,12 @@
         </table>
     <!--</form>-->
     <p>
+    <div>
+        <h4>Already Assigned Charge Networks</h4>
+    </div>
+    <div th:each="network : ${networkBeanList}">
+        <label th:text="${network.reference}">test</label>
+    </div>
         <a th:href="@{/AllChargeStations.html}">
             See All Charge Stations
         </a>
