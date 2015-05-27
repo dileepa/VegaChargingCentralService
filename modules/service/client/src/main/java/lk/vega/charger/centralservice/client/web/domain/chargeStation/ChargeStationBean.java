@@ -1,10 +1,12 @@
 package lk.vega.charger.centralservice.client.web.domain.chargeStation;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargePointTransactionStatusLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.loacation.LocationLoader;
 import lk.vega.charger.centralservice.client.web.domain.DomainBeanImpl;
 import lk.vega.charger.centralservice.client.web.domain.location.LocationBean;
 import lk.vega.charger.core.ChargeLocation;
 import lk.vega.charger.core.ChargePoint;
+import lk.vega.charger.core.ChargePointTransactionStatus;
 import lk.vega.charger.util.ChgDate;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.ChgTimeStamp;
@@ -35,7 +37,17 @@ public class ChargeStationBean extends DomainBeanImpl
     private double maxChargeTime;
     private double chargeAmount;
     private boolean selected;
+    private String workingStatus;
 
+    public String getWorkingStatus()
+    {
+        return workingStatus;
+    }
+
+    public void setWorkingStatus( String workingStatus )
+    {
+        this.workingStatus = workingStatus;
+    }
 
     public double getChargeAmount()
     {
@@ -238,7 +250,20 @@ public class ChargeStationBean extends DomainBeanImpl
 
         //Load Special Display Attributes.
         setChargeLocationBean(loadChargeLocation(getLocationId()));
+        setWorkingStatus( loadWorkingStatus(getReference()) );
 
+    }
+
+    private String loadWorkingStatus( String reference )
+    {
+        String workingStatus = "";
+        ChgResponse chgResponse = ChargePointTransactionStatusLoader.loadSpecificChargePointTransactionStatusByReference( reference );
+        if (chgResponse.isSuccess())
+        {
+            ChargePointTransactionStatus pointTransactionStatus = (ChargePointTransactionStatus)chgResponse.getReturnData();
+            workingStatus = pointTransactionStatus.getChargePointWorkingStatus();
+        }
+        return workingStatus;
     }
 
     private LocationBean loadChargeLocation(int locationId)

@@ -65,7 +65,48 @@ public class LevelTwoChargerDataLoader
         return new ChgResponse( ChgResponse.ERROR, "UNKNOWN ERROR" );
     }
 
-    public static ChgResponse loadChgPointOwnerSpecificTransactions( String ownerName)
+    public static ChgResponse loadAllTransactions( )
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        List loadAllUserSpecificTrs = new ArrayList<ChgLevelTwoTransaction>(  );
+        sb.append( "SELECT * FROM TRS_LEVEL_TWO_CHARGER " );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                ChgLevelTwoTransaction chgLevelTwoTransaction = new ChgLevelTwoTransaction();
+                chgLevelTwoTransaction.init();
+                chgLevelTwoTransaction.load( rs, con, 0 );
+                loadAllUserSpecificTrs.add( chgLevelTwoTransaction );
+            }
+            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", loadAllUserSpecificTrs);
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+    }
+
+    public static ChgResponse loadChgPointOwnerSpecificTransactions( String ChargeOwnerName)
 
     {
         Connection con = null;
@@ -78,7 +119,94 @@ public class LevelTwoChargerDataLoader
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
             ps = con.prepareStatement( sb.toString() );
-            ps.setString( 1, ownerName );
+            ps.setString( 1, ChargeOwnerName );
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                ChgLevelTwoTransaction chgLevelTwoTransaction = new ChgLevelTwoTransaction();
+                chgLevelTwoTransaction.init();
+                chgLevelTwoTransaction.load( rs, con, 0 );
+                loadAllUserSpecificTrs.add( chgLevelTwoTransaction );
+            }
+            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", loadAllUserSpecificTrs);
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+    }
+
+
+    public static ChgResponse loadCustomerSpecificTransactions( String customerName)
+
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        List loadAllUserSpecificTrs = new ArrayList<ChgLevelTwoTransaction>(  );
+        sb.append( "SELECT * FROM TRS_LEVEL_TWO_CHARGER WHERE CUSTOMER_USERNAME = ?" );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1, customerName );
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                ChgLevelTwoTransaction chgLevelTwoTransaction = new ChgLevelTwoTransaction();
+                chgLevelTwoTransaction.init();
+                chgLevelTwoTransaction.load( rs, con, 0 );
+                loadAllUserSpecificTrs.add( chgLevelTwoTransaction );
+            }
+            return new ChgResponse( ChgResponse.SUCCESS, "Load Charging Stations Successfully", loadAllUserSpecificTrs);
+
+        }
+        catch( SQLException e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage() );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+            return new ChgResponse( ChgResponse.ERROR, e.getMessage());
+        }
+        finally
+        {
+            DBUtility.close( rs );
+            DBUtility.close( ps );
+            DBUtility.close( con );
+        }
+    }
+
+    public static ChgResponse loadChgNetworkSpecificTransactions( String networkOwnerName)
+
+    {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        StringBuilder sb = new StringBuilder(  );
+        List loadAllUserSpecificTrs = new ArrayList<ChgLevelTwoTransaction>(  );
+        sb.append( "SELECT * FROM TRS_LEVEL_TWO_CHARGER WHERE NETWORK_OWNER = ?" );
+        try
+        {
+            con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
+            ps = con.prepareStatement( sb.toString() );
+            ps.setString( 1, networkOwnerName );
             rs = ps.executeQuery();
             while(rs.next())
             {

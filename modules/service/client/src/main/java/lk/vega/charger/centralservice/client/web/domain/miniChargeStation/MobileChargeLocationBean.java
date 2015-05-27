@@ -17,7 +17,17 @@ public class MobileChargeLocationBean extends DomainBeanImpl
     private String longitude;
     private String latitude;
     private String gpsLocation;
+    private String workingStatus;
 
+    public String getWorkingStatus()
+    {
+        return workingStatus;
+    }
+
+    public void setWorkingStatus( String workingStatus )
+    {
+        this.workingStatus = workingStatus;
+    }
 
     public String getChargerReference()
     {
@@ -78,6 +88,7 @@ public class MobileChargeLocationBean extends DomainBeanImpl
         setLatitude( chargeStationBean.getChargeLocationBean().getLatitude() );
         setLongitude( chargeStationBean.getChargeLocationBean().getLongitude() );
         setLocationName( chargeStationBean.getChargeLocationBean().getName() );
+        setWorkingStatus( chargeStationBean.getWorkingStatus() );
     }
 
     @Override

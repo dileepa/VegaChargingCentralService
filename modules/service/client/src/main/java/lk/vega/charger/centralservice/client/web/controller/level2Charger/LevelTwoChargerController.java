@@ -5,6 +5,8 @@ import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.Charge
 import lk.vega.charger.centralservice.client.web.dataLoader.level2Charger.LevelTwoChargerDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgCustomerDataLoader;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
+import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationBean;
+import lk.vega.charger.centralservice.client.web.domain.miniChargeStation.MobileChargeLocationBean;
 import lk.vega.charger.core.ChargeNetwork;
 import lk.vega.charger.core.ChargePoint;
 import lk.vega.charger.core.ChargePointTransactionStatus;
@@ -17,16 +19,20 @@ import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.DBUtility;
 import lk.vega.charger.util.Savable;
 import lk.vega.charger.util.connection.CHGConnectionPoolFactory;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Intelij Idea IDE
@@ -422,5 +428,43 @@ public class LevelTwoChargerController
         return responseMsg;
     }
 
+    @RequestMapping(value = "/getActiveChargingPointLocations", method = RequestMethod.GET)
+    public @ResponseBody List<MobileChargeLocationBean> getActiveChargingPointLocations()
+    {
+        ChgResponse chgResponse = ChargeStationLoader.loadAllChargePoints();
+        List<MobileChargeLocationBean> mobileChargeLocationBeans = new ArrayList<MobileChargeLocationBean>(  );
+        if (chgResponse.isSuccess())
+        {
+            List<ChargePoint> chargePointList = (List<ChargePoint>)chgResponse.getReturnData();
+            for ( ChargePoint chargePoint : chargePointList)
+            {
+                if ( ChargeStationAvailabilityStatusBean.ACTIVE.equals( chargePoint.getChargePointAvailabilityStatus() ))
+                {
+                    ChargeStationBean chargeStationBean = new ChargeStationBean();
+                    chargeStationBean.createBean( chargePoint );
+                    MobileChargeLocationBean mobileChargeLocationBean = new MobileChargeLocationBean();
+                    mobileChargeLocationBean.createBean( chargeStationBean );
+                    mobileChargeLocationBeans.add( mobileChargeLocationBean );
+                }
+            }
+        }
+        return mobileChargeLocationBeans;
+    }
+
+
+    @RequestMapping(value = "/AllTransaction", method = RequestMethod.GET)
+    public ModelAndView viewAllTransaction(SecurityContextHolderAwareRequestWrapper request)
+    {
+        ModelAndView modelAndView = new ModelAndView();
+        ChgResponse transactionsRes = LevelTwoChargerDataLoader.loadAllTransactions(  );
+        if( transactionsRes.isSuccess() )
+        {
+            List transactions = (List<ChgLevelTwoTransaction>) transactionsRes.getReturnData();
+            modelAndView.getModel().put( "transactions", transactions );
+            modelAndView.setViewName( "user/admin/allTransactions" );
+        }
+
+        return modelAndView;
+    }
 
 }

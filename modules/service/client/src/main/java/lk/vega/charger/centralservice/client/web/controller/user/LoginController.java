@@ -59,6 +59,7 @@ public class LoginController
         boolean isAdmin = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_ADMIN );
         boolean isChargingOwner = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_OWNER );
         boolean isChargingCustomer = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_CUSTOMER );
+        boolean isNetwork = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_NETWORK );
         ModelAndView modelAndView = new ModelAndView();
         if( isAdmin )
         {
@@ -66,7 +67,19 @@ public class LoginController
         }
         else
         {
-            if( isChargingOwner && isChargingCustomer )
+            if( isChargingOwner && isChargingCustomer && isNetwork )
+            {
+                //TODO view for both owner and customer
+            }
+            else if( isChargingCustomer && isNetwork )
+            {
+                //TODO view for both owner and customer
+            }
+            else if( isChargingOwner  && isNetwork )
+            {
+                //TODO view for both owner and customer
+            }
+            else if( isChargingOwner && isChargingCustomer )
             {
                 //TODO view for both owner and customer
             }
@@ -77,6 +90,10 @@ public class LoginController
             else if( isChargingOwner )
             {
                 modelAndView.setViewName( "user/chgOwner/ownerLoginSuccess" );
+            }
+            else if( isNetwork )
+            {
+                modelAndView.setViewName( "user/chgNetwork/chgNetworkLoginSuccess" );
             }
             else
             {

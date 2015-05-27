@@ -10,6 +10,11 @@
 </div>
 <span sec:authentication="principal.username"></span>
 <p th:text="#{customer.login.success.msg}"></p>
+<div>
+    <a th:href="@{/AllCustomerSpecificTransaction.html}" th:text="#{chg.customer.transactions}" >
+        View All Transactions
+    </a>
+</div>
 <div th:replace="fragments/base :: footer">
     &copy; This is the footer for home
 </div>

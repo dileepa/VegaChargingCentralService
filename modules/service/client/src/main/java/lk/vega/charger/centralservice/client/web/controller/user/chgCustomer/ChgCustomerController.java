@@ -1,6 +1,7 @@
 package lk.vega.charger.centralservice.client.web.controller.user.chgCustomer;
 
 import lk.vega.charger.centralservice.client.web.dataLoader.chargeNetwork.ChargeNetworkLoader;
+import lk.vega.charger.centralservice.client.web.dataLoader.level2Charger.LevelTwoChargerDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgCustomerDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.GenderDataLoader;
@@ -12,17 +13,20 @@ import lk.vega.charger.centralservice.client.web.domain.chargeNetwork.ChargeNetw
 import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.domain.user.GenderBean;
 import lk.vega.charger.centralservice.client.web.domain.user.TitleBean;
+import lk.vega.charger.centralservice.client.web.domain.user.User;
 import lk.vega.charger.centralservice.client.web.domain.user.UserStatusBean;
 import lk.vega.charger.centralservice.client.web.domain.user.chgCustomer.ChgCustomerBean;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
 import lk.vega.charger.core.ChargeNetwork;
 import lk.vega.charger.core.ChgCustomerUser;
+import lk.vega.charger.core.ChgLevelTwoTransaction;
 import lk.vega.charger.core.ChgUser;
 import lk.vega.charger.core.NFCReference;
 import lk.vega.charger.userManagement.UserHandler;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.Savable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -103,6 +107,22 @@ public class ChgCustomerController
 
         return modelAndView;
 
+    }
+
+    @RequestMapping(value = "/AllCustomerSpecificTransaction", method = RequestMethod.GET)
+    public ModelAndView viewAllCustomerSpecificTransaction(SecurityContextHolderAwareRequestWrapper request)
+    {
+        User loggedUser = ( User)( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
+        ModelAndView modelAndView = new ModelAndView();
+        ChgResponse transactionsRes = LevelTwoChargerDataLoader.loadCustomerSpecificTransactions( loggedUser.getUsername() );
+        if( transactionsRes.isSuccess() )
+        {
+            List transactions = (List<ChgLevelTwoTransaction>) transactionsRes.getReturnData();
+            modelAndView.getModel().put( "transactions", transactions );
+            modelAndView.setViewName( "user/chgCustomer/allTransactions" );
+        }
+
+        return modelAndView;
     }
 
     @RequestMapping(value = "/saveExistingChgCustomer", method = RequestMethod.POST)
