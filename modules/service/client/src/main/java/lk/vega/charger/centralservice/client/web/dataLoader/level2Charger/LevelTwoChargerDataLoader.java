@@ -21,18 +21,21 @@ import java.util.List;
 public class LevelTwoChargerDataLoader
 {
 
-    public static ChgResponse loadSpecificChargePointByPointID( String trsId )
+    public static ChgResponse loadSpecificChargePointByPointID( String trsId, String trsStatus )
     {
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         StringBuilder sb = new StringBuilder(  );
-        sb.append( "SELECT * FROM TRS_LEVEL_TWO_CHARGER WHERE TRS_ID = ?" );
+        sb.append( "SELECT * FROM TRS_LEVEL_TWO_CHARGER WHERE TRS_ID = ? " );
+        sb.append( "AND " );
+        sb.append( "TRS__STATUS = ? " );
         try
         {
             con = ( CHGConnectionPoolFactory.getCGConnectionPool( CHGConnectionPoolFactory.MYSQL ) ).getConnection();
             ps = con.prepareStatement( sb.toString() );
             ps.setString( 1, trsId );
+            ps.setString( 2, trsStatus );
             rs = ps.executeQuery();
             if (rs.next())
             {

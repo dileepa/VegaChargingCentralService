@@ -22,6 +22,7 @@ import lk.vega.charger.core.ChargeLocation;
 import lk.vega.charger.core.ChargeNetwork;
 import lk.vega.charger.core.ChargeNetworkAndStationMapping;
 import lk.vega.charger.core.ChargePoint;
+import lk.vega.charger.core.ChargePointTransactionStatus;
 import lk.vega.charger.util.ChgResponse;
 import lk.vega.charger.util.CoreController;
 import lk.vega.charger.util.Savable;
@@ -262,23 +263,34 @@ public class ChargeStationsController
     @RequestMapping(value = "/saveNewChargeStation", method = RequestMethod.POST)
     public ModelAndView saveNewLocation( SecurityContextHolderAwareRequestWrapper request, @ModelAttribute("chargeStation") ChargeStationBean chargeStationBean )
     {
+        ModelAndView modelAndView = new ModelAndView();
         User loggedUser = (User) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getPrincipal();
         ChargePoint chargePoint = new ChargePoint();
         chargeStationBean.decodeBeanToReal( chargePoint );
         chargePoint.setStatus( Savable.NEW );
         chargePoint.setAdminUserName( loggedUser.getUsername() );
+        ChargePointTransactionStatus chargePointTransactionStatus = new ChargePointTransactionStatus();
+        chargePointTransactionStatus.init();
+        chargePointTransactionStatus.setChargePointReference( chargePoint.getReference() );
+        chargePointTransactionStatus.setChargePointWorkingStatus( ChargePointTransactionStatus.WORKING_STATUS_FREE );
+        chargePointTransactionStatus.setStatus( Savable.NEW );
+
+
         ChgResponse chgResponse = CoreController.save( chargePoint );
-        ModelAndView modelAndView = new ModelAndView();
         if( chgResponse.isSuccess() )
         {
-            ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByReference( chargePoint.getReference() );
-            if( loadedChargePointResponse.isSuccess() )
+            ChgResponse chargePointTransactionStatusResponse = CoreController.save( chargePointTransactionStatus );
+            if( chargePointTransactionStatusResponse.isSuccess() )
             {
-                ChargePoint updatedChargePoint = (ChargePoint) loadedChargePointResponse.getReturnData();
-                ChargeStationBean updateChargeStationBean = new ChargeStationBean();
-                updateChargeStationBean.createBean( updatedChargePoint );
-                modelAndView.setViewName( "chargeStation/loadChargeStation" );
-                modelAndView.getModel().put( "chargeStation", updateChargeStationBean );
+                ChgResponse loadedChargePointResponse = ChargeStationLoader.loadSpecificChargePointByReference( chargePoint.getReference() );
+                if( loadedChargePointResponse.isSuccess() )
+                {
+                    ChargePoint updatedChargePoint = (ChargePoint) loadedChargePointResponse.getReturnData();
+                    ChargeStationBean updateChargeStationBean = new ChargeStationBean();
+                    updateChargeStationBean.createBean( updatedChargePoint );
+                    modelAndView.setViewName( "chargeStation/loadChargeStation" );
+                    modelAndView.getModel().put( "chargeStation", updateChargeStationBean );
+                }
             }
         }
         return modelAndView;

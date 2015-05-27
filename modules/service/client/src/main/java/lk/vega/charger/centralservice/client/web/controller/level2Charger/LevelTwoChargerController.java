@@ -1,11 +1,13 @@
 package lk.vega.charger.centralservice.client.web.controller.level2Charger;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargePointTransactionStatusLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.chargeStation.ChargeStationLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.level2Charger.LevelTwoChargerDataLoader;
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgCustomerDataLoader;
 import lk.vega.charger.centralservice.client.web.domain.chargeStation.ChargeStationAvailabilityStatusBean;
 import lk.vega.charger.core.ChargeNetwork;
 import lk.vega.charger.core.ChargePoint;
+import lk.vega.charger.core.ChargePointTransactionStatus;
 import lk.vega.charger.core.ChgCustomerUser;
 import lk.vega.charger.core.ChgLevelTwoTransaction;
 import lk.vega.charger.core.ChgUser;
@@ -145,38 +147,7 @@ public class LevelTwoChargerController
                         {
                             //SOME CHG POINT HAS NO NETWORK , THEY WILL CHARGE BY OWN AMOUNT
                             double transactionCost = chargePoint.getChargeAmount();
-                            if( transactionCost <= chgCustomerUser.getCustomerPoints() )
-                            {
-                                chgLevelTwoTransaction.setNetworkID( -1 );
-                                chgLevelTwoTransaction.setNetworkOwner( "DUMMY_NETWORK" );
-                                chgLevelTwoTransaction.setNetworkRef( "DUMMY_NETWORK" );
-                                double remainPoints = chgCustomerUser.getCustomerPoints() - transactionCost;
-                                chgLevelTwoTransaction.setAmount( transactionCost );
-                                chgCustomerUser.setCustomerPoints( remainPoints );
-                                chgCustomerUser.setStatus( Savable.MODIFIED );
-                                chgLevelTwoTransaction.setStatus( Savable.NEW );
-                                ChgResponse customerSaveRes = CoreController.save( chgCustomerUser );
-                                if( customerSaveRes.isSuccess() )
-                                {
-                                    ChgResponse trsSaveRes = CoreController.save( chgLevelTwoTransaction );
-                                    if( trsSaveRes.isSuccess() )
-                                    {
-                                        responseMsg = createSuccessMessage( chgLevelTwoTransaction.getTrsID(), chargePoint.getReference(), rfId );
-                                    }
-                                    else
-                                    {
-                                        responseMsg = createErrorMessage( ERROR_2, chargePoint.getReference(), rfId );
-                                    }
-                                }
-                                else
-                                {
-                                    responseMsg = createErrorMessage( ERROR_2, chargePoint.getReference(), rfId );
-                                }
-                            }
-                            else
-                            {
-                                responseMsg = createErrorMessage( ERROR_1, chargePoint.getReference(), rfId );
-                            }
+                            responseMsg = transactionSave( transactionCost, false, chgCustomerUser, null, chgLevelTwoTransaction, chargePoint, rfId );
                         }
                     }
                     else
@@ -202,7 +173,8 @@ public class LevelTwoChargerController
     public @ResponseBody String stopTransaction( @RequestParam(value = "trsId", required = false) String trsId,@RequestParam(value = "chgStationRef", required = false) String chgStationRef, @RequestParam(value = "rfId", required = false) String rfId )
     {
         String resMsg = "";
-        ChgResponse chgResponse = LevelTwoChargerDataLoader.loadSpecificChargePointByPointID( trsId );
+        String trsStatus = ChgLevelTwoTransaction.TRS_STATUS_STARTED;
+        ChgResponse chgResponse = LevelTwoChargerDataLoader.loadSpecificChargePointByPointID( trsId , trsStatus);
         if (chgResponse.isSuccess())
         {
             ChgLevelTwoTransaction chgLevelTwoTransaction = (ChgLevelTwoTransaction)chgResponse.getReturnData();
@@ -211,7 +183,29 @@ public class LevelTwoChargerController
             ChgResponse saveRes = CoreController.save( chgLevelTwoTransaction );
             if (saveRes.isSuccess())
             {
-                resMsg = createSuccessMessage( trsId,chgStationRef,rfId );
+                ChgResponse response = ChargePointTransactionStatusLoader.loadSpecificChargePointTransactionStatusByReference(chgStationRef);
+                if (response.isSuccess())
+                {
+                    ChargePointTransactionStatus chargePointTransactionStatus = (ChargePointTransactionStatus)response.getReturnData();
+                    chargePointTransactionStatus.setChargePointWorkingStatus( ChargePointTransactionStatus.WORKING_STATUS_FREE );
+                    chargePointTransactionStatus.setStatus( Savable.MODIFIED );
+                    ChgResponse chargePointTransactionStatusRes = CoreController.save( chargePointTransactionStatus );
+                    if (chargePointTransactionStatusRes.isSuccess())
+                    {
+                        resMsg = createSuccessMessage( chgLevelTwoTransaction.getTrsID(), chgStationRef, rfId );
+                    }
+                    else
+                    {
+                        resMsg = createErrorMessage( ERROR_2, chgStationRef, rfId );
+                    }
+
+                }
+                else
+                {
+
+                    resMsg = createErrorMessage( ERROR_2, chgStationRef, rfId );
+                }
+
             }
             else
             {
@@ -387,7 +381,28 @@ public class LevelTwoChargerController
                 ChgResponse trsSaveRes = CoreController.save( chgLevelTwoTransaction );
                 if( trsSaveRes.isSuccess() )
                 {
-                    responseMsg = createSuccessMessage( chgLevelTwoTransaction.getTrsID(), chargePoint.getReference(), rfId );
+                    ChgResponse chgResponse = ChargePointTransactionStatusLoader.loadSpecificChargePointTransactionStatusByReference(chargePoint.getReference());
+                    if (chgResponse.isSuccess())
+                    {
+                        ChargePointTransactionStatus chargePointTransactionStatus = (ChargePointTransactionStatus)chgResponse.getReturnData();
+                        chargePointTransactionStatus.setChargePointWorkingStatus( ChargePointTransactionStatus.WORKING_STATUS_IN_PROGRESS );
+                        chargePointTransactionStatus.setStatus( Savable.MODIFIED );
+                        ChgResponse chargePointTransactionStatusRes = CoreController.save( chargePointTransactionStatus );
+                        if (chargePointTransactionStatusRes.isSuccess())
+                        {
+                            responseMsg = createSuccessMessage( chgLevelTwoTransaction.getTrsID(), chargePoint.getReference(), rfId );
+                        }
+                        else
+                        {
+                            responseMsg = createErrorMessage( ERROR_2, chargePoint.getReference(), rfId );
+                        }
+
+                    }
+                    else
+                    {
+                        responseMsg = createErrorMessage( ERROR_2, chargePoint.getReference(), rfId );
+                    }
+
                 }
                 else
                 {
