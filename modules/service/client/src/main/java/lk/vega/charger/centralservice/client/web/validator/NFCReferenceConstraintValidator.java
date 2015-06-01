@@ -30,7 +30,7 @@ public class NFCReferenceConstraintValidator implements ConstraintValidator<lk.v
         {
             return false;
         }
-        else if( NFCReference.DUMMY_NFC_REF.equals( nfcRef ) )
+        else if( nfcRef.startsWith( NFCReference.DUMMY_NFC_REF ) )
         {
             return false;
         }

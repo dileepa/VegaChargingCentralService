@@ -74,7 +74,7 @@ public class ChgCustomerUser extends ChgUser
     public void save( Connection con ) throws SavingSQLException
     {
         super.save( con );
-        if( nfcReferenceList != null && nfcRef != null && !NFCReference.DUMMY_NFC_REF.equals( nfcRef ))
+        if( nfcReferenceList != null && nfcRef != null && !nfcRef.startsWith( NFCReference.DUMMY_NFC_REF ))
         {
             for( NFCReference nfcReference : nfcReferenceList )
             {

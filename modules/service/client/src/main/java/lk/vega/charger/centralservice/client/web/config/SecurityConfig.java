@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     {
 
       http
+//              .headers().disable()       //TODO NEED TO REMOVE - TEMP SOLUTION FOR I_FRAME SUPPORT
               .csrf().disable()
               .exceptionHandling().accessDeniedPage( "/403" )
               .and()

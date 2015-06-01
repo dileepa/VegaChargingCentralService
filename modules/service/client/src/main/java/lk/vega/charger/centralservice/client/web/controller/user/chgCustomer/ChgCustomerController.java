@@ -331,7 +331,8 @@ public class ChgCustomerController
                 chgCustomerUser.init();
                 chgCustomerUser.setUserName( newChgCustomer.getUserName() );
                 chgCustomerUser.setStatus( Savable.NEW );
-                chgCustomerUser.setNfcRef( NFCReference.DUMMY_NFC_REF );
+                String dummyNfcRef = createDummyRef ( chgCustomerUser.getUserName());
+                chgCustomerUser.setNfcRef( dummyNfcRef );
                 chgCustomerUser.setUserType( ChgUser.USER_CUSTOMER );
                 chgCustomerUser.setCreatedBy( ChgUser.CREATED_BY_ONLINE );
                 chgCustomerUser.setUserStatus( ChgUser.INACTIVE_USER );
@@ -360,6 +361,15 @@ public class ChgCustomerController
         }
 
         return modelAndView;
+    }
+
+    private String createDummyRef( String userName )
+    {
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( NFCReference.DUMMY_NFC_REF );
+        sb.append( "_" );
+        sb.append( userName );
+        return sb.toString();
     }
 
 }

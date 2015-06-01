@@ -17,6 +17,7 @@
         <module>core</module>
         <module>manager</module>
         <module>client</module>
+        <!--<module>chg-rest-api</module>-->
     </modules>
     <repositories>
         <repository>
