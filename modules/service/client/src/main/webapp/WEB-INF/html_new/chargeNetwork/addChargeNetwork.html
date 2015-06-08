@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content-header">
+    <h1 th:text="#{add.charge.network}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="register-page">
+        <div class="register-box-body">
+            <form action="#" th:action="@{/saveNewChargeNetwork}" th:object="${chargeNetwork}" method="post">
+                <table>
+                    <tr height="30">
+                        <th align="left">Charge Network Reference:</th>
+                        <th align="left"><input type="text" name="chargeStationReference" value="" th:field="*{reference}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Charge Network Owner:</th>
+                        <th align="left">
+                            <select th:field="*{networkOwnerUserName}">
+                                <option th:each="networkOwner : ${networkOwners}"
+                                        th:value="${networkOwner.userName}"
+                                        th:text="${networkOwner.userName}">
+                                    Test Location Option
+                                </option>
+                            </select>
+                        </th>
+                    </tr>
+                    <!--<tr height="30">-->
+                    <!--<th align="left">Select Charge Station: </th>-->
+                    <!--<th align="left" >-->
+                    <!--<th:block th:each="chgStation : ${chgStations}">-->
+                    <!--&lt;!&ndash;<td><input type="checkbox" th:field="*{chargeStationIds}" th:value="|${test.name}-${enviro}|" /></td>&ndash;&gt;-->
+                    <!--<td><input type="checkbox" th:field="*{chargeStationIds}" th:value="${chgStation.chargePointId}" th:text="${chgStation.reference}"/></td>-->
+                    <!--</th:block>-->
+                    <!--</th>-->
+                    <!--</tr>-->
+
+                    <tr height="30">
+                        <th align="left">Amount of Charge:</th>
+                        <th align="left"><input type="text" name="amountOfCharge" value="" th:field="*{chargeAmount}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Amount of Charge from Others:</th>
+                        <th align="left"><input type="text" name="amountOfChargeFromOthers" value="" th:field="*{chargeAmountForOtherNetwork}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Membership Fee:</th>
+                        <th align="left"><input type="text" name="membershipFee" value="" th:field="*{membershipFee}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Annual Fee:</th>
+                        <th align="left"><input type="text" name="annualFee" value="" th:field="*{annualFee}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Maximum for Time for Charging:</th>
+                        <th align="left"><input type="text" name="maxChargeTime" value="" th:field="*{maxChargeTime}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Allow Other Network</th>
+                        <th>
+                            <input type="checkbox" th:if="${chargeNetwork.allowToOthers}" checked="checked" th:field="*{allowToOthers}" th:value="${chargeNetwork.allowToOthers}"/>
+                        </th>
+                        <th>
+                            <input type="checkbox" th:if="${!chargeNetwork.allowToOthers}" th:field="*{allowToOthers}" th:value="${chargeNetwork.allowToOthers}"/>
+                        </th>
+                    </tr>
+                    <tr height="30">
+                        <!--<th align="left"><input type="submit" value="Save Charge Network"/></th>-->
+                        <th align="left"><input type="hidden" name="chargeNetworkId" value="networkId" th:field="*{networkId}"/></th>
+                    </tr>
+                </table>
+                <div>
+                    <h4>Select Charge Station for Network</h4>
+                </div>
+                <div th:each="chgStation : ${chgStations}">
+                    <input type="checkbox" th:field="*{chargeStationIds}" th:value="${chgStation.chargePointId}"/>
+                    <label th:text="${chgStation.reference}">test</label>
+                </div>
+                <div>
+                    <input type="submit" value="Save Charge Network"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

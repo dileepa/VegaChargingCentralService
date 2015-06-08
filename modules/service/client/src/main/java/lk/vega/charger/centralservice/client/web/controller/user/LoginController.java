@@ -2,7 +2,6 @@ package lk.vega.charger.centralservice.client.web.controller.user;
 
 import lk.vega.charger.centralservice.client.web.permission.Security;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
-import lk.vega.charger.util.CoreController;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -35,7 +34,7 @@ public class LoginController
     {
         Exception loginErrorException = (Exception) request.getSession().getAttribute( Security.SPRING_SECURITY_LAST_EXCEPTION_KEY );
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName( "user/loginError" );
+        modelAndView.setViewName( "index/index" );
         modelAndView.getModel().put( "loginErrorMsg", loginErrorException.getMessage() );
         return modelAndView;
     }
@@ -106,12 +105,23 @@ public class LoginController
     @RequestMapping(value = "/Index", method = RequestMethod.GET)
     public ModelAndView initial( SecurityContextHolderAwareRequestWrapper request )
     {
+        ModelAndView modelAndView = null;
         if( request.getUserPrincipal() == null )
         {
-            return new ModelAndView("redirect:" + CoreController.CHG_CLINET_WEB_URL_VAL);
+            modelAndView = new ModelAndView(  );
+            modelAndView.setViewName( "index/index" );
+            modelAndView.getModel().put( "loginErrorMsg", "" );
+            return modelAndView;
+//            return new ModelAndView("redirect:" + CoreController.CHG_CLINET_WEB_URL_VAL);
         }
-        ModelAndView modelAndView = getLoginSuccesView( request );
+        modelAndView = getLoginSuccesView( request );
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView mainPage( SecurityContextHolderAwareRequestWrapper request )
+    {
+       return initial( request );
     }
 
 }

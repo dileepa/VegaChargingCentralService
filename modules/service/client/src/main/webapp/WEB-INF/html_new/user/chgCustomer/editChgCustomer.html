@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{chg.customer.edit.nfc.details}"></p>
+<p th:text="${errorMsg}"></p>
+<div>
+    <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
+    <form action="#" th:action="@{/saveExistingChgCustomer}"  th:object="${chgCustomer}" method="post">
+        <table>
+            <tr height="30">
+                <th align="left">Customer Username: </th>
+                <th align="left"><input type="text" name="chgCustomerUsername" value="Charge Network Reference" th:value="${chgCustomer.userName}" th:field="*{userName}" readonly="readonly"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Customer Status: </th>
+                <th align="left" >
+                    <select th:field="*{userStatus}">
+                        <option th:each="UserStatus : ${userStatusList}"
+                                th:value="${UserStatus.name}"
+                                th:text="${UserStatus.name}"
+                                th:selected="${UserStatus.selected}">
+                            Test Location Option
+                        </option>
+                    </select>
+                </th>
+            </tr>
+            <tr height="30">
+                <th align="left">RF (NFC) Reference: </th>
+                <th align="left"><input type="text" id="nfcRef" name="nfcRef" value="Charge Amount" th:value="${chgCustomer.nfcRef}" th:field="*{nfcRef}"/></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Customer Points: </th>
+                <th align="left"><input type="text" id="customerPoints" name="customerPoints" value="Charge Amount" th:value="${chgCustomer.customerPoints}" th:field="*{customerPoints}"/></th>
+            </tr>
+            <tr>
+                <th align="left"><input type="hidden" name="userId" value="userId" th:value="${chgCustomer.userId}" th:field="*{userId}"/></th>
+            </tr>
+            <tr>
+                <th align="left"><input type="hidden" name="userType" value="userType" th:value="${chgCustomer.userType}" th:field="*{userType}"/></th>
+            </tr>
+            <tr>
+                <th align="left"><input type="hidden" name="userCusMappingID" value="userCusMappingID" th:value="${chgCustomer.userCusMappingID}" th:field="*{userCusMappingID}"/></th>
+            </tr>
+            <tr>
+                <th align="left"><input type="hidden" name="createdBy" value="createdBy" th:value="${chgCustomer.createdBy}" th:field="*{createdBy}"/></th>
+            </tr>
+        </table>
+        <div>
+            <h4>Already Assigned Networks: </h4>
+        </div>
+        <div th:each="network : ${chgCustomer.networks}">
+            <label th:text="${network.reference}">test</label>
+        </div>
+        <div>
+            <h4>Select Network:</h4>
+        </div>
+        <div th:each="network : ${networkList}">
+
+            <input type="checkbox" th:if="${network.selected}" checked="checked"  th:field="*{networkIds}" th:value="${network.networkId}"/>
+            <input type="checkbox" th:if="${!network.selected}"  th:field="*{networkIds}" th:value="${network.networkId}"/>
+            <label th:text="${network.reference}">test</label>
+        </div>
+        <div>
+            <input type="submit" value="Save Customer"/>
+        </div>
+    </form>
+    <p>
+        <a th:href="@{/ViewAllCustomers.html}">
+            View All Customers
+        </a>
+    </p>
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

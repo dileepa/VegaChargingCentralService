@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{do.you.want.to.delete.this.charge.stations}"></p>
+<div>
+    <!--<form action="#" th:action="@{/saveLocation}" th:object="${location}" method="post">-->
+    <form action="#" th:action="@{/deleteChargeStation}"  th:object="${chargeStation}" method="post">
+    <table>
+        <tr height="30">
+            <th align="left">Charge Station Reference: </th>
+            <th align="left" th:text="${chargeStation.reference}">Test Charge Station Reference</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Location: </th>
+            <th align="left" th:text="${chargeStation.chargeLocationBean}">Test Charge Station Location Name</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Type: </th>
+            <th align="left" th:text="${chargeStation.type}">Test Charge Station Type</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Power: </th>
+            <th align="left" th:text="${chargeStation.power}">Test Charge Station Power</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Max Time: </th>
+            <th align="left" th:text="${chargeStation.maxChargeTime}">Test Charge Station Power</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Amount: </th>
+            <th align="left" th:text="${chargeStation.chargeAmount}">Test Charge Station Power</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Protocol: </th>
+            <th align="left" th:text="${chargeStation.protocol}">Test Charge Station Protocol</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Firmware Version: </th>
+            <th align="left" th:text="${chargeStation.firmwareVersion}">Test Charge Station Version</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Hardware Version: </th>
+            <th align="left" th:text="${chargeStation.hardwareVersion}">Test Charge Station Version</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Availability Status: </th>
+            <th align="left" th:text="${chargeStation.chargePointAvailabilityStatus}">Test Charge Station Version</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Power Status: </th>
+            <th align="left" th:text="${chargeStation.chargePointPowerStatus}">Test Charge Station Version</th>
+        </tr>
+        <tr height="30">
+            <th align="left">Charge Station Owner Username: </th>
+            <th align="left" th:text="${chargeStation.userName}">Test Charge Station Version</th>
+        </tr>
+        <tr height="30">
+            <th align="left"><input type="submit" value="DELETE"/></th>
+            <th align="left"><input type="hidden" name="chargeStationID" value="StationID" th:value="${chargeStation.chargePointId}" th:field="*{chargePointId}"/></th>
+        </tr>
+    </table>
+    </form>
+    <p>
+        <a th:href="@{/AllChargeStations.html}">
+            See All Charge Stations
+        </a>
+    </p>
+    <!--<p>Location Name: <input type="text" name="locationName" value="Test Location Name" th:value="${location.name}"/>.</p>-->
+    <!--<p>Location Longitude: <input type="text" name="locationLongitude" value="Test Longitude" th:value="${location.longitude}"/>.</p>-->
+    <!--<p>Location Latitude: <input type="text" name="locationLatitude" value="Test Latitude" th:value="${location.latitude}"/>.</p>-->
+    <!--<p>Location GPSLocation: <input type="text" name="locationGPSLocation" value="GPSLocation" th:value="${location.gpsLocation}"/>.</p>-->
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

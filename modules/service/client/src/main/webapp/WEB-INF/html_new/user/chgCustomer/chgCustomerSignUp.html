@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<!--<form action="#" th:action="@{/saveNewChargeCustomer}" th:object="${chgCustomerUser}" method="post" onsubmit="return checkForm(this);">-->
+<form  th:object="${chgCustomerUser}">
+    <div class="row">
+        <div class="col-md-3">
+            <h4 th:text="#{chg.customer.title}">test title</h4>
+            <select th:field="*{title}" class="form-control">
+                <option th:each="title : ${titleList}"
+                        th:value="${title.name}"
+                        th:text="${title.name}">
+                    Test title
+                </option>
+            </select>
+            <!--<label>Title</label>-->
+            <!--<select class="form-control">					-->
+            <!--<option>Mr</option>-->
+            <!--<option>Miss</option>-->
+            <!--<option>Dr</option>					  -->
+            <!--</select>-->
+        </div>
+        <div class="col-md-5">
+            <!--<label>First Name</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.first.name}">first name</h4>
+            <input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:text="#{chg.owner.first.name.not.empty}">Test First Name Error</span>
+        </div>
+        <div class="col-md-4">
+            <!--<label>Last Name</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.last.name}">last name</h4>
+            <input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:text="#{chg.owner.last.name.not.empty}">Test Last Name Error</span>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 th:text="#{chg.customer.address}">address</h4>
+            <textarea  id="address" name="address" value="" th:field="*{address}"  class="form-control" rows="3"/>
+            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:text="#{chg.owner.address.not.empty}">Test Last Name Error</span>
+            <!--<label>Address</label>-->
+            <!--<textarea class="form-control" rows="3"></textarea>-->
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <!--<label>Country</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.country}">country</h4>
+            <input type="text" id="country" name="country" value="" th:field="*{country}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="#{chg.owner.country.not.empty}">Test Last Name Error</span>
+        </div>
+        <div class="col-md-6">
+            <!--<label>Email</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.email}">test email</h4>
+            <input type="text" id="email" name="email" value="" th:field="*{email}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <!--<label>User Name</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.username}">test user name</h4>
+            <input type="text" id="userNameSighUp" name="userNameSighUp" value="" th:field="*{userName}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:text="#{chg.owner.userName.not.empty}">Test Last Name Error</span>
+        </div>
+        <div class="col-md-6">
+            <!--<label>Password</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.password}">test password</h4>
+            <input type="password" id="passwordSighUp" name="passwordSighUp" value="" th:field="*{password}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:text="#{chg.owner.password.not.empty}">Test First Name Error</span>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <!--<label>Verify Password</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.verify.password}">test verify password</h4>
+            <input type="password" id="verifyPassword" name="verifyPassword" value="" th:field="*{verifyPassword}" class="form-control"/>
+        </div>
+        <div class="col-md-6">
+            <!--<label>Telephone</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.telephone}">test telephone</h4>
+            <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <!--<label>Mobile No</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.mobilephone}">test mobile</h4>
+            <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}" class="form-control"/>
+            <span th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
+        </div>
+        <div class="col-md-6">
+            <h4 th:text="#{chg.customer.gender}">test gender</h4>
+            <select th:field="*{gender}" class="form-control">
+                <option th:each="gender : ${genderList}"
+                        th:value="${gender.name}"
+                        th:text="${gender.name}">
+                    Test gender
+                </option>
+            </select>
+            <!--<label>Gender</label>-->
+            <!--<select class="form-control">					-->
+            <!--<option>Male</option>-->
+            <!--<option>Female</option>					 				  -->
+            <!--</select>-->
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            <!--<label>Organization Name</label>-->
+            <!--<input type="text" class="form-control"/>-->
+            <h4 th:text="#{chg.customer.organization.name}">test Organization Name</h4>
+            <input type="text" id="organizationName" name="organizationName" value="" th:field="*{organizationName}" class="form-control"/>
+        </div>
+    </div>
+    <div>
+        <input type="hidden" name="chgCustomerId" value="" th:field="*{userId}"/>
+    </div>
+    <div class="modal-footer">
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+        <input id="registerButton" type="submit" value="Add test user" th:value="#{chg.customer.add.user}"/>
+    </div>
+</form>
+<!--<div th:replace="fragments/baseBeforeLogin :: header">-->
+    <!--<h1>This is the header for home</h1>-->
+<!--</div>-->
+<!--<p th:text="#{chg.customer.sign.up}"></p>-->
+
+<!--<form action="#" th:action="@{/saveNewChargeCustomer}" th:object="${chgCustomerUser}" method="post" onsubmit="return checkForm(this);">-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.title}">test title</h4>-->
+        <!--<select th:field="*{title}">-->
+            <!--<option th:each="title : ${titleList}"-->
+                    <!--th:value="${title.name}"-->
+                    <!--th:text="${title.name}">-->
+                <!--Test title-->
+            <!--</option>-->
+        <!--</select>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.gender}">test gender</h4>-->
+        <!--<select th:field="*{gender}">-->
+            <!--<option th:each="gender : ${genderList}"-->
+                    <!--th:value="${gender.name}"-->
+                    <!--th:text="${gender.name}">-->
+                <!--Test gender-->
+            <!--</option>-->
+        <!--</select>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.first.name}">first name</h4>-->
+        <!--<input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}"/>-->
+        <!--<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:text="#{chg.owner.first.name.not.empty}">Test First Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.last.name}">last name</h4>-->
+        <!--<input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}"/>-->
+        <!--<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:text="#{chg.owner.last.name.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.address}">address</h4>-->
+        <!--<input type="text" id="address" name="address" value="" th:field="*{address}"/>-->
+        <!--<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:text="#{chg.owner.address.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.country}">country</h4>-->
+        <!--<input type="text" id="country" name="country" value="" th:field="*{country}"/>-->
+        <!--<span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="#{chg.owner.country.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.email}">test email</h4>-->
+        <!--<input type="text" id="email" name="email" value="" th:field="*{email}"/>-->
+        <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.username}">test user name</h4>-->
+        <!--<input type="text" id="userName" name="userName" value="" th:field="*{userName}"/>-->
+        <!--<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:text="#{chg.owner.userName.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.password}">test password</h4>-->
+        <!--<input type="password" id="password" name="password" value="" th:field="*{password}"/>-->
+        <!--<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:text="#{chg.owner.password.not.empty}">Test First Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.verify.password}">test verify password</h4>-->
+        <!--<input type="password" id="verifyPassword" name="verifyPassword" value="" th:field="*{verifyPassword}"/>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.telephone}">test telephone</h4>-->
+        <!--<input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}"/>-->
+        <!--<span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.mobilephone}">test mobile</h4>-->
+        <!--<input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}"/>-->
+        <!--<span th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<h4 th:text="#{chg.customer.organization.name}">test Organization Name</h4>-->
+        <!--<input type="text" id="organizationName" name="organizationName" value="" th:field="*{organizationName}"/>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<input type="submit" value="Add test user" th:value="#{chg.customer.add.user}"/>-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<input type="hidden" name="chgCustomerId" value="" th:field="*{userId}"/>-->
+    <!--</div>-->
+<!--</form>-->
+<!--<div th:replace="fragments/baseBeforeLogin :: footer">-->
+    <!--&copy; This is the footer for home-->
+<!--</div>-->
+</body>
+<!--</script>-->
+</html>

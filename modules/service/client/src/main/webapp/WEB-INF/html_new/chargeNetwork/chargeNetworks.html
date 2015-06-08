@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content-header">
+    <h1 th:text="#{all.charge.network}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="allChargeNetworksTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Network Reference</th>
+                            <th>Owner User Name</th>
+                            <th>Charge Amount</th>
+                            <th>Charge Amount from Outsiders</th>
+                            <th>Membership Fee</th>
+                            <th>Annual Fee</th>
+                            <th>Maximum Charging Time</th>
+                            <th>Allow Other Networks</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="network : ${networks}">
+                            <td th:text="${network.reference}">Test Charge Location Name</td>
+                            <td th:text="${network.networkOwnerUserName}">Test Charge Location Name</td>
+                            <td th:text="${network.chargeAmount}">Test Charge Location Name</td>
+                            <td th:text="${network.chargeAmountForOtherNetwork}">Test Charge Location Name</td>
+                            <td th:text="${network.membershipFee}">Test Charge Location Name</td>
+                            <td th:text="${network.annualFee}">Test longitude</td>
+                            <td th:text="${network.maxChargeTime}">Test latitude</td>
+                            <td align="center">
+                                <input type="checkbox" th:if="${network.allowToOthers}" checked="checked" disabled="disabled"/>
+                                <input type="checkbox" th:if="${!network.allowToOthers}" disabled="disabled"/>
+                            </td>
+                            <td >
+                                <a th:href="@{/chargeNetwork/loadChargeNetwork.html(networkID=${network.networkId})}">
+                                    VIEW
+                                </a>
+                            </td>
+                            <td >
+                                <a th:href="@{/chargeNetwork/editChargeNetwork.html(networkID=${network.networkId})}">
+                                    EDIT
+                                </a>
+                            </td>
+                            <td >
+                                <a th:href="@{/chargeNetwork/deleteConfirmationChargeNetwork.html(networkID=${network.networkId})}">
+                                    DELETE
+                                </a>
+                            </td>
+                            <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

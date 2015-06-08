@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="${loadMsg}"></p>
+<div>
+        <table>
+            <tr height="30">
+                <th align="left">Charge Network Reference: </th>
+                <th align="left" th:text="${network.reference}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Charge Network Owner: </th>
+                <th align="left" th:text="${network.networkOwnerUserName}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Amount of Charge: </th>
+                <th align="left" th:text="${network.chargeAmount}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Amount of Charge from Others: </th>
+                <th align="left" th:text="${network.chargeAmountForOtherNetwork}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Membership Fee: </th>
+                <th align="left" th:text="${network.membershipFee}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Annual Fee: </th>
+                <th align="left" th:text="${network.annualFee}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Maximum for Time for Charging: </th>
+                <th align="left" th:text="${network.maxChargeTime}"></th>
+            </tr>
+            <tr height="30">
+                <th align="left">Allow Other Network</th>
+                <th>
+                    <input type="checkbox" th:if="${network.allowToOthers}" checked="checked" disabled="disabled"/>
+                </th>
+                <th>
+                    <input type="checkbox" th:if="${!network.allowToOthers}" disabled="disabled"/>
+                </th>
+            </tr>
+        </table>
+    <div>
+            <h4>Already Assigned Charge Stations</h4>
+        </div>
+        <div th:each="chargePoint : ${network.chargeStationBeanList}">
+            <label th:text="|${chargePoint.reference}-${chargePoint.chargeLocationBean}|">test</label>
+        </div>
+    <p>
+        <a th:href="@{/AllChargeNetworks.html}">
+            See All Charge Networks
+        </a>
+    </p>
+</div>
+<div th:replace="fragments/base :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>

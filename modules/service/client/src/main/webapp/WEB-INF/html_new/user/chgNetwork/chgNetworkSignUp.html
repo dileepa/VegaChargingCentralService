@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<body>
+        <section class="content-header">
+            <h1 th:text="#{create.charge.network.user}">
+                Widgets
+            </h1>
+        </section>
+        <section class="content">
+            <div class="register-page">
+                <div class="register-box-body">
+                    <form action="#" th:action="@{/saveNewChargeNetworkUser}" th:object="${chgNetworkUser}" method="post" onsubmit="return checkNetworkSignUpForm(this);">
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.title}">test title</h4>
+                            <select th:field="*{title}">
+                                <option th:each="title : ${titleList}"
+                                        th:value="${title.name}"
+                                        th:text="${title.name}">
+                                    Test title
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.gender}">test gender</h4>
+                            <select th:field="*{gender}">
+                                <option th:each="gender : ${genderList}"
+                                        th:value="${gender.name}"
+                                        th:text="${gender.name}">
+                                    Test gender
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.first.name}">first name</h4>
+                            <input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:text="#{chg.owner.first.name.not.empty}">Test First Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.last.name}">last name</h4>
+                            <input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:text="#{chg.owner.last.name.not.empty}">Test Last Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.address}">address</h4>
+                            <input type="text" id="address" name="address" value="" th:field="*{address}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:text="#{chg.owner.address.not.empty}">Test Last Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.country}">country</h4>
+                            <input type="text" id="country" name="country" value="" th:field="*{country}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="#{chg.owner.country.not.empty}">Test Last Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.email}">test email</h4>
+                            <input type="text" id="email" name="email" value="" th:field="*{email}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.username}">test user name</h4>
+                            <input type="text" id="userName" name="userName" value="" th:field="*{userName}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:text="#{chg.owner.userName.not.empty}">Test Last Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.password}">test password</h4>
+                            <input type="password" id="password" name="password" value="" th:field="*{password}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:text="#{chg.owner.password.not.empty}">Test First Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.verify.password}">test verify password</h4>
+                            <input type="password" id="verifyPassword" name="verifyPassword" value="" th:field="*{verifyPassword}" class="form-control"/>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.telephone}">test telephone</h4>
+                            <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
+
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.mobilephone}">test mobile</h4>
+                            <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <h4 th:text="#{chg.network.organization.name}">test Organization Name</h4>
+                            <input type="text" id="organizationName" name="organizationName" value="" th:field="*{organizationName}" class="form-control"/>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input type="submit" value="Add test user" th:value="#{chg.network.add.user}"/>
+                        </div>
+                        <div>
+                            <input type="hidden" name="chgNetworkUser" value="" th:field="*{userId}"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+</body>
+</html>

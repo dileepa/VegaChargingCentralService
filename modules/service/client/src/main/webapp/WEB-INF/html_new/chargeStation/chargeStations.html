@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content-header">
+    <h1 th:text="#{view.all.charge.stations}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="allChargeStationTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Location</th>
+                            <th>Power</th>
+                            <th>Max Charge Time</th>
+                            <th>Charge Amount</th>
+                            <th>Type</th>
+                            <th>Protocol</th>
+                            <th>Availability Status</th>
+                            <th>Power Status</th>
+                            <th>Owner Username</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="chgStation : ${chgStations}">
+                            <td th:text="${chgStation.reference}">Test Charge Station</td>
+                            <td th:text="${chgStation.chargeLocationBean}">Test Location</td>
+                            <td th:text="${chgStation.power}">2.41</td>
+                            <td th:text="${chgStation.maxChargeTime}">2.41</td>
+                            <td th:text="${chgStation.chargeAmount}">2.41</td>
+                            <td th:text="${chgStation.type}">Test Type</td>
+                            <td th:text="${chgStation.protocol}">Test Protocol</td>
+                            <td th:text="${chgStation.chargePointAvailabilityStatus}">Test Status</td>
+                            <td th:text="${chgStation.chargePointPowerStatus}">Test Status</td>
+                            <td th:text="${chgStation.userName}">Test Status</td>
+                            <!--<td th:text="${chgStation.inStock}? #{true} : #{false}">yes</td>-->
+                            <td>
+                                <a th:href="@{/chargeStation/viewChargeStation.html(chgStationID=${chgStation.chargePointId})}">
+                                    VIEW
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/chargeStation/editChargeStation.html(chgStationID=${chgStation.chargePointId})}">
+                                    EDIT
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/chargeStation/deleteConfirmationChargeStation.html(chgStationID=${chgStation.chargePointId})}">
+                                    DELETE
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

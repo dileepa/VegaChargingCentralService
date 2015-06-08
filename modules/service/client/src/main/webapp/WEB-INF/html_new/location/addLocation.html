@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content-header">
+    <h1 th:text="#{add.location}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="register-page">
+        <div class="register-box-body">
+            <form action="#" th:action="@{/saveNewLocation}" th:object="${location}" method="post">
+                <table>
+                    <tr height="30">
+                        <th align="left">Location Name:</th>
+                        <th align="left"><input type="text" name="locationName" value="" th:field="*{name}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Location Longitude:</th>
+                        <th align="left"><input type="text" name="locationLongitude" value="" th:field="*{longitude}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Location Latitude:</th>
+                        <th align="left"><input type="text" name="locationLatitude" value="" th:field="*{latitude}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left">Location GPSLocation:</th>
+                        <th align="left"><input type="text" name="locationGPSLocation" value="" th:field="*{gpsLocation}"/></th>
+                    </tr>
+                    <tr height="30">
+                        <th align="left"><input type="submit" value="Save Location"/></th>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

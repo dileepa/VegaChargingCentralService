@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/baseBeforeLogin :: header">
+    <h1>This is the header for home</h1>
+</div>
+<p th:text="#{user.login.startup}"></p>
+
+<form action="#" th:action="@{/AuthenticateUser}" method="post">
+    <div>
+        <h4 th:text="#{user.login.username}">test user name</h4>
+        <input type="text" id="username" name="username" value=""/>
+    </div>
+    <div>
+        <h4 th:text="#{user.login.password}">test password</h4>
+        <input type="password" id="password" name="password" value=""/>
+    </div>
+    <div>
+        <input type="submit" value="Add test user" th:value="#{user.login.sign.in.button}"/>
+    </div>
+</form>
+<div th:replace="fragments/baseBeforeLogin :: footer">
+    &copy; This is the footer for home
+</div>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="ISO-8859-1"/>-->
+    <!--<title></title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="fragments/base :: header">-->
+    <!--<h1>This is the header for home</h1>-->
+<!--</div>-->
+<!--<p th:text="#{user.login.startup}"></p>-->
+
+<!--<form name="clientLogin" th:action="@{/login.do}" method="POST" id="loginForm">-->
+    <!--<input id="userName" type="text" name="username" />-->
+    <!--<input id="password" type="password" name="password" />-->
+    <!--&lt;!&ndash;<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />&ndash;&gt;-->
+    <!--<input class="loginBtn" type="submit" value="LOGIN" id="loginBtn"/>-->
+
+<!--</form>-->
+<!--<div th:replace="fragments/base :: footer">-->
+    <!--&copy; This is the footer for home-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--<meta charset="ISO-8859-1"/>-->
+<!--<title></title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div th:replace="fragments/base :: header">-->
+<!--<h1>This is the header for home</h1>-->
+<!--</div>-->
+<!--<p th:text="#{user.login.startup}"></p>-->
+
+<!--<form action="#" th:action="@{/AuthenticateUser}" th:object="${loginUserDetails}" method="post">-->
+<!--<div>-->
+<!--<h4 th:text="#{user.login.username}">test user name</h4>-->
+<!--<input type="text" id="userName" name="userName" value="" th:field="*{userName}"/>-->
+<!--</div>-->
+<!--<div>-->
+<!--<h4 th:text="#{user.login.password}">test password</h4>-->
+<!--<input type="password" id="password" name="password" value="" th:field="*{password}"/>-->
+<!--</div>-->
+<!--<div>-->
+<!--<input type="submit" value="Add test user" th:value="#{user.login.sign.in.button}"/>-->
+<!--</div>-->
+<!--</form>-->
+<!--<div th:replace="fragments/base :: footer">-->
+<!--&copy; This is the footer for home-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+

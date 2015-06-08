@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content-header">
+    <h1 th:text="#{all.locations}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="allLocationsTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                            <th>GPSLocation</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="location : ${locations}">
+                            <td th:text="${location.name}">Test Charge Location Name</td>
+                            <td th:text="${location.longitude}">Test longitude</td>
+                            <td th:text="${location.latitude}">Test latitude</td>
+                            <td th:text="${location.gpsLocation}">Test gpsLocation</td>
+                            <td>
+                                <a th:href="@{/location/editLocation.html(locationID=${location.locationId})}">
+                                    EDIT
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/location/deleteConfirmationLocation.html(locationID=${location.locationId})}">
+                                    DELETE
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

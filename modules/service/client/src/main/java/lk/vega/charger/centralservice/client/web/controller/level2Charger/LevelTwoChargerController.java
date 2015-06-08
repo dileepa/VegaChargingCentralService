@@ -335,6 +335,7 @@ public class LevelTwoChargerController
     private static String createErrorMessage( String errorCode, String ChargePointRef, String rfID )
     {
         StringBuilder error = new StringBuilder();
+        error.append( "VEGA:" );
         error.append( ERROR );
         error.append( ":" );
         error.append( errorCode );
@@ -342,12 +343,14 @@ public class LevelTwoChargerController
         error.append( ChargePointRef );
         error.append( ":" );
         error.append( rfID );
+        error.append( ":VEGA" );
         return error.toString();
     }
 
     private static String createSuccessMessage( String trsID, String ChargePointRef, String rfID )
     {
         StringBuilder error = new StringBuilder();
+        error.append( "VEGA:" );
         error.append( SUCCESS );
         error.append( ":" );
         error.append( trsID );
@@ -355,6 +358,7 @@ public class LevelTwoChargerController
         error.append( ChargePointRef );
         error.append( ":" );
         error.append( rfID );
+        error.append( ":VEGA" );
         return error.toString();
     }
 

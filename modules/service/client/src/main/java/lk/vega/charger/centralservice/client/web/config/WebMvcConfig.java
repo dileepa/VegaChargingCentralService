@@ -45,7 +45,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter
 	{
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
 		templateResolver.setCacheable( false );
-		templateResolver.setPrefix( "/WEB-INF/html/" );
+		templateResolver.setPrefix( "/WEB-INF/html_new/" );
 		templateResolver.setSuffix( ".html" );
 		templateResolver.setTemplateMode( "HTML5" );
 

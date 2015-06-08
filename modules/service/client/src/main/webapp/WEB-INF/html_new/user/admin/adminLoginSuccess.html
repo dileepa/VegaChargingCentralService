@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/base :: head">
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body class="skin-blue sidebar-mini">
+<div class="wrapper">
+<div th:replace="fragments/base :: header">
+    <h1>This is the header for home</h1>
+</div>
+<aside class="main-sidebar" th:fragment="admindashboard">
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left image">
+                <img src="dist/img/avatar.png" class="img-circle" alt="User Image" th:src="@{/common/dist/img/avatar.png}"/>
+            </div>
+            <div class="pull-left info">
+                <p sec:authentication="principal.username">Alexander Pierce</p>
+                <p th:text="#{chg.net.admin}">Alexander Pierce</p>
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="" th:text="#{create.charge.owner}" id="adminChargeOwnerCreate"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+                    <li><a href="" th:text="#{create.charge.network.user}" id="adminChargeNetworkCreate"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{create.location}" id="adminCreateLocation"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{create.charge.station}" id="adminCreateChargeStation"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{create.charge.network}" id="adminCreateNetwork"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{view.all.charge.stations}" id="adminViewAllStations"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{view.all.locations}" id="adminViewAllLocations"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{view.all.networks}" id="adminViewAllChargeNetwork"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{view.all..customers}" id="adminViewAllCustomers"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <li><a href="" th:text="#{view.all.trs}" id="adminViewAllTransaction"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+                    <!--<li><a href="index2.html" onclick="func(2)" th:href="@{/AllTransaction.html}" th:text="#{view.all.trs}"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>-->
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+<div id="admin-content-wrapper" class="content-wrapper">
+
+</div>
+<!--<div th:replace="fragments/base :: footer">-->
+    <!--&copy; This is the footer for home-->
+<!--</div>-->
+</div>
+</body>
+</html>

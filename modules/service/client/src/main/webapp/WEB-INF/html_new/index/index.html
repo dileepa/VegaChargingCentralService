@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <link rel="shortcut icon" href="assets/ico/favicon.png"/>
+
+    <title>ChargeNET - VEGA</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" th:href="@{/assets/css/bootstrap.css}"/>
+
+    <!-- Custom styles for this template -->
+    <link href="assets/css/main.css" rel="stylesheet" th:href="@{/assets/css/main.css}"/>
+
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" th:href="@{/assets/css/font-awesome.min.css}"/>
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'/>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="assets/js/modernizr.custom.js" th:src="@{/assets/js/modernizr.custom.js}"></script>
+
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="assets/js/bootstrap.min.js" th:src="@{/assets/js/bootstrap.min.js}"></script>
+      <script src="assets/js/main.js" th:src="@{/assets/js/main.js}"></script>
+      <script src="assets/js/masonry.pkgd.min.js" th:src="@{/assets/js/masonry.pkgd.min.js}"></script>
+      <script src="assets/js/imagesloaded.js" th:src="@{/assets/js/imagesloaded.js}"></script>
+      <script src="assets/js/classie.js" th:src="@{/assets/js/classie.js}"></script>
+      <script src="assets/js/AnimOnScroll.js" th:src="@{/assets/js/AnimOnScroll.js}"></script>
+      <script>
+		new AnimOnScroll( document.getElementById( 'grid' ), {
+			minDuration : 0.4,
+			maxDuration : 0.7,
+			viewportFactor : 0.2
+		} );
+	</script>
+    
+  </head>
+
+  <body>
+
+	<!-- Menu -->
+	<div class="menu-nav">
+		<a href="#headerwrap">Home</a>
+		<a href="#about">About</a>		
+		<a href="#cf">Contact Us</a>
+        <button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#loginModal">Login</button>
+        <h3 th:text="${loginErrorMsg}"><font color="red">Error</font></h3>
+	</div>
+	
+	<!-- Login Modal -->
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">Log In To Your Account</h4>
+		  </div>
+		  <div class="modal-body">
+			<form action="http://chargenet.vega.lk:8080/CentralSystemClientManager/AuthenticateUser" method="post">
+			  <div class="form-group">
+				<label for="username">Username</label>
+				<input type="text" id="username" name="username" value="" class="form-control" placeholder="Username"/>
+			  </div>
+			  <div class="form-group">
+				<label for="password">Password</label>
+				<input type="password" id="password" name="password" value="" class="form-control" placeholder="Password"/>
+			  </div>		 
+			  <div class="checkbox">
+				<label>
+				  <input type="checkbox"/> Remember Me
+				</label>
+			  </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary"/>
+                </div>
+            </form>
+          </div>
+		</div>
+	  </div>
+	</div>
+	
+	<!-- MAIN IMAGE SECTION -->
+	<div id="headerwrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-lg-offset-2">
+					<h1>ChargeNET</h1>
+					<h2>An Islandwide EV Charging Network</h2>
+					<div class="col-lg-3"></div>
+					<div class="col-lg-6">
+						<button type="button" class="btn btn-warning btn-lg btn-block" data-toggle="modal" data-target="#regModal">Join Now For Free</button>
+					</div>					
+					<div class="spacer"></div>
+					<i class="fa fa-angle-down"></i>
+				</div>
+			</div><!-- row -->
+		</div><!-- /container -->
+	</div><!-- /headerwrap -->
+	
+	<!-- Register Modal -->
+	<div class="modal fade" id="regModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<!--<h4 class="modal-title" id="myModalLabel1">Register For Free</h4>-->
+		  </div>
+		  <div class="modal-body">
+			<!--<form action="#" th:action="@{/saveNewChargeCustomer}" th:object="${chgCustomerUser}" method="post" onsubmit="return checkForm(this);">-->
+			<!--<div class="row">-->
+				<!--<div class="col-md-3">-->
+                    <!--<h4 th:text="#{chg.customer.title}">test title</h4>-->
+                    <!--<select th:field="*{title}" class="form-control">-->
+                        <!--<option th:each="title : ${titleList}"-->
+                                <!--th:value="${title.name}"-->
+                                <!--th:text="${title.name}">-->
+                            <!--Test title-->
+                        <!--</option>-->
+                    <!--</select>-->
+                    <!--&lt;!&ndash;<label>Title</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<select class="form-control">					&ndash;&gt;-->
+					  <!--&lt;!&ndash;<option>Mr</option>&ndash;&gt;-->
+					  <!--&lt;!&ndash;<option>Miss</option>&ndash;&gt;-->
+					  <!--&lt;!&ndash;<option>Dr</option>					  &ndash;&gt;-->
+					<!--&lt;!&ndash;</select>&ndash;&gt;-->
+				<!--</div>-->
+				<!--<div class="col-md-5">-->
+					<!--&lt;!&ndash;<label>First Name</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.first.name}">first name</h4>-->
+                    <!--<input type="text" id="firstName" name="firstName" value="" th:field="*{firstName}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:text="#{chg.owner.first.name.not.empty}">Test First Name Error</span>-->
+				<!--</div>-->
+				<!--<div class="col-md-4">-->
+					<!--&lt;!&ndash;<label>Last Name</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.last.name}">last name</h4>-->
+                    <!--<input type="text" id="lastName" name="lastName" value="" th:field="*{lastName}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:text="#{chg.owner.last.name.not.empty}">Test Last Name Error</span>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<br/>-->
+			<!--<div class="row">				-->
+				<!--<div class="col-md-12">-->
+                    <!--<h4 th:text="#{chg.customer.address}">address</h4>-->
+                    <!--<textarea  id="address" name="address" value="" th:field="*{address}"  class="form-control" rows="3"/>-->
+                    <!--<span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:text="#{chg.owner.address.not.empty}">Test Last Name Error</span>-->
+					<!--&lt;!&ndash;<label>Address</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<textarea class="form-control" rows="3"></textarea>&ndash;&gt;-->
+				<!--</div>				-->
+			<!--</div>-->
+			<!--<br/>-->
+			<!--<div class="row">				-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>Country</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.country}">country</h4>-->
+                    <!--<input type="text" id="country" name="country" value="" th:field="*{country}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:text="#{chg.owner.country.not.empty}">Test Last Name Error</span>-->
+				<!--</div>	-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>Email</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.email}">test email</h4>-->
+                    <!--<input type="text" id="email" name="email" value="" th:field="*{email}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>-->
+				<!--</div>					-->
+			<!--</div>-->
+			<!--<br/>-->
+			<!--<div class="row">				-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>User Name</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.username}">test user name</h4>-->
+                    <!--<input type="text" id="userName1" name="userName1" value="" th:field="*{userName}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" th:text="#{chg.owner.userName.not.empty}">Test Last Name Error</span>-->
+				<!--</div>	-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>Password</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.password}">test password</h4>-->
+                    <!--<input type="password" id="password1" name="password1" value="" th:field="*{password}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:text="#{chg.owner.password.not.empty}">Test First Name Error</span>-->
+				<!--</div>					-->
+			<!--</div>-->
+			<!--<br/>-->
+			<!--<div class="row">				-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>Verify Password</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.verify.password}">test verify password</h4>-->
+                    <!--<input type="password" id="verifyPassword" name="verifyPassword" value="" th:field="*{verifyPassword}" class="form-control"/>-->
+				<!--</div>	-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>Telephone</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.telephone}">test telephone</h4>-->
+                    <!--<input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>-->
+				<!--</div>					-->
+			<!--</div>-->
+			<!--<br/>-->
+			<!--<div class="row">				-->
+				<!--<div class="col-md-6">-->
+					<!--&lt;!&ndash;<label>Mobile No</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.mobilephone}">test mobile</h4>-->
+                    <!--<input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}" class="form-control"/>-->
+                    <!--<span th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>-->
+				<!--</div>	-->
+				<!--<div class="col-md-6">-->
+                    <!--<h4 th:text="#{chg.customer.gender}">test gender</h4>-->
+                    <!--<select th:field="*{gender}" class="form-control">-->
+                        <!--<option th:each="gender : ${genderList}"-->
+                                <!--th:value="${gender.name}"-->
+                                <!--th:text="${gender.name}">-->
+                            <!--Test gender-->
+                        <!--</option>-->
+                    <!--</select>-->
+                    <!--&lt;!&ndash;<label>Gender</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<select class="form-control">					&ndash;&gt;-->
+					  <!--&lt;!&ndash;<option>Male</option>&ndash;&gt;-->
+					  <!--&lt;!&ndash;<option>Female</option>					 				  &ndash;&gt;-->
+					<!--&lt;!&ndash;</select>&ndash;&gt;-->
+				<!--</div>					-->
+			<!--</div>-->
+			<!--<br/>-->
+			<!--<div class="row">				-->
+				<!--<div class="col-md-12">-->
+					<!--&lt;!&ndash;<label>Organization Name</label>&ndash;&gt;-->
+					<!--&lt;!&ndash;<input type="text" class="form-control"/>&ndash;&gt;-->
+                    <!--<h4 th:text="#{chg.customer.organization.name}">test Organization Name</h4>-->
+                    <!--<input type="text" id="organizationName" name="organizationName" value="" th:field="*{organizationName}" class="form-control"/>-->
+				<!--</div>								-->
+			<!--</div>-->
+                <!--<div>-->
+                    <!--<input type="hidden" name="chgCustomerId" value="" th:field="*{userId}"/>-->
+                <!--</div>-->
+                <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                    <!--<input type="submit" value="Add test user" th:value="#{chg.customer.add.user}"/>-->
+                <!--</div>-->
+			<!--</form>-->
+		  </div>
+		</div>
+	  </div>
+	</div>
+	
+	
+	<!-- WELCOME SECTION -->
+    <div id="about" class="container">
+      <div class="row mt">
+      	<div class="col-lg-12">
+	        <h1>chargeNET powered by Vega's eStation: Next generation Level-2 charge points</h1>
+	        <p>Looking for an EV charger with a complete backend solution - then look no further ! ChargeNET is a fully integrated and connected next generation device which is cost effective, easier to install with just a 30A single phase input, and a smart device that can handle authentication, operation, and remote monitoring seamlessly.</p>
+			<p>ChargeNET is the only comprehensive product in the market for your office, apartment, restaurant , or any other premise where you would like to provide EV charging as a value added service, and to reduce your carbon foot print. This is not just a charger, but a fully connected and integrated solution. Packed with safety features, advance control systems, and GSM based connectivity. Vega provides local support and service, so you don’t have to worry about its operation.</p>
+      	</div>      	
+      </div><!-- /row -->
+	  
+	 
+    </div><!-- /.container -->
+   
+    <div>
+		        	<div id="mapwrap">
+						<iframe height="400" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.es/maps?t=m&amp;ie=UTF8&amp;ll=52.752693,22.791016&amp;spn=67.34552,156.972656&amp;z=6&amp;output=embed"></iframe>
+					</div>	
+	
+	
+	  </div>
+   
+	<!-- SERVICES SECTION -->
+	<div id="services">
+		<div class="container">
+			<div class="row mt">
+				<div class="col-lg-1 centered">
+					<i class="fa fa-certificate"></i>
+				</div>
+				<div class="col-lg-3">
+					<h3>Level One Charger</h3>
+					<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+				</div>
+
+				<div class="col-lg-1 centered">
+				<i class="fa fa-certificate"></i>
+				</div>
+				<div class="col-lg-3">
+					<h3>Level Two Charger</h3>
+					<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+				</div>
+			
+			
+				<div class="col-lg-1 centered">
+					<i class="fa fa-certificate"></i>
+				</div>
+				<div class="col-lg-3">
+					<h3>Level Three Charger</h3>
+					<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+				</div>
+			
+			</div><!-- row -->
+		</div><!-- container -->
+	</div><!-- services section -->
+	
+	
+	<!-- 
+	<div id="lg">
+		<div class="container">
+			<div class="row centered">
+				<div class="col-lg-2 col-lg-offset-1">
+					<img src="assets/img/clients/c01.gif" alt="">
+				</div>
+				<div class="col-lg-2">
+					<img src="assets/img/clients/c02.gif" alt="">
+				</div>
+				<div class="col-lg-2">
+					<img src="assets/img/clients/c03.gif" alt="">
+				</div>
+				<div class="col-lg-2">
+					<img src="assets/img/clients/c04.gif" alt="">
+				</div>
+				<div class="col-lg-2">
+					<img src="assets/img/clients/c05.gif" alt="">
+				</div>
+			</div>
+		</div>
+	</div>  -->
+	
+	
+	<div class="container">
+		<div class="row mt">
+			<div class="col-lg-12">
+				<h1>Stay Connected</h1>
+				<p>Join us on our social networks for all the latest updates, product/service announcements and more.</p>
+			</div><!-- col-lg-12 -->
+		</div><!-- row -->
+	</div><!-- container -->
+	
+	
+	<section id="contact"></section>
+	<div id="sf">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 dg">
+					<h4 class="ml">FACEBOOK</h4>
+					<p class="centered"><a href="#"><i class="fa fa-facebook"></i></a></p>
+					<p class="ml">> Become A Friend</p>
+				</div>
+				<div class="col-lg-4 lg">
+					<h4 class="ml">TWITTER</h4>
+					<p class="centered"><a href="#"><i class="fa fa-twitter"></i></a></p>
+					<p class="ml">> Follow Us</p>
+				</div>
+				<div class="col-lg-4 dg">
+					<h4 class="ml">GOOGLE +</h4>
+					<p class="centered"><a href="#"><i class="fa fa-google-plus"></i></a></p>
+					<p class="ml">> Add Us To Your Circle</p>
+				</div>
+			</div><!-- row -->
+		</div><!-- container -->
+	</div><!-- Social Footer -->
+	
+	<div id="cf">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+		        	<div id="mapwrap">
+						<iframe height="400" width="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.es/maps?t=m&amp;ie=UTF8&amp;ll=52.752693,22.791016&amp;spn=67.34552,156.972656&amp;z=6&amp;output=embed"></iframe>
+					</div>	
+				</div><!--col-lg-8-->
+				<div class="col-lg-4">
+                    <h4>ADDRESS VEGA - Head Office</h4>
+					<p>
+                        Trace Expert City,
+						Colombo 10, Sri Lanka.
+					</p>
+					<p>
+                        P: +94  011 2 024400
+                        F: +55 011 2 024400
+						E: <a href="mailto:#">vega@vega.lk</a>
+					</p>
+					<p></p>
+				</div><!--col-lg-4-->
+			</div><!-- row -->
+		</div><!-- container -->
+	</div><!-- Contact Footer -->
+	
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+  </body>
+  <script type="text/javascript">
+
+
+
+  function checkForm(form)
+  {
+    if(form.password1.value != form.verifyPassword.value)
+    {
+      alert("Error: Please check that you've entered and confirmed your password!");
+      form.pwd1.focus();
+      return false;
+    }
+  }
+
+</script>
+
+</html>

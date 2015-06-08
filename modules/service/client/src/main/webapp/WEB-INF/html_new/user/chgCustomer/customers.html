@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<body>
+<section class="content-header">
+    <h1 th:text="#{view.all..customers}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="allCustomersTable" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Customer Status</th>
+                            <th>Created Date</th>
+                            <th>Modified Date</th>
+                            <th>NFC Reference</th>
+                            <th>Available Points</th>
+                            <th>Created By</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="Customer : ${Customers}">
+                            <td th:text="${Customer.userName}">Test Charge Location Name</td>
+                            <td th:text="${Customer.userStatus}">Test longitude</td>
+                            <td th:text="${Customer.createdTimeStamp}">Test latitude</td>
+                            <td th:text="${Customer.lastUpdateTimeStamp}">Test gpsLocation</td>
+                            <td th:text="${Customer.nfcRef}">Test gpsLocation</td>
+                            <td th:text="${Customer.customerPoints}">Test gpsLocation</td>
+                            <td th:text="${Customer.createdBy}">Test gpsLocation</td>
+                            <td>
+                                <a th:href="@{/user/chgCustomer/loadChgCustomer.html(userID=${Customer.userId})}">
+                                    VIEW
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/user/chgCustomer/editChgCustomer.html(userID=${Customer.userId})}">
+                                    EDIT
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
