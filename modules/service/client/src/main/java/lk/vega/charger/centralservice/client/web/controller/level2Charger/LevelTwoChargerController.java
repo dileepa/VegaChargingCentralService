@@ -176,7 +176,12 @@ public class LevelTwoChargerController
     }
 
     @RequestMapping(value = "/LevelTwoChargerStopTransaction", method = RequestMethod.GET)
-    public @ResponseBody String stopTransaction( @RequestParam(value = "trsId", required = false) String trsId,@RequestParam(value = "chgStationRef", required = false) String chgStationRef, @RequestParam(value = "rfId", required = false) String rfId )
+    public @ResponseBody String stopTransaction(
+            @RequestParam(value = "trsId", required = false) String trsId,
+            @RequestParam(value = "chgStationRef", required = false) String chgStationRef,
+            @RequestParam(value = "rfId", required = false) String rfId ,
+            @RequestParam(value = "energy", required = false) String energy
+    )
     {
         String resMsg = "";
         String trsStatus = ChgLevelTwoTransaction.TRS_STATUS_STARTED;
@@ -185,6 +190,7 @@ public class LevelTwoChargerController
         {
             ChgLevelTwoTransaction chgLevelTwoTransaction = (ChgLevelTwoTransaction)chgResponse.getReturnData();
             chgLevelTwoTransaction.setStatus( Savable.MODIFIED );
+            chgLevelTwoTransaction.setEnergyConsumption( energy );
             chgLevelTwoTransaction.setTrsStatus( ChgLevelTwoTransaction.TRS_STATUS_FINISHED );
             ChgResponse saveRes = CoreController.save( chgLevelTwoTransaction );
             if (saveRes.isSuccess())

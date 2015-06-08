@@ -36,7 +36,18 @@ public class ChgLevelTwoTransaction extends Savable
     private String chgPointOwner;
     private String chgPointRef;
     private String networkRef;
+    private String energyConsumption;
     private int status;
+
+    public String getEnergyConsumption()
+    {
+        return energyConsumption;
+    }
+
+    public void setEnergyConsumption( String energyConsumption )
+    {
+        this.energyConsumption = energyConsumption;
+    }
 
     public String getChgPointRef()
     {
@@ -232,8 +243,9 @@ public class ChgLevelTwoTransaction extends Savable
         sb.append( "CHG_POINT_OWNER, " );
         sb.append( "CHG_POINT_REF, " );
         sb.append( "NETWORK_REF, " );
+        sb.append( "ENERGY_CONSUMPTION, " );
         sb.append( "NETWORK_OWNER " );
-        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)" );
+        sb.append( ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)" );
         int count = 0;
         PreparedStatement ps = null;
         try
@@ -265,6 +277,7 @@ public class ChgLevelTwoTransaction extends Savable
             ps.setString( ++count, this.chgPointOwner );
             ps.setString( ++count, this.chgPointRef );
             ps.setString( ++count, this.networkRef );
+            ps.setString( ++count, this.energyConsumption );
             ps.setString( ++count, this.networkOwner );
             ps.execute();
             ps.close();
@@ -291,6 +304,7 @@ public class ChgLevelTwoTransaction extends Savable
         sb.append( "CHG_POINT_OWNER = ?, " );
         sb.append( "CHG_POINT_REF = ?, " );
         sb.append( "NETWORK_REF = ?, " );
+        sb.append( "ENERGY_CONSUMPTION = ?, " );
         sb.append( "NETWORK_OWNER = ? " );
         sb.append( "WHERE " );
         sb.append( "TRS_ID = ? " );
@@ -324,6 +338,7 @@ public class ChgLevelTwoTransaction extends Savable
             ps.setString( ++count, this.chgPointOwner );
             ps.setString( ++count, this.chgPointRef );
             ps.setString( ++count, this.networkRef );
+            ps.setString( ++count, this.energyConsumption );
             ps.setString( ++count, this.networkOwner );
             ps.setString( ++count, this.trsID );
             ps.execute();
@@ -403,6 +418,7 @@ public class ChgLevelTwoTransaction extends Savable
         this.chgPointId = rs.getInt( "CHG_POINT_ID" );
         this.chgPointOwner = rs.getString( "CHG_POINT_OWNER" );
         this.networkOwner = rs.getString( "NETWORK_OWNER" );
+        this.energyConsumption = rs.getString( "ENERGY_CONSUMPTION" );
     }
 
     public void init()
@@ -420,6 +436,7 @@ public class ChgLevelTwoTransaction extends Savable
         this.chgPointId = -1;
         this.chgPointOwner = null;
         this.networkOwner = null;
+        this.energyConsumption = "NOT_CALCULATED";
         this.status = Savable.UNCHANGED;
     }
 
