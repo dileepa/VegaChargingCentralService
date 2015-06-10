@@ -63,7 +63,8 @@
             <!--<input type="text" class="form-control"/>-->
             <h4 th:text="#{chg.customer.email}">test email</h4>
             <input type="text" id="email" name="email" value="" th:field="*{email}" class="form-control"/>
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>
+            <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:text="#{chg.owner.email.not.empty}">Test Last Name Error</span>-->
+            <span th:each="err : ${#fields.errors('email')}" th:text="${err}">Test First Name Error</span>
         </div>
     </div>
     <br/>
@@ -95,7 +96,7 @@
             <!--<label>Telephone</label>-->
             <!--<input type="text" class="form-control"/>-->
             <h4 th:text="#{chg.customer.telephone}">test telephone</h4>
-            <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}" class="form-control"/>
+            <input type="text" id="telephone" name="telephone" value="" th:field="*{telephone}" class="form-control" placeholder="+94-XX-XXXXXXX"/>
             <span th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
         </div>
     </div>
@@ -105,7 +106,7 @@
             <!--<label>Mobile No</label>-->
             <!--<input type="text" class="form-control"/>-->
             <h4 th:text="#{chg.customer.mobilephone}">test mobile</h4>
-            <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}" class="form-control"/>
+            <input type="text" id="mobileNo" name="mobileNo" value="" th:field="*{mobileNo}" class="form-control" placeholder="+94-XX-XXXXXXX"/>
             <span th:if="${#fields.hasErrors('mobileNo')}" th:errors="*{mobileNo}" th:text="#{chg.owner.mobile.not.empty}">Test Last Name Error</span>
         </div>
         <div class="col-md-6">

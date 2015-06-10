@@ -32,7 +32,7 @@ public class ChgUserBean extends DomainBeanImpl
     private String address;
     @NotEmpty
     private String country;
-    @NotEmpty @Email
+    @NotEmpty(message = "E-Mail is Mandatory thing.") @Email(message = "Provide Valid E-Mail Address.")
     private String email;
     @NotEmpty
     private String telephone;
