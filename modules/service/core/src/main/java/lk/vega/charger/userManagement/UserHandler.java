@@ -91,24 +91,15 @@ public class UserHandler
         }
     }
 
-    public static void main( String[] args )
-    {
-        ChgResponse chgResponse = new ChgResponse(  );
-        try
-        {
-            chgResponse = connectToRemoteUserStoreManagerService();
-        }
-        catch( Exception e )
-        {
-
-            e.printStackTrace();
-        }
-
-        if (chgResponse.isSuccess())
-        {
-            System.out.println("success");
-        }
-    }
+//    public static void main( String[] args )
+//    {
+//        ChgResponse chgResponse = ChgUserDataLoader.loadUserProfileDetailsBySpecificUser( "beshan55" ) ;
+//
+//        if (chgResponse.isSuccess())
+//        {
+//            System.out.println(chgResponse);
+//        }
+//    }
 
     public static ChgResponse connectToRemoteUserStoreManagerService() throws Exception
     {

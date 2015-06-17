@@ -1,7 +1,9 @@
 package lk.vega.charger.centralservice.client.web.controller.user;
 
+import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
 import lk.vega.charger.centralservice.client.web.permission.Security;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
+import lk.vega.charger.util.ChgResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
@@ -27,6 +29,21 @@ public class LoginController
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName( "user/login" );
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/LoadUserProfile", method = RequestMethod.GET)
+    public ModelAndView loadUserProfile( SecurityContextHolderAwareRequestWrapper request )
+    {
+        boolean isChargingOwner = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_OWNER );
+        boolean isChargingCustomer = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_CUSTOMER );
+        boolean isNetwork = UserRoles.isRoleExist( (List<GrantedAuthority>) ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getAuthorities(), UserRoles.CHG_NETWORK );
+        ModelAndView modelAndView = new ModelAndView();
+        String userName = ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getName();
+
+        ChgResponse chgResponse = ChgUserDataLoader.loadUserProfileDetailsBySpecificUser( userName );
+
+        return modelAndView;
+
     }
 
     @RequestMapping(value = "/LoginError", method = RequestMethod.GET)

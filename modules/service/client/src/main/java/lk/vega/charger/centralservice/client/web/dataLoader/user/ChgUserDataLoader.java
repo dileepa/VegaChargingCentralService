@@ -6,6 +6,7 @@ import lk.vega.charger.util.ChgResponse;
 import org.wso2.carbon.um.ws.service.AddUser;
 import org.wso2.carbon.um.ws.service.RemoteUserStoreManagerServicePortType;
 import org.wso2.carbon.um.ws.service.RemoteUserStoreManagerServiceUserStoreException_Exception;
+import org.wso2.carbon.um.ws.service.dao.xsd.ClaimDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,5 +72,37 @@ public class ChgUserDataLoader
         return chgResponse;
     }
 
+
+    public static ChgResponse loadUserProfileDetailsBySpecificUser (String username)
+    {
+        ChgResponse chgResponse = new ChgResponse(  );
+        chgResponse.setNo( ChgResponse.ERROR );
+        try
+        {
+
+            chgResponse = UserHandler.connectToRemoteUserStoreManagerService();
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+        if( chgResponse.isSuccess() )
+        {
+
+            RemoteUserStoreManagerServicePortType remoteUserStoreManagerService = (RemoteUserStoreManagerServicePortType) chgResponse.getReturnData();
+            try
+            {
+                List<ClaimDTO> userClaims = remoteUserStoreManagerService.getUserClaimValues( username,"default" );
+                chgResponse.setNo( ChgResponse.SUCCESS );
+                chgResponse.setReturnData( userClaims );
+            }
+            catch( RemoteUserStoreManagerServiceUserStoreException_Exception e )
+            {
+                e.printStackTrace();
+            }
+        }
+
+        return chgResponse;
+    }
 
 }
