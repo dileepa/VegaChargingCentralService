@@ -1,6 +1,8 @@
 package lk.vega.charger.centralservice.client.web.controller.user;
 
 import lk.vega.charger.centralservice.client.web.dataLoader.user.ChgUserDataLoader;
+import lk.vega.charger.centralservice.client.web.dataLoader.user.UserClaimAttributes;
+import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
 import lk.vega.charger.centralservice.client.web.permission.Security;
 import lk.vega.charger.centralservice.client.web.permission.UserRoles;
 import lk.vega.charger.util.ChgResponse;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.wso2.carbon.um.ws.service.dao.xsd.ClaimDTO;
 
 import java.util.List;
 
@@ -41,7 +44,13 @@ public class LoginController
         String userName = ( (UsernamePasswordAuthenticationToken) request.getUserPrincipal() ).getName();
 
         ChgResponse chgResponse = ChgUserDataLoader.loadUserProfileDetailsBySpecificUser( userName );
-
+        modelAndView.setViewName( "user/chgCustomer/chgCustomerProfile" );
+        if (chgResponse.isSuccess())
+        {
+            List<ClaimDTO> userClaims =  (List<ClaimDTO>)chgResponse.getReturnData();
+            ChgUserBean chgUserBean = UserClaimAttributes.getChgUserBean( userClaims );
+            modelAndView.getModel().put( "chgCustomerUser", chgUserBean );
+        }
         return modelAndView;
 
     }

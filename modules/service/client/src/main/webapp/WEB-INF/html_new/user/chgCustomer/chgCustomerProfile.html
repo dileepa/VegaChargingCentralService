@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1"/>
+    <title></title>
+</head>
+<body>
+<section class="content-header">
+    <h1 th:text="#{user.profile.info}">
+        Widgets
+    </h1>
+</section>
+<section class="content">
+    <div class="register-page">
+        <div class="register-box-body">
+            <table>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.title}">Customer Username:</th>
+                    <th align="left" th:text="${chgCustomerUser.title}">Test Location Name</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.gender}">Created By:</th>
+                    <th align="left" th:text="${chgCustomerUser.gender}">Test Location GPSLocation</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.first.name}">Customer Status:</th>
+                    <th align="left" th:text="${chgCustomerUser.firstName}">Test Location Longitude</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.last.name}">RF (NFC) Reference:</th>
+                    <th align="left" th:text="${chgCustomerUser.lastName}">Test Location Latitude</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.address}">Customer Points:</th>
+                    <th align="left" th:text="${chgCustomerUser.address}">Test Location Latitude</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.country}">Created By:</th>
+                    <th align="left" th:text="${chgCustomerUser.country}">Test Location GPSLocation</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.email}">Created By:</th>
+                    <th align="left" th:text="${chgCustomerUser.email}">Test Location GPSLocation</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.telephone}">Created By:</th>
+                    <th align="left" th:text="${chgCustomerUser.telephone}">Test Location GPSLocation</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.mobilephone}">Created By:</th>
+                    <th align="left" th:text="${chgCustomerUser.mobileNo}">Test Location GPSLocation</th>
+                </tr>
+                <tr height="30">
+                    <th align="left" th:text="#{chg.customer.organization.name}">Created By:</th>
+                    <th align="left" th:text="${chgCustomerUser.organizationName}">Test Location GPSLocation</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package lk.vega.charger.centralservice.client.web.dataLoader.user;
 
 import lk.vega.charger.centralservice.client.web.domain.user.ChgUserBean;
+import org.wso2.carbon.um.ws.service.dao.xsd.ClaimDTO;
 import org.wso2.carbon.user.mgt.common.xsd.ClaimValue;
 
 import java.util.ArrayList;
@@ -27,6 +28,57 @@ public class UserClaimAttributes
     public static final String TELEPHONE_URL = "http://wso2.org/claims/telephone";
     public static final String MOBILE_URL = "http://wso2.org/claims/mobile";
     public static final String ORGANIZATION_NAME_URL = "http://wso2.org/claims/organization";
+
+    public static ChgUserBean getChgUserBean ( List<ClaimDTO> claimDTOs )
+    {
+        ChgUserBean chgUserBean = new ChgUserBean();
+        for (ClaimDTO claimDTO : claimDTOs)
+        {
+            if (TITLE_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setTitle( claimDTO.getValue() );
+            }
+            else if (GENDER_URL.equals( claimDTO.getClaimUri() ))
+            {
+                 chgUserBean.setGender( claimDTO.getValue() );
+            }
+            else if (FIRST_NAME_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setFirstName( claimDTO.getValue() );
+            }
+            else if (LAST_NAME_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setLastName( claimDTO.getValue() );
+            }
+            else if (ADDRESS_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setAddress( claimDTO.getValue() );
+            }
+            else if (COUNTRY_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setCountry( claimDTO.getValue() );
+            }
+            else if (EMAIL_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setEmail( claimDTO.getValue() );
+            }
+            else if (TELEPHONE_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setTelephone( claimDTO.getValue() );
+            }
+            else if (MOBILE_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setMobileNo( claimDTO.getValue() );
+            }
+            else if (ORGANIZATION_NAME_URL.equals( claimDTO.getClaimUri() ))
+            {
+                chgUserBean.setOrganizationName( claimDTO.getValue() );
+            }
+        }
+        return chgUserBean;
+    }
+
+
 
     public static List<ClaimValue> getClaimValuesForChgUser( ChgUserBean chgUserBean )
     {

@@ -723,8 +723,18 @@ function _init() {
           var adminViewAllChargeNetwork = "http://chargenet.vega.lk:8080/CentralSystemClientManager/AllChargeNetworks.html";
           var adminViewAllCustomers = "http://chargenet.vega.lk:8080/CentralSystemClientManager/ViewAllCustomers.html";
           var adminViewAllTransaction = "http://chargenet.vega.lk:8080/CentralSystemClientManager/AllTransaction.html";
+          var useProfileDetails =  "http://chargenet.vega.lk:8080/CentralSystemClientManager/LoadUserProfile.html";
 
-          $('#stationOwnerSpecificTransaction').click(function(e)
+          $('#customerUserProfile').click(function(e)
+                                        {
+                                          e.preventDefault();
+                                          $.get(useProfileDetails, function(data, status)
+                                          {
+                                              $("#admin-content-wrapper").html(data);
+                                                  });
+                                                  });
+
+          $('#networkOwnerSpecificTransaction').click(function(e)
                               {
                                 e.preventDefault();
                                 $.get(networkOwnerViewAllTransaction, function(data, status)
